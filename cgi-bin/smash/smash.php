@@ -2,6 +2,7 @@
 
 session_start();
 ob_start();
+$_SESSION['url'] = $_SERVER['REQUEST_URI']; 
 
 echo "<!DOCTYPE html>
 <html lang='en'>
