@@ -1,6 +1,7 @@
 <?php
 
 session_start();
+ob_start();
 
 include '../connectToDB.php';
 // include 'functions/functions.php';

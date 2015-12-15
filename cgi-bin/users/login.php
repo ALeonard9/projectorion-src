@@ -1,6 +1,7 @@
 <?php
 
 session_start();
+ob_start();
 
 $username = strtolower($_POST['username']);
 $password = $_POST['password'];
