@@ -2,7 +2,7 @@
 
 session_start();
 ob_start();
-$_SESSION['url'] = $_SERVER['REQUEST_URI']; 
+$_SESSION['url'] = $_SERVER['REQUEST_URI'];
 
 include '../connectToDB.php';
 
@@ -14,9 +14,23 @@ include('../header.php');
 echo "</head><body><div class='container'>";
 include('../navigation.php');
 
+if(isset($_GET['sortby']))
+  $sortby = $_GET['sortby'];
+else
+  $sortby = 'Series';
+
+if(isset($_GET['order']))
+  $order = $_GET['order'];
+else
+  $order = 'ASC';
+
+if($order == 'ASC')
+  $op = 'DESC';
+else
+  $op = 'ASC';
 
 
-$sqlcomplete = "SELECT * FROM videogame.game WHERE GameStatus = 'Complete' order by Series ASC, SeriesNum ASC, Title ASC";
+$sqlcomplete = "SELECT * FROM videogame.game WHERE GameStatus = 'Complete' order by $sortby $order, Series ASC, SeriesNum ASC, Title ASC";
 $sqlgamesum = "SELECT count(*) as Count FROM videogame.game WHERE GameStatus = 'Complete'";
 
 if (isset($_SESSION['username']))
@@ -31,7 +45,7 @@ if (isset($_SESSION['username']))
         echo "<!DOCTYPE html>";
         echo "<html>";
         echo "<table class='table table-hover table-striped'>";
-        echo "<tr><td>Title</td><td>System</td><td>Series</td><td>Rating</td></tr>";
+        echo "<tr><td onclick=\"window.location='videogame.php?sortby=Title&order=".$op."'\">Title</td><td onclick=\"window.location='videogame.php?sortby=System&order=".$op."'\">System</td><td onclick=\"window.location='videogame.php?sortby=Series&order=".$op."'\">Series</td><td onclick=\"window.location='videogame.php?sortby=Rating&order=".$op."'\">Rating</td></tr>";
 
                 foreach($querycomplete as $item){
                         echo "<tr><td><a href='betdetails.php?betID=".($item['GameID']."'>".$item['Title']."</a></td><td>".$item['System']."</td><td>".$item['Series']."</td><td>".$item['Rating']."</td></tr>");

@@ -2,7 +2,7 @@
 
 session_start();
 ob_start();
-$_SESSION['url'] = $_SERVER['REQUEST_URI']; 
+$_SESSION['url'] = $_SERVER['REQUEST_URI'];
 
 include '../connectToDB.php';
 
@@ -13,9 +13,6 @@ echo "<!DOCTYPE html>
 include('../header.php');
 echo "</head><body><div class='container'>";
 include('../navigation.php');
-
-
-
 
 $sqlSoumsum = "SELECT SUM(betAmount) as betAmount FROM bet.history WHERE betWinner = 'Soumya'";
 $sqlAdamsum = "SELECT SUM(betAmount) as betAmount FROM bet.history WHERE betWinner = 'Adam'";
