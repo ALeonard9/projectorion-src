@@ -8,7 +8,7 @@ $gameID = $_POST['gameid'];
 $gameNotes = $_POST['notes'];
 $gameWinner = $_POST['winner'];
 
-if ($_SESSION['username'])
+if (isset($_SESSION['username']))
 	{
 		if (isset($_POST['update'])) {
 			$sql = "UPDATE `smash`.`game` SET `game_id`='".$gameID."', `winner_user`='".$gameWinner."', `game_notes`='".$gameNotes."' WHERE `game_id`='".$gameID."'";
@@ -23,6 +23,6 @@ if ($_SESSION['username'])
 	}
 else
 	{
-	die("You must login");
+	header("location: ../users/signin.php");
 	}
 ?>

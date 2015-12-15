@@ -9,7 +9,7 @@ $betID = $_GET['betID'];
 $sql = "DELETE FROM `bet`.`history` WHERE `betID`='". $betID ."';";
 
 
-if ($_SESSION['username'])
+if (isset($_SESSION['username']))
 	{
 		$db->exec($sql);
 		header("Location: betting.php");
@@ -17,6 +17,6 @@ if ($_SESSION['username'])
 	}
 else
 	{
-	die("You must login");
+	header("location: ../users/signin.php");
 	}
 ?>

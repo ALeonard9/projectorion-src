@@ -14,8 +14,8 @@ $sql = "UPDATE `bet`.`history` SET `betDescription`='".$betDescription."', `betA
 
 
 
-if ($_SESSION['username'])
-	{	
+if (isset($_SESSION['username']))
+	{
 		$db->exec($sql);
 		#header("Location: betdetails.php?betID=$betID");
 		header("Location: betting.php");
@@ -23,6 +23,6 @@ if ($_SESSION['username'])
 	}
 else
 	{
-	die("You must login");
+	header("location: ../users/signin.php");
 	}
 ?>

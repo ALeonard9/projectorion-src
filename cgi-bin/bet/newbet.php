@@ -12,7 +12,7 @@ include('../header.php');
 echo "</head><body><div class='container'>";
 include('../navigation.php');
 
-if ($_SESSION['username'])
+if (isset($_SESSION['username']))
 	{
 	echo "<div class='col-md-3'></div><div class='col-md-6'>
 	<form class='form-signin' action='newbetupdate.php' id='myForm' method='POST'>
@@ -47,7 +47,7 @@ if ($_SESSION['username'])
 	}
 else
 	{
-	die("You must login");
+	header("location: ../users/signin.php");
 	}
 include('../footer.php');
 echo "</div></body></html>";

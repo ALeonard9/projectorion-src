@@ -16,7 +16,7 @@ include('../navigation.php');
 
 $sqlFactionRecords = "SELECT * FROM smash.factionRecord order by win_percentage desc";
 
-if ($_SESSION['username'])
+if (isset($_SESSION['username']))
         {
                 $queryopen = $db->query($sqlFactionRecords);
 
@@ -32,7 +32,7 @@ if ($_SESSION['username'])
 
         }
 else
-        die("You must login");
+        header("location: ../users/signin.php");
 
 include('../footer.php');
 echo "</div></body></html>";

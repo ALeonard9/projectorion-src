@@ -18,7 +18,7 @@ $sqlComboRecords = "SELECT * FROM smash.comboRecord order by deck1, deck2";
 $sqlUnusedDecks = "SELECT * FROM smash.unusedCombos";
 $sqlcountUnusedDecks = "SELECT count(*) as count FROM smash.unusedCombos";
 
-if ($_SESSION['username'])
+if (isset($_SESSION['username']))
         {
                 $queryopen = $db->query($sqlComboRecords);
                 $querydecks = $db->query($sqlUnusedDecks);
@@ -44,7 +44,7 @@ if ($_SESSION['username'])
 
         }
 else
-        die("You must login");
+        header("location: ../users/signin.php");
 
 include('../footer.php');
 echo "</div></body></html>";

@@ -13,14 +13,14 @@ $sql = "INSERT INTO `bet`.`history` (`betDescription`, `betAmount`, `betWinner`,
 
 
 
-if ($_SESSION['username'])
-	{	
+if (isset($_SESSION['username']))
+	{
 		$db->exec($sql);
 		header("Location: betting.php");
 		exit;
 	}
 else
 	{
-	die("You must login");
+	header("location: ../users/signin.php");
 	}
 ?>

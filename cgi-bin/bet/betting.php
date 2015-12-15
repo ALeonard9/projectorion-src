@@ -22,7 +22,7 @@ $sqlall = "SELECT * FROM bet.history order by betDate DESC";
 
 $intro= "Adam owes Soumya";
 
-if ($_SESSION['username'])
+if (isset($_SESSION['username']))
         {
                 $querySoumsum = $db->query($sqlSoumsum);
                         $resultsSoumsum = $querySoumsum->fetch(PDO::FETCH_ASSOC);
@@ -64,8 +64,9 @@ if ($_SESSION['username'])
         #if ($_SESSION['usergroup']=='User')
         }
 else
-        die("You must login");
-
+  {
+  header("location: ../users/signin.php");
+  }
 include('../footer.php');
 echo "</table></div></div></body></html>";
 ?>

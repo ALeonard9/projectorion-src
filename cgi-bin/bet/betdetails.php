@@ -21,7 +21,7 @@ echo "<div class='col-md-4'><button type='button' class='btn btn-inverse btn-lg 
 echo "<div class='col-md-4'><button type='button' class='btn btn-inverse btn-lg btn-block'  onclick=location.href='delete.php?betID=".$betID."'>Delete Bet</button></div>";
 
 
-if ($_SESSION['username'])
+if (isset($_SESSION['username']))
 	{
 	$query = $db->query($sql);
 	foreach($query as $item){
@@ -77,7 +77,7 @@ if ($_SESSION['username'])
 	}
 else
 	{
-	die("You must login");
+	header("location: ../users/signin.php");
 	}
 
 include('../footer.php');

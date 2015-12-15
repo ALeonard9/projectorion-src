@@ -22,7 +22,7 @@ while($x <= $numPlayers) {
 		$x++;
 }
 $sql = rtrim($sql, ',');
-if ($_SESSION['username'])
+if (isset($_SESSION['username']))
 	{
 		$db->exec($sql);
 	  header("Location: gameDetails.php?gameID=".$gameid);
@@ -30,6 +30,6 @@ if ($_SESSION['username'])
 	}
 else
 	{
-	die("You must login");
+	header("location: ../users/signin.php");
 	}
 ?>

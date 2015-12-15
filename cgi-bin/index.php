@@ -9,7 +9,7 @@ echo "<!DOCTYPE html>
 	<meta http-equiv='X-UA-Compatible' content='IE=edge'>
 	<meta name='viewport' content='width=device-width, initial-scale=1'>
 	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-	<meta name='description' content='PostersASAP.com'>
+	<meta name='description' content='aleonard.us'>
 	<meta name='author' content='LeonineStudios@outlook.com'>
 
 	<title>LeoNine Studios</title>
@@ -77,9 +77,15 @@ echo "<!DOCTYPE html>
 									<li><a href='videogame/videogame.php'>Video Games</a></li>
 								</ul>
 							</li>
+							<li class='dropdown'>
+								<a href='#' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false'>About <span class='caret'></span></a>
+								<ul class='dropdown-menu'>
+									<li><a href='http://resume.aleonard.us'>Resume</a></li>
+								</ul>
+							</li>
 						</ul>
 						<ul class='nav navbar-nav navbar-right'>";
-						if ($_SESSION['username'])
+						if (isset($_SESSION['username']))
 						{
 							echo "<li class='dropdown'>
 								<a href='#' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false'>Welcome " . $_SESSION['username'] . " <span class='caret'></span></a>

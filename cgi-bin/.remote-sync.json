@@ -1,0 +1,14 @@
+{
+  "uploadOnSave": true,
+  "deleteLocal": false,
+  "hostname": "127.0.0.1",
+  "port": "2222",
+  "target": "/var/www/cgi-bin",
+  "ignore": [
+    ".remote-sync.json",
+    ".git/**"
+  ],
+  "username": "root",
+  "password": "vagrant",
+  "transport": "scp"
+}

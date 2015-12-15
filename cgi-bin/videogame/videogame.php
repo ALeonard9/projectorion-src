@@ -17,7 +17,7 @@ include('../navigation.php');
 $sqlcomplete = "SELECT * FROM videogame.game WHERE GameStatus = 'Complete' order by Series ASC, SeriesNum ASC, Title ASC";
 $sqlgamesum = "SELECT count(*) as Count FROM videogame.game WHERE GameStatus = 'Complete'";
 
-if ($_SESSION['username'])
+if (isset($_SESSION['username']))
         {
                 $querycomplete = $db->query($sqlcomplete);
                         #$resultsopen = $queryopen->fetch(PDO::FETCH_ASSOC);
@@ -48,7 +48,7 @@ if ($_SESSION['username'])
         #if ($_SESSION['usergroup']=='User')
         }
 else
-        die("You must login");
+        header("location: ../users/signin.php");
 
 include('../footer.php');
 echo "</div></body></html>";

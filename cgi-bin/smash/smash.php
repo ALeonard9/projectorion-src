@@ -10,7 +10,7 @@ include('../header.php');
 echo "</head><body><div class='container'>";
 include('../navigation.php');
 
-if ($_SESSION['username'])
+if (isset($_SESSION['username']))
         {
         if ($_SESSION['usergroup']=="Admin" || $_SESSION['usergroup']=="Smash")
                 {
@@ -22,7 +22,7 @@ if ($_SESSION['username'])
         }
       }
 else
-        die("You must login");
+        header("location: ../users/signin.php");
 
 include('../footer.php');
 echo "</div></body></html>";
