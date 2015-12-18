@@ -14,10 +14,25 @@ include('../header.php');
 echo "</head><body><div class='container'>";
 include('../navigation.php');
 
+if(isset($_GET['sortby']))
+  $sortby = $_GET['sortby'];
+else
+  $sortby = 'betDate';
+
+if(isset($_GET['order']))
+  $order = $_GET['order'];
+else
+  $order = 'DESC';
+
+if($order == 'DESC')
+  $op = 'ASC';
+else
+  $op = 'DESC';
+
 $sqlSoumsum = "SELECT SUM(betAmount) as betAmount FROM bet.history WHERE betWinner = 'Soumya'";
 $sqlAdamsum = "SELECT SUM(betAmount) as betAmount FROM bet.history WHERE betWinner = 'Adam'";
 $sqlopen = "SELECT * FROM bet.history WHERE betStatus = 'Open' order by betDate DESC";
-$sqlall = "SELECT * FROM bet.history order by betDate DESC";
+$sqlall = "SELECT * FROM bet.history order by $sortby $order";
 
 $intro= "Adam owes Soumya";
 
@@ -54,7 +69,7 @@ if (isset($_SESSION['username']))
 
         echo "<h3>History</h3>";
         echo "<table class='table table-hover table-striped'>";
-        echo "<tr><td>Description</td><td>Amount</td><td>Status</td><td>Winner</td><td>Last Update</td></tr>";
+        echo "<tr><td onclick=\"window.location='betting.php?sortby=betDescription&order=".$op."'\">Description</td><td onclick=\"window.location='betting.php?sortby=betAmount&order=".$op."'\">Amount</td><td onclick=\"window.location='betting.php?sortby=betStatus&order=".$op."'\">Status</td><td onclick=\"window.location='betting.php?sortby=betWinner&order=".$op."'\">Winner</td><td onclick=\"window.location='betting.php?sortby=betDate&order=".$op."'\">Last Update</td></tr>";
                 foreach($queryall as $item){
                         echo "<tr><td><a href='betdetails.php?betID=".($item['betID']."'>".$item['betDescription']."</a></td><td>$".abs($item['betAmount'])."</td><td>".$item['betStatus']."</td><td>".$item['betWinner']."</td><td>".substr($item['betDate'],5, 5)."</td></tr>");
                 }

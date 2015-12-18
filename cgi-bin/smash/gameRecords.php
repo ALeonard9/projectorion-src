@@ -13,9 +13,23 @@ include('../header.php');
 echo "</head><body><div class='container'>";
 include('../navigation.php');
 
+if(isset($_GET['sortby']))
+  $sortby = $_GET['sortby'];
+else
+  $sortby = 'game_id';
+
+if(isset($_GET['order']))
+  $order = $_GET['order'];
+else
+  $order = 'DESC';
+
+if($order == 'ASC')
+  $op = 'DESC';
+else
+  $op = 'ASC';
 
 
-$sql = "SELECT * FROM smash.game g LEFT JOIN smash.users u ON g.winner_user = u.user_id order by game_id desc";
+$sql = "SELECT * FROM smash.game g LEFT JOIN smash.users u ON g.winner_user = u.user_id order by $sortby $order";
 
 if (isset($_SESSION['username']))
         {
@@ -23,7 +37,7 @@ if (isset($_SESSION['username']))
 
         echo "<div class='container text-center'><h3>Games</h3>";
         echo "<table class='table table-hover table-striped'>";
-        echo "<tr><td>Game ID</td><td>Game Date</td><td>Winner</td></tr>";
+        echo "<tr><td onclick=\"window.location='gameRecords.php?sortby=game_id&order=".$op."'\">Game ID</td><td onclick=\"window.location='gameRecords.php?sortby=game_date&order=".$op."'\">Game Date</td><td onclick=\"window.location='gameRecords.php?sortby=display_name&order=".$op."'\">Winner</td></tr>";
 
                 foreach($queryopen as $item){
                         echo "<tr><td><a href='gameDetails.php?gameID=".($item['game_id']."'>".$item['game_id']."</a></td><td>".$item['game_date']."</td><td>".$item['display_name']."</td></tr>");
