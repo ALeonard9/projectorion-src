@@ -66,6 +66,7 @@ echo "<!DOCTYPE html>
 	              <a href='#' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false'>Apps <span class='caret'></span></a>
 	              <ul class='dropdown-menu'>
 	                <li><a href='bet/betting.php'>Betting</a></li>
+									<li><a href='bet/rules.php'>Rulebook</a></li>
 	              	<li><a href='smash/smash.php'>Smash Up</a></li>
 								</ul>
 	            </li>
