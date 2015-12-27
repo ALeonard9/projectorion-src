@@ -51,7 +51,7 @@ else
                   foreach($querycomplete as $item){
                           $apiresponse =  file_get_contents($api.$item['movieIMDB']);
                           $json = json_decode($apiresponse);
-                          echo "<tr><td><a href='moviedetails.php?movieID=".($item['movieID']."'>".$json->{'Title'}."</a></td><td><a href='http://www.imdb.com/title/".$item['movieIMDB']."' target='_blank'>".$item['movieIMDB']."</a></td><td>".$json->{'Released'}."</td><td>".$json->{'Rated'}."</td><td>".$json->{'Released'}."</td><td>".$json->{'Runtime'}."</td><td>".$json->{'imdbRating'}."</td><td>".$item['movieRanking']."</td></tr>");
+                          echo "<tr><td><a href='moviedetails.php?movieID=".($item['movieID']."'>".$json->{'Title'}."</a></td><td><a href='http://www.imdb.com/title/".$item['movieIMDB']."' target='_blank'>".$item['movieIMDB']."</a></td><td>".$json->{'Released'}."</td><td>".$json->{'Rated'}."</td><td>".$json->{'Runtime'}."</td><td>".$json->{'imdbRating'}."</td><td>".$item['movieRanking']."</td></tr>");
                   }
           echo "</table></div>";
           }
