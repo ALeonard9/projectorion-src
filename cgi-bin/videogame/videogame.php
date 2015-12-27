@@ -42,8 +42,6 @@ if (isset($_SESSION['username']))
 
         echo "<div class='container text-center'><h1>Video game history</h1>";
         echo "<br><h3>Completed Games:".$resultsgamesum['Count']."</h3>";
-        echo "<!DOCTYPE html>";
-        echo "<html>";
         echo "<table class='table table-hover table-striped'>";
         echo "<tr><td onclick=\"window.location='videogame.php?sortby=Title&order=".$op."'\">Title</td><td onclick=\"window.location='videogame.php?sortby=System&order=".$op."'\">System</td><td onclick=\"window.location='videogame.php?sortby=Series&order=".$op."'\">Series</td><td onclick=\"window.location='videogame.php?sortby=Rating&order=".$op."'\">Rating</td></tr>";
 
