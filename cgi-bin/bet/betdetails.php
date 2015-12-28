@@ -69,7 +69,7 @@ if (isset($_SESSION['username']))
     </select>
   </div>
   <button class='btn btn-lg btn-inverse btn-block' type='submit'><span class='glyphicon glyphicon-ok-sign'></span> Edit</button>
-  <button class='btn btn-lg btn-danger btn-block' onClick='history.go(-1);return true;'><span class='glyphicon glyphicon-remove-sign'></span> Cancel</button>
+  <button class='btn btn-lg btn-warning btn-block' onClick='history.go(-1);return true;'><span class='glyphicon glyphicon-remove-sign'></span> Cancel</button>
   </form>
   </div>";
 
