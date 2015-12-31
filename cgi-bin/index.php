@@ -3,6 +3,11 @@
 session_start();
 ob_start();
 
+include 'connectToDB.php';
+
+$moviesql = "SELECT * FROM imdb.movie order by movieRanking ASC LIMIT 5";
+$vgsql = "SELECT * FROM videogame.game order by RATING DESC LIMIT 5";
+
 echo "<!DOCTYPE html>
 <html lang='en'>
 <head>
@@ -102,11 +107,37 @@ echo "<!DOCTYPE html>
 						echo "<li><a href='./users/signin.php'>Sign In</a></li>";
 						}
 
+						$moviequery = $db->query($moviesql);
+						$api = 'http://www.omdbapi.com/?i=';
+						$vgquery = $db->query($vgsql);
+
 echo "</ul>
 					</div><!--/.nav-collapse -->
 				</div><!--/.container-fluid -->
 			</nav>
+			<div class='col-md-6 text-center'>
+					<h1><a href='movies/movie.php'>Movies</a></h1>
+					<table class='table table-hover table-striped'>
+					<tr><td>Title</td><td>IMDB</td><td>Ranking</td></tr>";
+
+					foreach($moviequery as $item){
+									$apiresponse =  file_get_contents($api.$item['movieIMDB']);
+									$json = json_decode($apiresponse);
+									echo "<tr><td><a href='movies/moviedetails.php?movieID=".($item['movieID']."'>".$json->{'Title'}."</a></td><td><a href='http://www.imdb.com/title/".$item['movieIMDB']."' target='_blank'>".$item['movieIMDB']."</a></td><td>".$item['movieRanking']."</td></tr>");
+					}
+echo"	</table>
+			</div>
+			<div class='col-md-6 text-center'>
+					<h1><a href='videogame/videogame.php'>Video Games</a></h1>
+					<table class='table table-hover table-striped'>
+					<tr><td>Title</td><td>System</td><td>Rating</td></tr>";
+					foreach($vgquery as $item){
+							echo "<tr><td><a href='betdetails.php?betID=".($item['GameID']."'>".$item['Title']."</a></td><td>".$item['System']."</td><td>".$item['Rating']."</td></tr>");
+					}
+echo"</table>
+			</div>
 	</div>
+
 
 	<!--================================================== -->
 	<script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js'></script>

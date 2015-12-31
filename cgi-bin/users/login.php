@@ -29,8 +29,8 @@ if ($username&&$password)
 							$_SESSION['userid']=$dbuserid;
 							if(isset($_SESSION['url']))
 								$url = $_SESSION['url']; // holds url for last page visited.
-							else 
-   							$url = "index.php";
+							else
+   							$url = "/index.php";
 							header("Location: http://".$_SERVER['HTTP_HOST'].$url);
 							exit;
 							}
