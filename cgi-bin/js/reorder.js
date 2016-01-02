@@ -1,6 +1,5 @@
 $(document).ready(function() { // begin document ready
 
-
     $('#list-items').sortable({
     axis: 'y',
     update: function() {
@@ -8,7 +7,7 @@ $(document).ready(function() { // begin document ready
     $.ajax({
         type: "GET",
         dataType: "JSON",
-        url: "ajax/reorder.ajax.php",
+        url: "../ajax/reorder.ajax.php",
         data: data_to_send
         });
     }

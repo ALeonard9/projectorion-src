@@ -14,49 +14,35 @@ include('../header.php');
 echo "</head><body><div class='container'>";
 include('../navigation.php');
 
-$api = 'http://www.omdbapi.com/?i=';
+if ($_SESSION['usergroup'] == 'Admin'){
 
-if(isset($_GET['sortby']))
-  $sortby = $_GET['sortby'];
+$moviesql = "SELECT * FROM imdb.movie order by movieRanking";
+
+						$moviequery = $db->query($moviesql);
+						$api = 'http://www.omdbapi.com/?i=';
+						$sqlgamesum = "SELECT count(*) as Count FROM imdb.movie WHERE movieSeen = 1";
+						$querygamesum = $db->query($sqlgamesum);
+										 $resultsgamesum = $querygamesum->fetch(PDO::FETCH_ASSOC);
+
+echo "<div class='col-md-12'><a href='movie.php' class='fixed_middle_right' ><span class='glyphicon glyphicon-refresh'></span></a></div>
+      <div class='col-md-3'></div>
+			<div class='col-md-6'>
+					<div class='text-center'><h1><a href='movietable.php'>Movies</a></h1>
+					<a href='findmovie.php' class='btn btn-lg btn-inverse btn-block' ><span class='glyphicon glyphicon-plus'></span> Add a Movie</a>
+					<h3>Movies Watched:".$resultsgamesum['Count']."</h3></div>
+					<ul class='list-group' id='list-items'>";
+
+					foreach($moviequery as $item){
+									$apiresponse =  file_get_contents($api.$item['movieIMDB']);
+									$json = json_decode($apiresponse);
+									echo "<li draggable=true class='list-group-item' id='item_".($item['movieID']."'><a href='movies/moviedetails.php?movieID=".$item['movieID']."'><span class='badge'>".$item['movieRanking']."</span>   ".$json->{'Title'}."</a></li>");
+					}
+echo"	</ul>
+		</div>";
+
+}
 else
-  $sortby = 'movieRanking';
-
-if(isset($_GET['order']))
-  $order = $_GET['order'];
-else
-  $order = 'ASC';
-
-if($order == 'ASC')
-  $op = 'DESC';
-else
-  $op = 'ASC';
-
-  $sqlcomplete = "SELECT * FROM imdb.movie order by $sortby $order";
-  $sqlgamesum = "SELECT count(*) as Count FROM imdb.movie WHERE movieSeen = 1";
-
-  if (isset($_SESSION['username']))
-          {
-                  $querycomplete = $db->query($sqlcomplete);
-                          #$resultsopen = $queryopen->fetch(PDO::FETCH_ASSOC);
-                  $querygamesum = $db->query($sqlgamesum);
-                           $resultsgamesum = $querygamesum->fetch(PDO::FETCH_ASSOC);
-
-          echo "<div class='container text-center'><h1>Movie List</h1>";
-          echo "<br><h3>Movies Watched:".$resultsgamesum['Count']."</h3>";
-          echo "<!DOCTYPE html>";
-          echo "<html>";
-          echo "<table class='table table-hover table-striped'>";
-          echo "<tr><td onclick=\"window.location='movie.php?sortby=Title&order=".$op."'\">Title</td><td onclick=\"window.location='movie.php?sortby=movieIMDB&order=".$op."'\">IMDB</td><td>Release Date</td><td>Rating</td><td>Runtime</td><td>IMDB Rating</td><td onclick=\"window.location='movie.php?sortby=movieRanking&order=".$op."'\">Ranking</td></tr>";
-
-                  foreach($querycomplete as $item){
-                          $apiresponse =  file_get_contents($api.$item['movieIMDB']);
-                          $json = json_decode($apiresponse);
-                          echo "<tr><td><a href='moviedetails.php?movieID=".($item['movieID']."'>".$json->{'Title'}."</a></td><td><a href='http://www.imdb.com/title/".$item['movieIMDB']."' target='_blank'>".$item['movieIMDB']."</a></td><td>".$json->{'Released'}."</td><td>".$json->{'Rated'}."</td><td>".$json->{'Runtime'}."</td><td>".$json->{'imdbRating'}."</td><td>".$item['movieRanking']."</td></tr>");
-                  }
-          echo "</table></div>";
-          }
-  else
-          header("location: ../users/signin.php");
+	  header("location: movietable.php");
 
 include('../footer.php');
 echo "</div></body></html>";
