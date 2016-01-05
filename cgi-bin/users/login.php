@@ -13,7 +13,7 @@ if ($username&&$password)
 {
 		$query = $db->prepare($sql);
 		$query->execute(array(':username'=>$username));
-				    $row_count = $query->rowCount();
+				  $row_count = $query->rowCount();
 					$results = $query->fetch(PDO::FETCH_ASSOC);
 					$dbusername = $results['userName'];
 					$dbpassword = $results['userPassword'];
