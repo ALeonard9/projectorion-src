@@ -31,7 +31,7 @@ if($order == 'ASC')
 else
   $op = 'ASC';
 
-  $sqlcomplete = "SELECT * FROM imdb.movie order by $sortby $order";
+  $sqlcomplete = "SELECT * FROM imdb.movie order by $sortby $order LIMIT 10";
   $sqlgamesum = "SELECT count(*) as Count FROM imdb.movie WHERE movieSeen = 1";
 
   if (isset($_SESSION['username']))
