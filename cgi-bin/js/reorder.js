@@ -3,12 +3,15 @@ $(document).ready(function() { // begin document ready
     $('#list-items').sortable({
     axis: 'y',
     update: function() {
+    var start_rank = $( "#rank" ).val();
+    var prep = "&rank=".concat(start_rank)
     var data_to_send = $('#list-items').sortable("serialize");
+    var adam = data_to_send.concat( prep );
     $.ajax({
         type: "GET",
         dataType: "JSON",
         url: "../ajax/reorder.ajax.php",
-        data: data_to_send
+        data: adam
         });
     }
     });

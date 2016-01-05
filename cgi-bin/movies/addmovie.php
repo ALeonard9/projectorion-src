@@ -6,7 +6,8 @@ ob_start();
 include '../connectToDB.php';
 
 $imdbID = $_GET['imdbid'];
-$sql = "INSERT INTO `imdb`.`movie` (`movieIMDB`, `movieRanking`, `movieSeen`) VALUES ('$imdbID', '0', '1')";
+$movieTitle = $_GET['title'];
+$sql = "INSERT INTO `imdb`.`movie` (`movieIMDB`, `movieRanking`, `movieSeen`, `movieTitle`) VALUES ('$imdbID', '0', '1', '$movieTitle')";
 
 if (isset($_SESSION['username']))
 	{

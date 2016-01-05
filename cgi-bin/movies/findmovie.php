@@ -33,14 +33,14 @@ if ($_SESSION['usergroup'] == 'Admin'){
 
   if (isset($search)){
     $searchafter = urlencode($search);
-    $api = "http://www.omdbapi.com/?s=$searchafter&r=JSON";
+    $api = "http://www.omdbapi.com/?s=$searchafter&r=JSON&type=movie";
     $apiresponse =  file_get_contents($api);
     $json = json_decode($apiresponse);
 
     echo "<ul class='list-group' id='list-items'>";
 
     					foreach($json->{'Search'} as $jsonitem){
-								echo "<li class='list-group-item'><a href='addmovie.php?imdbid=".$jsonitem->{'imdbID'}."'>".$jsonitem->{'Title'}."</a></li>";
+								echo "<li class='list-group-item'><a href='http://www.imdb.com/title/".$jsonitem->{'imdbID'}."' target='_blank'><span class='glyphicon glyphicon-film'></span></a>    <a href='addmovie.php?title=".$jsonitem->{'Title'}."&imdbid=".$jsonitem->{'imdbID'}."'>".$jsonitem->{'Title'}."</a></li>";
     					}
     echo "</ul>
     		</div>";
