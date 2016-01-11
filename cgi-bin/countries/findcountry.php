@@ -24,30 +24,30 @@ if ($_SESSION['usergroup'] == 'User' or $_SESSION['usergroup'] == 'Admin'){
   echo "
     <div class='col-md-3'></div>
     <div class='col-md-6'>
-    <form class='form-signin' action='findmovie.php' form='thisForm' method='POST'>
+    <form class='form-signin' action='findcountry.php' form='thisForm' method='POST'>
     <div class='form-group'>
-      <div class='text-center'><label for='title'><h2>Movie Title</h2></label></div>
+      <div class='text-center'><label for='title'><h2>Country Name</h2></label></div>
       <input type='text' class='form-control' name='title_search' value='".$search."'>
     </div>
     <button class='btn btn-lg btn-inverse btn-block' type='submit'><span class='glyphicon glyphicon-search'></span> Search</button></form></br>";
 
   if (isset($search)){
     $searchafter = urlencode($search);
-    $api = "http://www.omdbapi.com/?s=$searchafter&r=JSON&type=movie";
+    $api = "https://restcountries.eu/rest/v1/name/".$searchafter;
     $apiresponse =  file_get_contents($api);
     $json = json_decode($apiresponse);
 
     echo "<ul class='list-group' id='list-items'>";
 
-    					foreach($json->{'Search'} as $jsonitem){
-								echo "<li class='list-group-item'><a href='http://www.imdb.com/title/".$jsonitem->{'imdbID'}."' target='_blank'><span class='glyphicon glyphicon-film'></span></a>    <a href='addmovie.php?title=".$jsonitem->{'Title'}."&imdbid=".$jsonitem->{'imdbID'}."'>".$jsonitem->{'Title'}."</a></li>";
+    					foreach($json as $jsonitem){
+                echo "<li class='list-group-item'><a href='addcountry.php?title=".$jsonitem->{'name'}."&country_code=".$jsonitem->{'alpha2Code'}."'>".$jsonitem->{'name'}."</a></li>";
     					}
     echo "</ul>
     		</div>";
   }
 }
 else
-	  header("location: movietable.php");
+	  header("location: country.php");
 
 include('../footer.php');
 echo "</div></body></html>";

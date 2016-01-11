@@ -16,7 +16,7 @@ include('../navigation.php');
 
 $sql = "SELECT * FROM bet.rules";
 
-if (isset($_SESSION['username']))
+if ($_SESSION['usergroup']=='Admin')
   {
     $query = $db->query($sql);
     echo "<div class='container text-center'><h1>Rules</h1>";

@@ -13,8 +13,8 @@ echo "<!DOCTYPE html>
 include('../header.php');
 echo "</head><body><div class='container'>";
 include('../navigation.php');
-
-if ($_SESSION['usergroup'] == 'Admin'){
+$user_id = $_SESSION['userid'];
+if ($_SESSION['usergroup'] == 'User' or $_SESSION['usergroup'] == 'Admin'){
 
 $start_rank = 1;
 
@@ -26,9 +26,9 @@ if (isset($_POST['rank'])) {
   $start_rank = $_POST['rank'];
 }
 
-$moviesql = "SELECT * FROM imdb.movie WHERE movieRanking >= $start_rank or movieRanking = 0 order by movieRanking";
+$moviesql = "SELECT * FROM orion.movies WHERE (rank >= $start_rank or rank = 0 ) and user_id =".$user_id." order by rank";
             $moviequery = $db->query($moviesql);
-						$sqlgamesum = "SELECT count(*) as Count FROM imdb.movie WHERE movieSeen = 1";
+						$sqlgamesum = "SELECT count(*) as Count FROM orion.movies WHERE completed = 1 and user_id =".$user_id;
 						$querygamesum = $db->query($sqlgamesum);
 										 $resultsgamesum = $querygamesum->fetch(PDO::FETCH_ASSOC);
 
@@ -40,6 +40,7 @@ echo "<div class='col-md-12'><a href='movie.php?rank=".$start_rank."' class='fix
 					<h3>Movies Watched:".$resultsgamesum['Count']."</h3>
           <form class='form-signin' action='movie.php' form='thisForm' method='POST'>
           <div class='input-group'>
+            <input type='hidden' id='table' value='movies'>
             <input type='number' class='form-control' id='rank' name='rank' value='".$start_rank."'>
             <span class='input-group-btn'>
               <button class='btn btn-default' type='submit'>Go To...</button>
@@ -49,7 +50,7 @@ echo "<div class='col-md-12'><a href='movie.php?rank=".$start_rank."' class='fix
 					<ul class='list-group' id='list-items'>";
 
 					foreach($moviequery as $item){
-									echo "<li draggable=true class='list-group-item' id='item_".($item['movieID']."'><a href='movies/moviedetails.php?movieID=".$item['movieID']."'><span class='badge'>".$item['movieRanking']."</span>   ".$item['movieTitle']."</a></li>");
+									echo "<li draggable=true class='list-group-item' id='item_".($item['id']."'><a href='movies/moviedetails.php?movieID=".$item['id']."'><span class='badge'>".$item['rank']."</span>   ".$item['title']."</a></li>");
 					}
 echo"	</ul>
 		</div>";

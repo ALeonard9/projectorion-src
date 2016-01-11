@@ -24,8 +24,8 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Trackers <span class="caret"></span></a>
           <ul class="dropdown-menu">
+            <li><a href='../countries/country.php'>Countries</a></li>
             <li><a href="../movies/movie.php">Movies</a></li>
-            <li><a href="#">Travel</a></li>
             <li><a href="#">TV</a></li>
             <li><a href="../videogame/videogame.php">Video Games</a></li>
           </ul>

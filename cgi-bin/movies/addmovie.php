@@ -7,7 +7,8 @@ include '../connectToDB.php';
 
 $imdbID = $_GET['imdbid'];
 $movieTitle = $_GET['title'];
-$sql = "INSERT INTO `imdb`.`movie` (`movieIMDB`, `movieRanking`, `movieSeen`, `movieTitle`) VALUES ('$imdbID', '0', '1', '$movieTitle')";
+$user_id = $_SESSION['userid'];
+$sql = "INSERT INTO `orion`.`movies` (`imdb`, `rank`, `completed`, `title`, `user_id`) VALUES ('$imdbID', '0', '1', '$movieTitle', '$user_id')";
 
 if (isset($_SESSION['username']))
 	{

@@ -19,7 +19,7 @@ $api = 'http://www.omdbapi.com/?i=';
 if(isset($_GET['sortby']))
   $sortby = $_GET['sortby'];
 else
-  $sortby = 'movieRanking';
+  $sortby = 'rank';
 
 if(isset($_GET['order']))
   $order = $_GET['order'];
@@ -31,8 +31,8 @@ if($order == 'ASC')
 else
   $op = 'ASC';
 
-  $sqlcomplete = "SELECT * FROM imdb.movie order by $sortby $order LIMIT 10";
-  $sqlgamesum = "SELECT count(*) as Count FROM imdb.movie WHERE movieSeen = 1";
+  $sqlcomplete = "SELECT * FROM orion.movies order by $sortby $order LIMIT 10";
+  $sqlgamesum = "SELECT count(*) as Count FROM orion.movies WHERE completed = 1";
 
   if (isset($_SESSION['username']))
           {
@@ -47,9 +47,9 @@ else
           echo "<tr><td onclick=\"window.location='movie.php?sortby=Title&order=".$op."'\">Title</td><td onclick=\"window.location='movie.php?sortby=movieIMDB&order=".$op."'\">IMDB</td><td>Release Date</td><td>Rating</td><td>Runtime</td><td>IMDB Rating</td><td onclick=\"window.location='movie.php?sortby=movieRanking&order=".$op."'\">Ranking</td></tr>";
 
                   foreach($querycomplete as $item){
-                          $apiresponse =  file_get_contents($api.$item['movieIMDB']);
+                          $apiresponse =  file_get_contents($api.$item['imdb']);
                           $json = json_decode($apiresponse);
-                          echo "<tr><td><a href='moviedetails.php?movieID=".($item['movieID']."'>".$json->{'Title'}."</a></td><td><a href='http://www.imdb.com/title/".$item['movieIMDB']."' target='_blank'>".$item['movieIMDB']."</a></td><td>".$json->{'Released'}."</td><td>".$json->{'Rated'}."</td><td>".$json->{'Runtime'}."</td><td>".$json->{'imdbRating'}."</td><td>".$item['movieRanking']."</td></tr>");
+                          echo "<tr><td><a href='moviedetails.php?movieID=".($item['id']."'>".$json->{'Title'}."</a></td><td><a href='http://www.imdb.com/title/".$item['imdb']."' target='_blank'>".$item['imdb']."</a></td><td>".$json->{'Released'}."</td><td>".$json->{'Rated'}."</td><td>".$json->{'Runtime'}."</td><td>".$json->{'imdbRating'}."</td><td>".$item['rank']."</td></tr>");
                   }
           echo "</table></div>";
           }

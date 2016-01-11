@@ -18,7 +18,7 @@ $gameID = $_GET['gameID'];
 
 $sql = "SELECT * FROM smash.game g left join smash.users u on g.winner_user = u.user_id where  game_id=".$gameID;
 
-$sql2 = "SELECT * FROM smash.users";
+$sql2 = "SELECT distinct user_id, display_name FROM smash.gamelog g, smash.users u where g.l_user_id = u.user_id and l_game_id =".$gameID;
 
 $sql3 = "SELECT l.l_user_id AS user, l.l_deck_id AS deck1, k.l_deck_id AS deck2 FROM smash.gamelog l, smash.gamelog k WHERE l.l_game_id = k.l_game_id AND l.l_user_id = k.l_user_id AND l.l_deck_id < k.l_deck_id AND l.l_game_id =".$gameID;
 

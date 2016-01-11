@@ -2,10 +2,10 @@
 
 session_start();
 ob_start();
-
+$user_id = $_SESSION['userid'];
 include 'connectToDB.php';
 
-$moviesql = "SELECT * FROM imdb.movie order by movieRanking ASC LIMIT 5";
+$moviesql = "SELECT * FROM orion.movies WHERE user_id = $user_id order by rank ASC LIMIT 5";
 $vgsql = "SELECT * FROM videogame.game order by RATING DESC LIMIT 5";
 
 echo "<!DOCTYPE html>
@@ -78,8 +78,8 @@ echo "<!DOCTYPE html>
 							<li class='dropdown'>
 								<a href='#' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false'>Trackers <span class='caret'></span></a>
 								<ul class='dropdown-menu'>
+									<li><a href='countries/country.php'>Countries</a></li>
 									<li><a href='movies/movie.php'>Movies</a></li>
-									<li><a href='#'>Travel</a></li>
 									<li><a href='#'>TV</a></li>
 									<li><a href='videogame/videogame.php'>Video Games</a></li>
 								</ul>
@@ -121,9 +121,9 @@ echo "</ul>
 					<tr><td>Title</td><td>IMDB</td><td>Ranking</td></tr>";
 
 					foreach($moviequery as $item){
-									$apiresponse =  file_get_contents($api.$item['movieIMDB']);
+									$apiresponse =  file_get_contents($api.$item['imdb']);
 									$json = json_decode($apiresponse);
-									echo "<tr><td><a href='movies/moviedetails.php?movieID=".($item['movieID']."'>".$json->{'Title'}."</a></td><td><a href='http://www.imdb.com/title/".$item['movieIMDB']."' target='_blank'>".$item['movieIMDB']."</a></td><td>".$item['movieRanking']."</td></tr>");
+									echo "<tr><td><a href='movies/moviedetails.php?movieID=".($item['id']."'>".$json->{'Title'}."</a></td><td><a href='http://www.imdb.com/title/".$item['imdb']."' target='_blank'>".$item['imdb']."</a></td><td>".$item['rank']."</td></tr>");
 					}
 echo"	</table>
 			</div>
