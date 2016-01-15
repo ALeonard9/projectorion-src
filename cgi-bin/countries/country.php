@@ -37,7 +37,8 @@ echo "<div class='col-md-12'><a href='country.php?rank=".$start_rank."' class='f
 			<div class='col-md-6'>
 					<div class='text-center'><h1>Countries</h1>
 					<a href='findcountry.php' class='btn btn-lg btn-inverse btn-block' ><span class='glyphicon glyphicon-plus'></span> Add a Country</a>
-					<h3>Countries Visited:".$resultscompletesum['Count']."</h3>
+          <a href='countryflags.php' class='btn btn-lg btn-inverse btn-block' ><span class='glyphicon glyphicon-flag'></span> Flag Page</a>
+          <h3>Countries Visited:".$resultscompletesum['Count']."</h3>
           <form class='form-signin' action='country.php' form='thisForm' method='POST'>
           <div class='input-group'>
             <input type='hidden' id='table' value='countries'>
@@ -57,7 +58,7 @@ echo"	</ul>
 
 }
 else
-	  header("location: ../index.php");
+	  header("location: ../users/signin.php");
 
 include('../footer.php');
 echo "</div></body></html>";

@@ -2,7 +2,11 @@
 
 session_start();
 ob_start();
-$user_id = $_SESSION['userid'];
+$user_id = 1;
+if (isset($_SESSION['userid'])) {
+	$user_id = $_SESSION['userid'];
+}
+
 include 'connectToDB.php';
 
 $moviesql = "SELECT * FROM orion.movies WHERE user_id = $user_id order by rank ASC LIMIT 5";
