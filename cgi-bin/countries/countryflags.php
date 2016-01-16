@@ -18,10 +18,10 @@ $api = 'http://www.geonames.org/flags/x/';
 $user_id = $_SESSION['userid'];
 
 
-  $sqlcomplete = "SELECT * FROM orion.countries WHERE user_id =".$user_id;
+  $sqlcomplete = "SELECT * FROM orion.countries WHERE user_id =".$user_id." order by rank";
   $sqlgamesum = "SELECT count(*) as Count FROM orion.countries WHERE completed = 1 and user_id =".$user_id;
 
-  if (isset($_SESSION['username']))
+  if (isset($_SESSION['userid']))
           {
                   $querycomplete = $db->query($sqlcomplete);
                           #$resultsopen = $queryopen->fetch(PDO::FETCH_ASSOC);
@@ -33,7 +33,7 @@ $user_id = $_SESSION['userid'];
                   foreach($querycomplete as $item){
                           $apiresponse = $api.$item['country_code'].".gif";
 
-                          echo "<div class='col-md-4'><a href='countrydetails.php?id=".$item['id']."'><img src='".$apiresponse."' class='img-rounded img-responsive center-block' style='width:300px;height:200px;margin-bottom:10px'></a></div>";
+                          echo "<div class='col-md-4'><a href='countrydetails.php?id=".$item['id']."'><span title='".$item['rank'].". ".$item['title']."'><img src='".$apiresponse."' class='img-rounded img-responsive center-block' style='width:300px;height:200px;margin-bottom:10px'></a></span></div>";
                   }
           echo "</div>";
           }

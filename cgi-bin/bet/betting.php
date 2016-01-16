@@ -36,7 +36,7 @@ $sqlall = "SELECT * FROM bet.history order by $sortby $order";
 
 $intro= "Adam owes Soumya";
 
-if (isset($_SESSION['username']))
+if (isset($_SESSION['userid']))
         {
                 $querySoumsum = $db->query($sqlSoumsum);
                         $resultsSoumsum = $querySoumsum->fetch(PDO::FETCH_ASSOC);

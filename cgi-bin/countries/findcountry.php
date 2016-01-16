@@ -7,7 +7,7 @@ $_SESSION['url'] = $_SERVER['REQUEST_URI'];
 $search = $_GET['search'];
 
 if (isset($_POST['title_search'])) {
-  $search = $_POST['title_search'];
+    $search = $_POST['title_search'];
 }
 
 include '../connectToDB.php';
@@ -20,34 +20,38 @@ include('../header.php');
 echo "</head><body><div class='container'>";
 include('../navigation.php');
 
-if ($_SESSION['usergroup'] == 'User' or $_SESSION['usergroup'] == 'Admin'){
-  echo "
+if ($_SESSION['usergroup'] == 'User' or $_SESSION['usergroup'] == 'Admin') {
+    echo "
     <div class='col-md-3'></div>
     <div class='col-md-6'>
     <form class='form-signin' action='findcountry.php' form='thisForm' method='POST'>
     <div class='form-group'>
       <div class='text-center'><label for='title'><h2>Country Name</h2></label></div>
-      <input type='text' class='form-control' name='title_search' value='".$search."'>
+      <input type='text' class='form-control' name='title_search' value='" . $search . "'>
     </div>
     <button class='btn btn-lg btn-inverse btn-block' type='submit'><span class='glyphicon glyphicon-search'></span> Search</button></form></br>";
 
-  if (isset($search)){
-    $searchafter = urlencode($search);
-    $api = "https://restcountries.eu/rest/v1/name/".$searchafter;
-    $apiresponse =  file_get_contents($api);
-    $json = json_decode($apiresponse);
+    if (isset($search)) {
+        $searchafter = urlencode($search);
+        $api         = "https://restcountries.eu/rest/v1/name/" . $searchafter;
+        $apiresponse = file_get_contents($api);
+        $json        = json_decode($apiresponse);
+        echo $json->{'status'};
+        // TODO Alerts based on search results.
+        if ($json->{'message'} == 'Not Found') {
+            echo "<h2>No matches this search term.</h2>";
+        } else {
+            echo "<ul class='list-group' id='list-items'>";
 
-    echo "<ul class='list-group' id='list-items'>";
-
-    					foreach($json as $jsonitem){
-                echo "<li class='list-group-item'><a href='addcountry.php?title=".$jsonitem->{'name'}."&country_code=".$jsonitem->{'alpha2Code'}."'>".$jsonitem->{'name'}."</a></li>";
-    					}
-    echo "</ul>
-    		</div>";
-  }
-}
-else
-	  header("location: country.php");
+            foreach ($json as $jsonitem) {
+                echo "<li class='list-group-item'><a href='addcountry.php?title=" . $jsonitem->{'name'} . "&country_code=" . $jsonitem->{'alpha2Code'} . "'>" . $jsonitem->{'name'} . "</a></li>";
+            }
+            echo "</ul>
+            </div>";
+        }
+    }
+} else
+    header("location: country.php");
 
 include('../footer.php');
 echo "</div></body></html>";

@@ -31,7 +31,7 @@ else
 
 $sqlUserRecords = "SELECT * FROM smash.userRecord order by $sortby $order";
 
-if (isset($_SESSION['username']))
+if (isset($_SESSION['userid']))
         {
                 $queryopen = $db->query($sqlUserRecords);
 

@@ -20,7 +20,7 @@ switch ($type) {
 }
 
 
-if (isset($_SESSION['username']))
+if (isset($_SESSION['userid']))
         {
                 $db->exec($sql);
                 header("Location: betting.php");

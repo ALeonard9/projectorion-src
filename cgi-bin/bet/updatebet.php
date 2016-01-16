@@ -15,7 +15,7 @@ $sql = "UPDATE `bet`.`history` SET `betDescription`='".$betDescription."', `betA
 
 
 
-if (isset($_SESSION['username']))
+if (isset($_SESSION['userid']))
 	{
 		$db->exec($sql);
 		#header("Location: betdetails.php?betID=$betID");

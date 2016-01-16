@@ -31,7 +31,7 @@ else
 
 $sql = "SELECT * FROM smash.game g LEFT JOIN smash.users u ON g.winner_user = u.user_id order by $sortby $order";
 
-if (isset($_SESSION['username']))
+if (isset($_SESSION['userid']))
         {
                 $queryopen = $db->query($sql);
 

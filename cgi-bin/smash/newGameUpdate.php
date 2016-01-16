@@ -23,7 +23,7 @@ while($x <= $numPlayers) {
 		$x++;
 }
 $sql = rtrim($sql, ',');
-if (isset($_SESSION['username']))
+if (isset($_SESSION['userid']))
 	{
 		$db->exec($sql);
 	  header("Location: gameDetails.php?gameID=".$gameid);

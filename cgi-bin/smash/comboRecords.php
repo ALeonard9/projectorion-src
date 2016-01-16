@@ -32,7 +32,7 @@ $sqlComboRecords = "SELECT * FROM smash.comboRecord order by $sortby $order, dec
 $sqlUnusedDecks = "SELECT * FROM smash.unusedCombos";
 $sqlcountUnusedDecks = "SELECT count(*) as count FROM smash.unusedCombos";
 
-if (isset($_SESSION['username']))
+if (isset($_SESSION['userid']))
         {
                 $queryopen = $db->query($sqlComboRecords);
                 $querydecks = $db->query($sqlUnusedDecks);

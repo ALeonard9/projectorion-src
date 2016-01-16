@@ -30,7 +30,7 @@ else
 
 $sqlFactionRecords = "SELECT * FROM smash.factionRecord order by $sortby $order";
 
-if (isset($_SESSION['username']))
+if (isset($_SESSION['userid']))
         {
                 $queryopen = $db->query($sqlFactionRecords);
 

@@ -12,7 +12,7 @@ include('../header.php');
 echo "</head><body><div class='container'>";
 include('../navigation.php');
 
-if (isset($_SESSION['username']))
+if (isset($_SESSION['userid']))
         {
         if ($_SESSION['usergroup']=="Admin" || $_SESSION['usergroup']=="Smash")
                 {

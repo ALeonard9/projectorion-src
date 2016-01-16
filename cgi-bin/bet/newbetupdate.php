@@ -26,7 +26,7 @@ $sql = "INSERT INTO `bet`.`history` (`betDescription`, `betAmount`, `betWinner`,
 
 
 
-if (isset($_SESSION['username']))
+if (isset($_SESSION['userid']))
 	{
 		$db->exec($sql);
 		header("Location: betting.php");

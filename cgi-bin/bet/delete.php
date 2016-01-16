@@ -10,7 +10,7 @@ $betID = $_GET['betID'];
 $sql = "DELETE FROM `bet`.`history` WHERE `betID`='". $betID ."';";
 
 
-if (isset($_SESSION['username']))
+if (isset($_SESSION['userid']))
 	{
 		$db->exec($sql);
 		header("Location: betting.php");

@@ -35,7 +35,7 @@ include('../header.php');
 echo "</head><body><div class='container'>";
 include('../navigation.php');
 
-if (isset($_SESSION['username']))
+if (isset($_SESSION['userid']))
 	{
     echo "
     <div class='col-md-3'></div><div class='col-md-6'>

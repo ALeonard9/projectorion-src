@@ -96,7 +96,7 @@ echo "<!DOCTYPE html>
 							</li>
 						</ul>
 						<ul class='nav navbar-nav navbar-right'>";
-						if (isset($_SESSION['username']))
+						if (isset($_SESSION['userid']))
 						{
 							echo "<li class='dropdown'>
 								<a href='#' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false'>Welcome " . $_SESSION['username'] . " <span class='caret'></span></a>

@@ -10,7 +10,7 @@ $movieTitle = $_GET['title'];
 $user_id = $_SESSION['userid'];
 $sql = "INSERT INTO `orion`.`movies` (`imdb`, `rank`, `completed`, `title`, `user_id`) VALUES ('$imdbID', '0', '1', '$movieTitle', '$user_id')";
 
-if (isset($_SESSION['username']))
+if (isset($_SESSION['userid']))
 	{
 		$db->exec($sql);
 		header("Location: movie.php");

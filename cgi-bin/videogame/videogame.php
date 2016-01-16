@@ -33,7 +33,7 @@ else
 $sqlcomplete = "SELECT * FROM videogame.game WHERE GameStatus = 'Complete' order by $sortby $order, Series ASC, SeriesNum ASC, Title ASC";
 $sqlgamesum = "SELECT count(*) as Count FROM videogame.game WHERE GameStatus = 'Complete'";
 
-if (isset($_SESSION['username']))
+if (isset($_SESSION['userid']))
         {
                 $querycomplete = $db->query($sqlcomplete);
                         #$resultsopen = $queryopen->fetch(PDO::FETCH_ASSOC);

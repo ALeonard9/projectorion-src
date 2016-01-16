@@ -34,7 +34,7 @@ else
   $sqlcomplete = "SELECT * FROM orion.movies order by $sortby $order LIMIT 10";
   $sqlgamesum = "SELECT count(*) as Count FROM orion.movies WHERE completed = 1";
 
-  if (isset($_SESSION['username']))
+  if (isset($_SESSION['userid']))
           {
                   $querycomplete = $db->query($sqlcomplete);
                           #$resultsopen = $queryopen->fetch(PDO::FETCH_ASSOC);

@@ -22,7 +22,7 @@ echo "<div class='col-md-4'><button type='button' class='btn btn-inverse btn-lg 
 echo "<div class='col-md-4'><button type='button' class='btn btn-inverse btn-lg btn-block'  onclick=location.href='delete.php?betID=".$betID."'>Delete Bet</button></div>";
 
 
-if (isset($_SESSION['username']))
+if (isset($_SESSION['userid']))
 	{
 	$query = $db->query($sql);
 	foreach($query as $item){

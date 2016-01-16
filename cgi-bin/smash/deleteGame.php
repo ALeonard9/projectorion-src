@@ -10,7 +10,7 @@ $gameID = $_GET['gameID'];
 $sql = "DELETE FROM `smash`.`game` WHERE `game_id`='". $gameID ."'";
 echo $sql;
 
-if (isset($_SESSION['username']))
+if (isset($_SESSION['userid']))
 	{
 		$db->exec($sql);
 		// header("Location: gameRecords.php");

@@ -22,7 +22,7 @@ $sql2 = "SELECT distinct user_id, display_name FROM smash.gamelog g, smash.users
 
 $sql3 = "SELECT l.l_user_id AS user, l.l_deck_id AS deck1, k.l_deck_id AS deck2 FROM smash.gamelog l, smash.gamelog k WHERE l.l_game_id = k.l_game_id AND l.l_user_id = k.l_user_id AND l.l_deck_id < k.l_deck_id AND l.l_game_id =".$gameID;
 
-if (isset($_SESSION['username']))
+if (isset($_SESSION['userid']))
 	{
 	$query = $db->query($sql);
 	foreach($query as $item){
