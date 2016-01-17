@@ -9,60 +9,55 @@ include '../connectToDB.php';
 echo "<!DOCTYPE html>
 <html lang='en'>
 <head>
-        <title id='pageTitle'>Smash Tracker</title>";
+        <title id='pageTitle'>LeoNine Studios</title>";
 include('../header.php');
 echo "</head><body><div class='container'>";
 include('../navigation.php');
+$user_id = $_SESSION['userid
+if ($_SESSION['usergroup'] == 'User' or $_SESSION['usergroup'] == 'Admin'){
 
-if(isset($_GET['sortby']))
-  $sortby = $_GET['sortby'];
+$start_rank = 1;
+
+if (isset($_GET['rank'])) {
+  $start_rank = $_GET['rank'];
+}
+
+if (isset($_POST['rank'])) {
+  $start_rank = $_POST['rank'];
+}
+
+$moviesql = "SELECT * FROM orion.movies WHERE (rank >= $start_rank or rank = 0 ) and user_id =".$user_id." order by rank";
+            $moviequery = $db->query($moviesql);
+						$sqlgamesum = "SELECT count(*) as Count FROM orion.movies WHERE completed = 1 and user_id =".$user_id;
+						$querygamesum = $db->query($sqlgamesum);
+										 $resultsgamesum = $querygamesum->fetch(PDO::FETCH_ASSOC);
+
+echo "<div class='col-md-12'><a href='movie.php?rank=".$start_rank."' class='fixed_middle_right' ><span class='glyphicon glyphicon-refresh'></span></a></div>
+      <div class='col-md-3'></div>
+			<div class='col-md-6'>
+					<div class='text-center'><h1><a href='movietable.php'>Movies</a></h1>
+					<a href='findmovie.php' class='btn btn-lg btn-inverse btn-block' ><span class='glyphicon glyphicon-plus'></span> Add a Movie</a>
+					<h3>Movies Watched:".$resultsgamesum['Count']."</h3>
+          <form class='form-signin' action='movie.php' form='thisForm' method='POST'>
+          <div class='input-group'>
+            <input type='hidden' id='table' value='movies'>
+            <input type='number' class='form-control' id='rank' name='rank' value='".$start_rank."'>
+            <span class='input-group-btn'>
+              <button class='btn btn-default' type='submit'>Go To...</button>
+            </span>
+          </div>
+          </form></br>
+					<ul class='list-group' id='list-items'>";
+
+					foreach($moviequery as $item){
+									echo "<li draggable=true class='list-group-item' id='item_".($item['id']."'><a href='movies/moviedetails.php?movieID=".$item['id']."'><img src='".$item['poster_url']."' class='img-rounded img-responsive' style='width:30px;height:20px;float:left'><span class='badge'>".$item['rank']."</span>   ".$item['title']."</a></li>");
+					}
+echo"	</ul>
+		<h2>Game information was freely provided by <a href='www.igdb.com'>IGDB.com.</a></h2></div>";
+
+}
 else
-  $sortby = 'Series';
-
-if(isset($_GET['order']))
-  $order = $_GET['order'];
-else
-  $order = 'ASC';
-
-if($order == 'ASC')
-  $op = 'DESC';
-else
-  $op = 'ASC';
-
-
-$sqlcomplete = "SELECT * FROM videogame.game WHERE GameStatus = 'Complete' order by $sortby $order, Series ASC, SeriesNum ASC, Title ASC";
-$sqlgamesum = "SELECT count(*) as Count FROM videogame.game WHERE GameStatus = 'Complete'";
-
-if (isset($_SESSION['userid']))
-        {
-                $querycomplete = $db->query($sqlcomplete);
-                        #$resultsopen = $queryopen->fetch(PDO::FETCH_ASSOC);
-                $querygamesum = $db->query($sqlgamesum);
-                         $resultsgamesum = $querygamesum->fetch(PDO::FETCH_ASSOC);
-
-        echo "<div class='container text-center'><h1>Video game history</h1>";
-        echo "<br><h3>Completed Games:".$resultsgamesum['Count']."</h3>";
-        echo "<table class='table table-hover table-striped'>";
-        echo "<tr><td onclick=\"window.location='videogame.php?sortby=Title&order=".$op."'\">Title</td><td onclick=\"window.location='videogame.php?sortby=System&order=".$op."'\">System</td><td onclick=\"window.location='videogame.php?sortby=Series&order=".$op."'\">Series</td><td onclick=\"window.location='videogame.php?sortby=Rating&order=".$op."'\">Rating</td></tr>";
-
-                foreach($querycomplete as $item){
-                        echo "<tr><td><a href='betdetails.php?betID=".($item['GameID']."'>".$item['Title']."</a></td><td>".$item['System']."</td><td>".$item['Series']."</td><td>".$item['Rating']."</td></tr>");
-                }
-        echo "</table></div>";
-
-        // echo "<br><h3>History</h3>";
-        // echo "<table class='table table-hover table-striped'>";
-        // echo "<tr><td>Description</td><td>Amount</td><td>Status</td><td>Winner</td><td>Last Update</td></tr>";
-        //         foreach($queryall as $item){
-        //                 echo "<tr><td><a href='betdetails.php?betID=".($item['betID']."'>".$item['betDescription']."</a></td><td>$".abs($item['betAmount'])."</td><td>".$item['betStatus']."</td><td>".$item['betWinner']."</td><td>".substr($item['betDate'],5, 5)."</td></tr>");
-        //         }
-        // echo "</html>";
-        #if ($_SESSION['usergroup']=='Admin')
-
-        #if ($_SESSION['usergroup']=='User')
-        }
-else
-        header("location: ../users/signin.php");
+	  header("location: movietable.php");
 
 include('../footer.php');
 echo "</div></body></html>";

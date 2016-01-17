@@ -40,7 +40,7 @@ if ($_SESSION['usergroup'] == 'User' or $_SESSION['usergroup'] == 'Admin'){
     echo "<ul class='list-group' id='list-items'>";
 
     					foreach($json->{'Search'} as $jsonitem){
-								echo "<li class='list-group-item'><a href='http://www.imdb.com/title/".$jsonitem->{'imdbID'}."' target='_blank'><span class='glyphicon glyphicon-film'></span></a>    <a href='addmovie.php?title=".$jsonitem->{'Title'}."&imdbid=".$jsonitem->{'imdbID'}."'>".$jsonitem->{'Title'}."</a></li>";
+								echo "<li class='list-group-item'><a href='http://www.imdb.com/title/".$jsonitem->{'imdbID'}."' target='_blank'><span class='glyphicon glyphicon-film'></span></a>    <a href='addmovie.php?title=".$jsonitem->{'Title'}."&imdbid=".$jsonitem->{'imdbID'}."&poster=".$jsonitem->{'Poster'}."'>".$jsonitem->{'Title'}."</a></li>";
     					}
     echo "</ul>
     		</div>";
