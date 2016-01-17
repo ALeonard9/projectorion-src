@@ -13,7 +13,7 @@ $gameid =  $db->lastInsertId();
 
 $numPlayers = $_POST['num_players'];
 $x = 1;
-$sql = "INSERT INTO `smash`.`gamelog` VALUES ";
+$sql = "INSERT INTO `smash`.`gamelog` (`l_game_id`, `l_user_id`, `l_deck_id`) VALUES ";
 while($x <= $numPlayers) {
 		${"u$x"} = $_POST['user'.$x];
 		${"deck1$x"} = $_POST['deck1'.$x];
@@ -23,6 +23,7 @@ while($x <= $numPlayers) {
 		$x++;
 }
 $sql = rtrim($sql, ',');
+
 if (isset($_SESSION['userid']))
 	{
 		$db->exec($sql);

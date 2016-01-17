@@ -26,6 +26,8 @@ if (isset($_POST['rank'])) {
   $start_rank = $_POST['rank'];
 }
 
+$api = 'http://www.geonames.org/flags/x/';
+
 $sql = "SELECT * FROM orion.countries WHERE (rank >= $start_rank or rank = 0 ) and user_id =".$user_id." order by rank";
             $query = $db->query($sql);
 						$sqlcompletesum = "SELECT count(*) as Count FROM orion.countries WHERE completed = 1 and user_id =".$user_id;
@@ -51,7 +53,8 @@ echo "<div class='col-md-12'><a href='country.php?rank=".$start_rank."' class='f
 					<ul class='list-group' id='list-items'>";
 
 					foreach($query as $item){
-									echo "<li draggable=true class='list-group-item' id='item_".($item['id']."'><a href='countrydetails.php?id=".$item['id']."'><span class='badge'>".$item['rank']."</span>   ".$item['title']."</a></li>");
+            $apiresponse = $api.$item['country_code'].".gif";
+						echo "<li draggable=true class='list-group-item' id='item_".($item['id']."'><a href='countrydetails.php?id=".$item['id']."'><div class='container-fixed'><div class='row-fluid'><img src='".$apiresponse."' class='img-rounded img-responsive' style='width:30px;height:20px;float:left'><span class='badge'>".$item['rank']."</span>   ".$item['title']."</div></div></a></li>");
 					}
 echo"	</ul>
 		</div>";

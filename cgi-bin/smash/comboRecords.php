@@ -16,19 +16,19 @@ include('../navigation.php');
 if(isset($_GET['sortby']))
   $sortby = $_GET['sortby'];
 else
-  $sortby = 'deck1';
+  $sortby = 'sorter';
 
 if(isset($_GET['order']))
   $order = $_GET['order'];
 else
-  $order = 'ASC';
+  $order = 'DESC';
 
-if($order == 'ASC')
-  $op = 'DESC';
-else
+if($order == 'DESC')
   $op = 'ASC';
+else
+  $op = 'DESC';
 
-$sqlComboRecords = "SELECT * FROM smash.comboRecord order by $sortby $order, deck2";
+$sqlComboRecords = "SELECT *, 100.0 * win_percentage as sorter FROM smash.comboRecord order by $sortby $order, wins desc, deck1 asc, deck2 asc";
 $sqlUnusedDecks = "SELECT * FROM smash.unusedCombos";
 $sqlcountUnusedDecks = "SELECT count(*) as count FROM smash.unusedCombos";
 

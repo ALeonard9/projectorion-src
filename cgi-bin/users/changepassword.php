@@ -41,13 +41,15 @@ if (isset($_POST['password'])){
   exit;
 }
 
-// include('../footer.php');
 echo "
 <script src='http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.1.3.min.js'></script>
 <script src='http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/jquery.validate.min.js'></script>
 <script src='http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/additional-methods.min.js'></script>
+<script src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js'></script>
+<script src='https://cdn.jsdelivr.net/jquery.ui.touch-punch/0.2.3/jquery.ui.touch-punch.min.js'></script>
 <script src='../js/validation.js'></script>
 </div></body></html>";
+// include('../footer.php');
 
 
 	}

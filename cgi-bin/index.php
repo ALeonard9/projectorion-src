@@ -6,6 +6,10 @@ $user_id = 1;
 if (isset($_SESSION['userid'])) {
 	$user_id = $_SESSION['userid'];
 }
+$username = "Adam";
+if (isset($_SESSION['username'])) {
+	$username = $_SESSION['username'];
+}
 
 include 'connectToDB.php';
 
@@ -119,27 +123,37 @@ echo "</ul>
 					</div><!--/.nav-collapse -->
 				</div><!--/.container-fluid -->
 			</nav>
+			<div class='text-center'><u><h1>".$username."'s Dashboard</h1></u></div>
 			<div class='col-md-6 text-center'>
 					<h1><a href='movies/movie.php'>Movies</a></h1>
-					<table class='table table-hover table-striped'>
-					<tr><td>Title</td><td>IMDB</td><td>Ranking</td></tr>";
-
+					<ul class='list-group' id='list-items'>";
+					$row_count = $moviequery->rowCount();
+				if ($row_count>0){
 					foreach($moviequery as $item){
-									$apiresponse =  file_get_contents($api.$item['imdb']);
-									$json = json_decode($apiresponse);
-									echo "<tr><td><a href='movies/moviedetails.php?movieID=".($item['id']."'>".$json->{'Title'}."</a></td><td><a href='http://www.imdb.com/title/".$item['imdb']."' target='_blank'>".$item['imdb']."</a></td><td>".$item['rank']."</td></tr>");
+									echo "<li draggable=true class='list-group-item' id='item_".($item['id']."'><a href='movies/moviedetails.php?movieID=".$item['id']."'><span class='badge'>".$item['rank']."</span>   ".$item['title']."</a></li>");
 					}
-echo"	</table>
+				}	else {
+					echo "<a href='movies/findmovie.php' style='color:red'>Add your movie country</a>";
+				}
+echo"	</ul>
 			</div>
 			<div class='col-md-6 text-center'>
-					<h1><a href='videogame/videogame.php'>Video Games</a></h1>
-					<table class='table table-hover table-striped'>
-					<tr><td>Title</td><td>System</td><td>Rating</td></tr>";
-					foreach($vgquery as $item){
-							echo "<tr><td><a href='betdetails.php?betID=".($item['GameID']."'>".$item['Title']."</a></td><td>".$item['System']."</td><td>".$item['Rating']."</td></tr>");
-					}
-echo"</table>
-			</div>
+			<h1><a href='countries/country.php'>Countries</a></h1>
+			<ul class='list-group' id='list-items'>";
+			$api = 'http://www.geonames.org/flags/x/';
+			$sql = "SELECT * FROM orion.countries WHERE user_id =".$user_id." order by rank LIMIT 5";
+			            $query = $db->query($sql);
+									$row_count = $query->rowCount();
+			if ($row_count>0){
+				foreach($query as $item){
+					$apiresponse = $api.$item['country_code'].".gif";
+					echo "<li  class='list-group-item' id='item_".($item['id']."'><a href='countrydetails.php?id=".$item['id']."'><div class='container-fixed'><div class='row-fluid'><img src='".$apiresponse."' class='img-rounded img-responsive' style='width:30px;height:20px;float:left'><span class='badge'>".$item['rank']."</span>   ".$item['title']."</div></div></a></li>");
+				}
+			}	else {
+				echo "<a href='countries/findcountry.php' style='color:red'>Add your first country</a>";
+			}
+echo"	</ul>
+		</div>
 	</div>
 
 

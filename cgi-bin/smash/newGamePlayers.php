@@ -25,7 +25,7 @@ foreach($querydecks as $deck){
   array_push($decks, $deck['deck_id']);
 }
 shuffle($decks);
-$sql = "SELECT * FROM smash.users";
+$sql = "SELECT * FROM orion.users";
 $queryopen = $db->query($sql);
 echo "<!DOCTYPE html>
 <html lang='en'>
@@ -36,6 +36,7 @@ echo "</head><body><div class='container'>";
 include('../navigation.php');
 
 if (isset($_SESSION['userid']))
+
 	{
     echo "
     <div class='col-md-3'></div><div class='col-md-6'>
@@ -49,15 +50,15 @@ if (isset($_SESSION['userid']))
           <label for='user".$x."'>User ".$x."</label>
           <select class='form-control' form='myForm' name='user".$x."'>
             <option disabled='disabled'>Select Player</option>";
-            $sql = "select * from smash.users order by display_name";
+            $sql = "select * from orion.users order by display_name";
             $queryopen = $db->query($sql);
             foreach($queryopen as $item){
                     echo "<option ";
-                    if ($item['user_id'] == $players[$x-1])
+                    if ($item['id'] == $players[$x-1])
                     {
                       echo "selected='selected' ";
                     }
-                    echo "value=".($item['user_id'].">".$item['display_name']."</option>");
+                    echo "value=".($item['id'].">".$item['display_name']."</option>");
             };
 
         echo "</select></div>

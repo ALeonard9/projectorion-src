@@ -38,11 +38,11 @@ if (isset($_SESSION['userid']))
           <label for='nuser".$x."'>User ".$x."</label>
           <select class='form-control' name='nuser".$x."'>
             <option disabled='disabled' selected='selected'>Select Player</option>";
-            $sql = "select * from smash.users order by display_name";
+            $sql = "select * from orion.users order by display_name";
             $queryopen = $db->query($sql);
             foreach($queryopen as $item){
                     echo "<option
-                    value=".($item['user_id'].">".$item['display_name']."</option>");
+                    value=".($item['id'].">".$item['display_name']."</option>");
             };
             echo "</select></div>";
                 $x++;

@@ -29,7 +29,7 @@ else
   $op = 'ASC';
 
 
-$sql = "SELECT * FROM smash.game g LEFT JOIN smash.users u ON g.winner_user = u.user_id order by $sortby $order";
+$sql = "SELECT * FROM smash.game g LEFT JOIN orion.users u ON g.winner_user = u.id order by $sortby $order";
 
 if (isset($_SESSION['userid']))
         {
