@@ -1,6 +1,11 @@
 .fixed_button {
     width: 80px !important;
 }
+@media (min-width: 979px) {
+  .dropdown:hover .dropdown-menu {
+  display: block;
+  }
+}
 ul { list-style-type: none; }
 .fixed_middle_right	{ position:fixed; top:50%; right:2%; }
 .btn-inverse {

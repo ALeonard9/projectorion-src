@@ -6,6 +6,12 @@ ob_start();
 include '../connectToDB.php';
 include 'functions/functions.php';
 
+if(isset($_POST['check_list'])) {
+    foreach($_POST['check_list'] as $check) {
+            echo $check;
+    }
+}
+
 $numPlayers = $_POST['num_players'];
 $players = array();
 $u1 = $_POST['nuser1'];

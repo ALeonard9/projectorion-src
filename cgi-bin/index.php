@@ -130,7 +130,7 @@ echo "</ul>
 					$row_count = $moviequery->rowCount();
 				if ($row_count>0){
 					foreach($moviequery as $item){
-									echo "<li draggable=true class='list-group-item' id='item_".($item['id']."'><a href='movies/moviedetails.php?movieID=".$item['id']."'><span class='badge'>".$item['rank']."</span>   ".$item['title']."</a></li>");
+									echo "<li draggable=true class='list-group-item' id='item_".($item['id']."'><a href='http://www.imdb.com/title/".$item['imdb']."' target='_blank'><img src='".$item['poster_url']."' class='img-rounded img-responsive' style='width:30px;height:20px;float:left'><span class='badge'>".$item['rank']."</span>   ".$item['title']."</a></li>");
 					}
 				}	else {
 					echo "<a href='movies/findmovie.php' style='color:red'>Add your movie country</a>";

@@ -48,7 +48,14 @@ if (isset($_SESSION['userid']))
                 $x++;
             }
 
-	echo"<button class='btn btn-lg btn-inverse btn-block' type='submit'><span class='glyphicon glyphicon-ok-sign'></span> Submit</button>
+	echo"<label>Select Sets: </label></br>";
+  $sql = "select distinct pack from smash.deck order by pack";
+  $queryopen = $db->query($sql);
+  foreach($queryopen as $item){
+          echo "<label class='checkbox-inline'><input form='thisForm' type='checkbox' name='check_list[]' value='".$item['pack']."'>".$item['pack']."</label>";
+  }
+  echo "
+  <button class='btn btn-lg btn-inverse btn-block' type='submit'><span class='glyphicon glyphicon-ok-sign'></span> Submit</button>
   	<button class='btn btn-lg btn-warning btn-block' onClick='history.go(-1);return true;'><span class='glyphicon glyphicon-remove-sign'></span> Cancel</button>
     </form></div";
 
