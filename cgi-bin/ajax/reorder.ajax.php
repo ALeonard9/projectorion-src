@@ -9,14 +9,14 @@ $ranking = 1;
 if (isset($_GET['rank'])) {
   $ranking = $_GET['rank'];
 }
-$table = 'orion.movie';
+$table = 'orion.g_user_';
 
 if (isset($_GET['table'])) {
-  $table = $_GET['table'];
+  $table .= $_GET['table'];
 }
 
 foreach($ids as $id) {
-  $sql = "UPDATE $table SET rank = $ranking WHERE id = $id";
+  $sql = "UPDATE $table SET rank = $ranking WHERE g_id = $id";
   $db->exec($sql);
   $ranking++;
 }

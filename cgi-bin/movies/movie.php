@@ -26,9 +26,9 @@ if (isset($_POST['rank'])) {
   $start_rank = $_POST['rank'];
 }
 
-$moviesql = "SELECT * FROM orion.movies WHERE (rank >= $start_rank or rank = 0 ) and user_id =".$user_id." order by rank";
+$moviesql = "SELECT * FROM orion.movies m, orion.g_user_movies g WHERE (rank >= $start_rank or rank = 0 ) and m.id = g.movies_id and g.user_id =".$user_id." order by rank";
             $moviequery = $db->query($moviesql);
-						$sqlgamesum = "SELECT count(*) as Count FROM orion.movies WHERE completed = 1 and user_id =".$user_id;
+						$sqlgamesum = "SELECT count(*) as Count FROM orion.movies m, orion.g_user_movies g WHERE g.completed = 1 and m.id = g.movies_id  and g.user_id =".$user_id;
 						$querygamesum = $db->query($sqlgamesum);
 										 $resultsgamesum = $querygamesum->fetch(PDO::FETCH_ASSOC);
 
@@ -50,7 +50,7 @@ echo "<div class='col-md-12'><a href='movie.php?rank=".$start_rank."' class='fix
 					<ul class='list-group' id='list-items'>";
 
 					foreach($moviequery as $item){
-									echo "<li draggable=true class='list-group-item' id='item_".($item['id']."'><a href='movies/moviedetails.php?movieID=".$item['id']."'><img src='".$item['poster_url']."' class='img-rounded img-responsive' style='width:30px;height:20px;float:left'><span class='badge'>".$item['rank']."</span>   ".$item['title']."</a></li>");
+									echo "<li draggable=true class='list-group-item' id='item_".($item['g_id']."'><a href='movies/moviedetails.php?movieID=".$item['id']."'><img src='".$item['poster_url']."' class='img-rounded img-responsive' style='width:30px;height:20px;float:left'><span class='badge'>".$item['rank']."</span>   ".$item['title']."</a></li>");
 					}
 echo"	</ul>
 		</div>";

@@ -28,9 +28,9 @@ if (isset($_POST['rank'])) {
 
 $api = 'http://www.geonames.org/flags/x/';
 
-$sql = "SELECT * FROM orion.countries WHERE (rank >= $start_rank or rank = 0 ) and user_id =".$user_id." order by rank";
+$sql = "SELECT * FROM orion.countries c, orion.g_user_countries g WHERE c.id = g.countries_id and (g.rank >= $start_rank or g.rank = 0 ) and g.user_id =".$user_id." order by rank";
             $query = $db->query($sql);
-						$sqlcompletesum = "SELECT count(*) as Count FROM orion.countries WHERE completed = 1 and user_id =".$user_id;
+						$sqlcompletesum = "SELECT count(*) as Count FROM orion.countries c, orion.g_user_countries g WHERE c.id = g.countries_id and g.completed = 1 and g.user_id =".$user_id;
 						$querycompletesum = $db->query($sqlcompletesum);
 										 $resultscompletesum = $querycompletesum->fetch(PDO::FETCH_ASSOC);
 
@@ -54,7 +54,7 @@ echo "<div class='col-md-12'><a href='country.php?rank=".$start_rank."' class='f
 
 					foreach($query as $item){
             $apiresponse = $api.$item['country_code'].".gif";
-						echo "<li draggable=true class='list-group-item' id='item_".($item['id']."'><a href='countrydetails.php?id=".$item['id']."'><div class='container-fixed'><div class='row-fluid'><img src='".$apiresponse."' class='img-rounded img-responsive' style='width:30px;height:20px;float:left'><span class='badge'>".$item['rank']."</span>   ".$item['title']."</div></div></a></li>");
+						echo "<li draggable=true class='list-group-item' id='item_".($item['g_id']."'><a href='countrydetails.php?id=".$item['id']."'><div class='container-fixed'><div class='row-fluid'><img src='".$apiresponse."' class='img-rounded img-responsive' style='width:30px;height:20px;float:left'><span class='badge'>".$item['rank']."</span>   ".$item['title']."</div></div></a></li>");
 					}
 echo"	</ul>
 		</div>";

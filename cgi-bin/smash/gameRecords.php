@@ -31,23 +31,18 @@ else
 
 $sql = "SELECT * FROM smash.game g LEFT JOIN orion.users u ON g.winner_user = u.id order by $sortby $order";
 
-if (isset($_SESSION['userid']))
-        {
-                $queryopen = $db->query($sql);
 
-        echo "<div class='container text-center'><h3>Games</h3>";
-        echo "<table class='table table-hover table-striped'>";
-        echo "<tr><td onclick=\"window.location='gameRecords.php?sortby=game_id&order=".$op."'\">Game ID</td><td onclick=\"window.location='gameRecords.php?sortby=game_date&order=".$op."'\">Game Date</td><td onclick=\"window.location='gameRecords.php?sortby=display_name&order=".$op."'\">Winner</td></tr>";
+$queryopen = $db->query($sql);
 
-                foreach($queryopen as $item){
-                        echo "<tr><td><a href='gameDetails.php?gameID=".($item['game_id']."'>".$item['game_id']."</a></td><td>".$item['game_date']."</td><td>".$item['display_name']."</td></tr>");
-                }
-        echo "</table><button class='btn btn-lg btn-inverse btn-block' onclick=location.href='smash.php'><span class='glyphicon glyphicon-tower'></span> Smash Home</button>
-        </div>";
+echo "<div class='container text-center'><h3>Games</h3>";
+echo "<table class='table table-hover table-striped'>";
+echo "<tr><td onclick=\"window.location='gameRecords.php?sortby=game_id&order=".$op."'\">Game ID</td><td onclick=\"window.location='gameRecords.php?sortby=game_date&order=".$op."'\">Game Date</td><td onclick=\"window.location='gameRecords.php?sortby=display_name&order=".$op."'\">Winner</td></tr>";
 
-        }
-else
-        header("location: ../users/signin.php");
+foreach($queryopen as $item){
+  echo "<tr><td><a href='gameDetails.php?gameID=".($item['game_id']."'>".$item['game_id']."</a></td><td>".$item['game_date']."</td><td>".$item['display_name']."</td></tr>");
+}
+echo "</table><button class='btn btn-lg btn-inverse btn-block' onclick=location.href='smash.php'><span class='glyphicon glyphicon-tower'></span> Smash Home</button>
+</div>";
 
 include('../footer.php');
 echo "</div></body></html>";

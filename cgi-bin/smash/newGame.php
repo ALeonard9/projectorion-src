@@ -25,7 +25,7 @@ if (isset($_SESSION['userid']))
             }
           }
   </script>
-	<form class='form-signin' action='newGamePlayers.php' form='thisForm' method='POST'>
+	<form class='form-signin' action='newGamePlayers.php' role = 'form' form='thisForm' method='POST'>
     <div class='form-group'>
       <label for='description'>How many players? (2-4)</label>
       <input type='number' class='form-control' name='num_players' min='2' max='4' oninput='checkNumPlayers(this.value)'>
@@ -52,10 +52,12 @@ if (isset($_SESSION['userid']))
   $sql = "select distinct pack from smash.deck order by pack";
   $queryopen = $db->query($sql);
   foreach($queryopen as $item){
-          echo "<label class='checkbox-inline'><input form='thisForm' type='checkbox' name='check_list[]' value='".$item['pack']."'>".$item['pack']."</label>";
+          echo "
+          <div class = 'checkbox'>
+             <label><input type = 'checkbox' name='check_list[]' value='".$item['pack']."'>".$item['pack']."</label>
+          </div>";
   }
-  echo "
-  <button class='btn btn-lg btn-inverse btn-block' type='submit'><span class='glyphicon glyphicon-ok-sign'></span> Submit</button>
+  echo "<button class='btn btn-lg btn-inverse btn-block' type='submit'><span class='glyphicon glyphicon-ok-sign'></span> Submit</button>
   	<button class='btn btn-lg btn-warning btn-block' onClick='history.go(-1);return true;'><span class='glyphicon glyphicon-remove-sign'></span> Cancel</button>
     </form></div";
 

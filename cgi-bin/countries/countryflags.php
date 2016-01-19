@@ -18,8 +18,8 @@ $api = 'http://www.geonames.org/flags/x/';
 $user_id = $_SESSION['userid'];
 
 
-  $sqlcomplete = "SELECT * FROM orion.countries WHERE user_id =".$user_id." order by rank";
-  $sqlgamesum = "SELECT count(*) as Count FROM orion.countries WHERE completed = 1 and user_id =".$user_id;
+  $sqlcomplete = "SELECT * FROM orion.countries c, orion.g_user_countries g WHERE c.id = g.countries_id and g.user_id =".$user_id." order by rank";
+  $sqlgamesum = "SELECT count(*) as Count FROM orion.countries c, orion.g_user_countries g WHERE c.id = g.countries_id and g.completed = 1 and g.user_id =".$user_id;
 
   if (isset($_SESSION['userid']))
           {
