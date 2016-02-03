@@ -29,7 +29,7 @@ else
   $op = 'ASC';
 
 
-$sqlUserRecords = "SELECT * FROM smash.userRecord order by $sortby $order";
+$sqlUserRecords = "SELECT * FROM smash.userrecord order by $sortby $order";
 
 $queryopen = $db->query($sqlUserRecords);
 

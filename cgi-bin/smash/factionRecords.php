@@ -28,7 +28,7 @@ if($order == 'ASC')
 else
   $op = 'ASC';
 
-$sqlFactionRecords = "SELECT * FROM smash.factionRecord order by $sortby $order";
+$sqlFactionRecords = "SELECT * FROM smash.factionrecord order by $sortby $order";
 
 $queryopen = $db->query($sqlFactionRecords);
 

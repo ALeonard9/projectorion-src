@@ -16,35 +16,17 @@ include('../navigation.php');
 
 $api = 'http://www.omdbapi.com/?i=';
 
-if(isset($_GET['sortby']))
-  $sortby = $_GET['sortby'];
-else
-  $sortby = 'rank';
+  $user_id = $_SESSION['userid'];
 
-if(isset($_GET['order']))
-  $order = $_GET['order'];
-else
-  $order = 'ASC';
-
-if($order == 'ASC')
-  $op = 'DESC';
-else
-  $op = 'ASC';
-
-  $sqlcomplete = "SELECT * FROM orion.movies order by $sortby $order LIMIT 10";
-  $sqlgamesum = "SELECT count(*) as Count FROM orion.movies WHERE completed = 1";
+  $sqlcomplete = "SELECT * FROM orion.movies m, orion.g_user_movies g WHERE m.id = g.movies_id and g.user_id ='$user_id' order by g.rank DESC";
 
   if (isset($_SESSION['userid']))
           {
                   $querycomplete = $db->query($sqlcomplete);
-                          #$resultsopen = $queryopen->fetch(PDO::FETCH_ASSOC);
-                  $querygamesum = $db->query($sqlgamesum);
-                           $resultsgamesum = $querygamesum->fetch(PDO::FETCH_ASSOC);
 
           echo "<div class='container text-center'><h1><a href='movie.php'>Movies</a></h1>";
-          echo "<h3>Movies Watched:".$resultsgamesum['Count']."</h3>";
-          echo "<table class='table table-hover table-striped'>";
-          echo "<tr><td onclick=\"window.location='movie.php?sortby=Title&order=".$op."'\">Title</td><td onclick=\"window.location='movie.php?sortby=movieIMDB&order=".$op."'\">IMDB</td><td>Release Date</td><td>Rating</td><td>Runtime</td><td>IMDB Rating</td><td onclick=\"window.location='movie.php?sortby=movieRanking&order=".$op."'\">Ranking</td></tr>";
+          echo "<table id='myTable'>";
+          echo "<thead><tr><td>Title</td><td>IMDB</td><td>Release Date</td><td>Rating</td><td>Runtime</td><td>IMDB Rating</td><td>Ranking</td></tr></thead>";
 
                   foreach($querycomplete as $item){
                           $apiresponse =  file_get_contents($api.$item['imdb']);
@@ -56,6 +38,14 @@ else
   else
           header("location: ../users/signin.php");
 
-include('../footer.php');
-echo "</div></body></html>";
+echo "</div></body>
+<link rel='stylesheet' type='text/css' href='//cdn.datatables.net/1.10.10/css/jquery.dataTables.min.css'/>
+<script src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js'></script>
+<script type='text/javascript'>
+  $(document).ready(function(){
+    $('#myTable').dataTable();
+  });
+</script>
+</html>";
 ?>

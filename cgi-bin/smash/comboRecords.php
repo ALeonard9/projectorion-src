@@ -28,9 +28,9 @@ if($order == 'DESC')
 else
   $op = 'DESC';
 
-$sqlComboRecords = "SELECT *, 100.0 * win_percentage as sorter FROM smash.comboRecord order by $sortby $order, wins desc, deck1 asc, deck2 asc";
-$sqlUnusedDecks = "SELECT * FROM smash.unusedCombos";
-$sqlcountUnusedDecks = "SELECT count(*) as count FROM smash.unusedCombos";
+$sqlComboRecords = "SELECT *, 100.0 * win_percentage as sorter FROM smash.comborecord order by $sortby $order, wins desc, deck1 asc, deck2 asc";
+$sqlUnusedDecks = "SELECT * FROM smash.unusedcombos";
+$sqlcountUnusedDecks = "SELECT count(*) as count FROM smash.unusedcombos";
 
 $queryopen = $db->query($sqlComboRecords);
 $querydecks = $db->query($sqlUnusedDecks);
