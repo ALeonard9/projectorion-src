@@ -44,7 +44,9 @@ echo "</div></body>
 <script src='//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js'></script>
 <script type='text/javascript'>
   $(document).ready(function(){
-    $('#myTable').dataTable();
+    $('#myTable').dataTable( {
+      'order': [[ 5, 'desc' ]]
+    });
   });
 </script>
 </html>";

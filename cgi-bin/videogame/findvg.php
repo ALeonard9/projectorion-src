@@ -24,30 +24,30 @@ if ($_SESSION['usergroup'] == 'User' or $_SESSION['usergroup'] == 'Admin'){
   echo "
     <div class='col-md-3'></div>
     <div class='col-md-6'>
-    <form class='form-signin' action='findmovie.php' form='thisForm' method='POST'>
+    <form class='form-signin' action='findvg.php' form='thisForm' method='POST'>
     <div class='form-group'>
-      <div class='text-center'><label for='title'><h2>Movie Title</h2></label></div>
+      <div class='text-center'><label for='title'><h2>Game Title</h2></label></div>
       <input type='text' class='form-control' name='title_search' value='".$search."'>
     </div>
     <button class='btn btn-lg btn-inverse btn-block' type='submit'><span class='glyphicon glyphicon-search'></span> Search</button></form></br>";
 
   if (isset($search)){
     $searchafter = urlencode($search);
-    $api = "http://www.omdbapi.com/?s=$searchafter&r=JSON&type=movie";
+    $api = "https://www.igdb.com/api/v1/games/search?token=EEmW0D2LTmx-tJ2Nt492QzpmyZjEFos6G4Exi0OcJgc&q=$searchafter";
     $apiresponse =  file_get_contents($api);
     $json = json_decode($apiresponse);
 
     echo "<ul class='list-group' id='list-items'>";
 
-    					foreach($json->{'Search'} as $jsonitem){
-								echo "<li class='list-group-item'><a href='http://www.imdb.com/title/".$jsonitem->{'imdbID'}."' target='_blank'><span class='glyphicon glyphicon-film'></span></a>    <a href='addmovie.php?title=".$jsonitem->{'Title'}."&imdbid=".$jsonitem->{'imdbID'}."&poster=".$jsonitem->{'Poster'}."'>".$jsonitem->{'Title'}."</a></li>";
+    					foreach($json->{'games'} as $jsonitem){
+								echo "<li class='list-group-item'><a href='https://www.igdb.com/games/".$jsonitem->{'slug'}."' target='_blank'><span class='glyphicon glyphicon-knight'></span></a>    <a href='addvg.php?title=".$jsonitem->{'name'}."&id=".$jsonitem->{'id'}."&poster=".$jsonitem->{'cover'}."'>".$jsonitem->{'name'}."</a></li>";
     					}
     echo "</ul>
     		</div>";
   }
 }
 else
-	  header("location: movietable.php");
+	  header("location: vgtable.php");
 
 include('../footer.php');
 echo "</div></body></html>";

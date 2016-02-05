@@ -14,6 +14,10 @@ include('../header.php');
 echo "</head><body><div class='container'>";
 include('../navigation.php');
 $user_id = $_SESSION['userid'];
+$username = 'Your';
+if (isset($_SESSION['username'])) {
+	$username = $_SESSION['username'].'\'s';
+}
 if ($_SESSION['usergroup'] == 'User' or $_SESSION['usergroup'] == 'Admin'){
 
 $start_rank = 1;
@@ -35,7 +39,7 @@ $moviesql = "SELECT * FROM orion.movies m, orion.g_user_movies g WHERE (rank >= 
 echo "<div class='col-md-12'><a href='movie.php?rank=".$start_rank."' class='fixed_middle_right' ><span class='glyphicon glyphicon-refresh'></span></a></div>
       <div class='col-md-3'></div>
 			<div class='col-md-6'>
-					<div class='text-center'><h1><a href='movietable.php'>Movies</a></h1>
+					<div class='text-center'><h1><a href='movietable.php'>".$username." Movies</a></h1>
 					<a href='findmovie.php' class='btn btn-lg btn-inverse btn-block' ><span class='glyphicon glyphicon-plus'></span> Add a Movie</a>
 					<h3>Movies Watched:".$resultsgamesum['Count']."</h3>
           <form class='form-signin' action='movie.php' form='thisForm' method='POST'>

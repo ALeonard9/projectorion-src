@@ -14,6 +14,10 @@ include('../header.php');
 echo "</head><body><div class='container'>";
 include('../navigation.php');
 $user_id = $_SESSION['userid'];
+$username = 'Your';
+if (isset($_SESSION['username'])) {
+	$username = $_SESSION['username'].'\'s';
+}
 if ($_SESSION['usergroup'] == 'User' or $_SESSION['usergroup'] == 'Admin'){
 
 $start_rank = 1;
@@ -37,7 +41,7 @@ $sql = "SELECT * FROM orion.countries c, orion.g_user_countries g WHERE c.id = g
 echo "<div class='col-md-12'><a href='country.php?rank=".$start_rank."' class='fixed_middle_right' ><span class='glyphicon glyphicon-refresh'></span></a></div>
       <div class='col-md-3'></div>
 			<div class='col-md-6'>
-					<div class='text-center'><h1>Countries</h1>
+					<div class='text-center'><h1>".$username." Countries</h1>
 					<a href='findcountry.php' class='btn btn-lg btn-inverse btn-block' ><span class='glyphicon glyphicon-plus'></span> Add a Country</a>
           <a href='countryflags.php' class='btn btn-lg btn-inverse btn-block' ><span class='glyphicon glyphicon-flag'></span> Flag Page</a>
           <h3>Countries Visited:".$resultscompletesum['Count']."</h3>
