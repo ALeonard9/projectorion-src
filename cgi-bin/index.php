@@ -152,6 +152,21 @@ echo"	</ul>
 			}
 echo"	</ul>
 		</div>
+		<div class='col-md-6 text-center'>
+		<h1><a href='videogame/videogame.php'>Video Games</a></h1>
+		<ul class='list-group' id='list-items'>";
+		$sql = "SELECT * FROM orion.videogames c, orion.g_user_videogames g WHERE c.id = g.videogames_id and g.user_id =".$user_id." order by rank LIMIT 5";
+								$query = $db->query($sql);
+								$row_count = $query->rowCount();
+		if ($row_count>0){
+			foreach($query as $item){
+				echo "<li  class='list-group-item' id='item_".($item['id']."'><a href='videogamedetails.php?id=".$item['id']."'><div class='container-fixed'><div class='row-fluid'><img src='".$item['poster_url']."' class='img-rounded img-responsive' style='width:30px;height:20px;float:left'><span class='badge'>".$item['rank']."</span>   ".$item['title']."</div></div></a></li>");
+			}
+		}	else {
+			echo "<a href='videogames/findvg.php' style='color:red'>Add your find video game</a>";
+		}
+echo"	</ul>
+		</div>
 	</div>
 
 
