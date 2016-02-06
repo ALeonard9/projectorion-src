@@ -163,7 +163,7 @@ echo"	</ul>
 				echo "<li  class='list-group-item' id='item_".($item['id']."'><a href='videogamedetails.php?id=".$item['id']."'><div class='container-fixed'><div class='row-fluid'><img src='".$item['poster_url']."' class='img-rounded img-responsive' style='width:30px;height:20px;float:left'><span class='badge'>".$item['rank']."</span>   ".$item['title']."</div></div></a></li>");
 			}
 		}	else {
-			echo "<a href='videogames/findvg.php' style='color:red'>Add your find video game</a>";
+			echo "<a href='videogame/findvg.php' style='color:red'>Add your find video game</a>";
 		}
 echo"	</ul>
 		</div>

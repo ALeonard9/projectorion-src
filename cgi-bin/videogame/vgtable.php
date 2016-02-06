@@ -21,7 +21,7 @@ $sqlcomplete = "SELECT * FROM orion.videogames m, orion.g_user_videogames g WHER
 if (isset($_SESSION['userid']))
         {
                 $querycomplete = $db->query($sqlcomplete);
-          echo "<div class='container text-center'><h1><a href='videogame.php'>Videogames</a></h1>";
+          echo "<div class='container text-center'><h1><a href='videogame.php'>Video Games</a></h1>";
           echo "<table id='myTable'>";
           echo "<thead><tr><td>Title</td><td>IGDB</td><td>Release Date</td><td>System</td><td>IGDB Rating</td><td>Ranking</td></tr></thead>";
 

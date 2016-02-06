@@ -39,7 +39,7 @@ $sql = "SELECT * FROM orion.videogames c, orion.g_user_videogames g WHERE c.id =
 echo "<div class='col-md-12'><a href='videogame.php?rank=".$start_rank."' class='fixed_middle_right' ><span class='glyphicon glyphicon-refresh'></span></a></div>
       <div class='col-md-3'></div>
 			<div class='col-md-6'>
-					<div class='text-center'><h1><a href='vgtable.php'>".$username." Videogames</a></h1>
+					<div class='text-center'><h1><a href='vgtable.php'>".$username." Video Games</a></h1>
 					<a href='findvg.php' class='btn btn-lg btn-inverse btn-block' ><span class='glyphicon glyphicon-plus'></span> Add a Game</a>
 					<h3>Games Finished:".$resultsgamesum['Count']."</h3>
           <form class='form-signin' action='videogame.php' form='thisForm' method='POST'>
@@ -54,7 +54,7 @@ echo "<div class='col-md-12'><a href='videogame.php?rank=".$start_rank."' class=
 					<ul class='list-group' id='list-items'>";
 
 					foreach($query as $item){
-									echo "<li draggable=true class='list-group-item' id='item_".($item['id']."'><a href='videogames/videogamedetails.php?id=".$item['id']."'><img src='".$item['poster_url']."' class='img-rounded img-responsive' style='width:30px;height:20px;float:left'><span class='badge'>".$item['rank']."</span>   ".$item['title']."</a></li>");
+									echo "<li draggable=true class='list-group-item' id='item_".($item['g_id']."'><a href='videogame/videogamedetails.php?id=".$item['g_id']."'><img src='".$item['poster_url']."' class='img-rounded img-responsive' style='width:30px;height:20px;float:left'><span class='badge'>".$item['rank']."</span>   ".$item['title']."</a></li>");
 					}
 echo"	</ul>
 		Game information was freely provided by <a href='www.igdb.com'>IGDB.com.</a></div>";
