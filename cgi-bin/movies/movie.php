@@ -30,7 +30,7 @@ if (isset($_POST['rank'])) {
   $start_rank = $_POST['rank'];
 }
 
-$moviesql = "SELECT * FROM orion.movies m, orion.g_user_movies g WHERE (rank >= $start_rank or rank = 0 ) and m.id = g.movies_id and g.user_id =".$user_id." order by rank";
+$moviesql = "SELECT * FROM orion.movies m, orion.g_user_movies g WHERE (rank >= $start_rank or rank = 0 ) and m.id = g.movies_id and g.completed = 1 and g.user_id =".$user_id." order by rank";
             $moviequery = $db->query($moviesql);
 						$sqlgamesum = "SELECT count(*) as Count FROM orion.movies m, orion.g_user_movies g WHERE g.completed = 1 and m.id = g.movies_id  and g.user_id =".$user_id;
 						$querygamesum = $db->query($sqlgamesum);
@@ -40,7 +40,8 @@ echo "<div class='col-md-12'><a href='movie.php?rank=".$start_rank."' class='fix
       <div class='col-md-3'></div>
 			<div class='col-md-6'>
 					<div class='text-center'><h1><a href='movietable.php'>".$username." Movies</a></h1>
-					<a href='findmovie.php' class='btn btn-lg btn-inverse btn-block' ><span class='glyphicon glyphicon-plus'></span> Add a Movie</a>
+          <a href='watchlist.php' class='btn btn-lg btn-inverse btn-block' ><span class='glyphicon glyphicon-eye-open'></span> Watchlist</a>
+          <a href='findmovie.php' class='btn btn-lg btn-inverse btn-block' ><span class='glyphicon glyphicon-plus'></span> Add a Movie</a>
 					<h3>Movies Watched:".$resultsgamesum['Count']."</h3>
           <form class='form-signin' action='movie.php' form='thisForm' method='POST'>
           <div class='input-group'>
