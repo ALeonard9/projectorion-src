@@ -13,7 +13,7 @@ if (isset($_SESSION['username'])) {
 
 include 'connectToDB.php';
 
-$moviesql = "SELECT * FROM orion.movies m, orion.g_user_movies g WHERE m.id = g.movies_id and g.user_id = $user_id order by rank ASC LIMIT 5";
+$moviesql = "SELECT * FROM orion.movies m, orion.g_user_movies g WHERE g.completed = 1 and m.id = g.movies_id and g.user_id = $user_id order by rank ASC LIMIT 5";
 
 echo "<!DOCTYPE html>
 <html lang='en'>

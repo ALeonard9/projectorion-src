@@ -18,7 +18,7 @@ $api = 'http://www.omdbapi.com/?i=';
 
   $user_id = $_SESSION['userid'];
 
-  $sqlcomplete = "SELECT * FROM orion.movies m, orion.g_user_movies g WHERE m.id = g.movies_id and g.user_id ='$user_id' order by g.rank DESC";
+  $sqlcomplete = "SELECT * FROM orion.movies m, orion.g_user_movies g WHERE m.id = g.movies_id and g.completed = 1 and g.user_id ='$user_id' order by g.rank DESC";
 
   if (isset($_SESSION['userid']))
           {
