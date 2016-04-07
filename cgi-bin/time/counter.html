@@ -1,0 +1,81 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="../css/flipclock.css">
+
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+		<script src="../js/flipclock.js"></script>
+	</head>
+	<body>
+	<div class="clock" style="margin:2em;"></div>
+	<div class="message"></div>
+
+	<button class="start" id='ssb'>Start</button>
+	<button class="stop">Stop</button>
+	<input type='number' id='mins' value='5'/>
+	<button class="lose">Lose time</button>
+	<button class="gain">Gain time</button>
+	<button class="reset">Reset</button>
+
+	<script type="text/javascript">
+		var clock;
+
+		$(document).ready(function() {
+
+			clock = $('.clock').FlipClock(3600, {
+		                countdown: true,
+						        clockFace: 'MinuteCounter',
+										autoStart: false
+		    });
+
+				// $('#ssb').click(function(e) {
+				// 	var clazz = $(this).attr("class")
+				// 	if (clazz = 'Start'){
+				// 		alert('1');
+				// 		$(this).html('Stop');
+				// 		$(this).removeClass('start').addClass('stop');
+				// 		clock.start();
+				// 	} else {
+				// 		alert('2');
+				// 		$(this).html('Start');
+				// 		$(this).removeClass('stop').addClass('start');
+				// 		clock.stop();
+				//   }
+				//
+				// });
+
+				$('.start').click(function(e) {
+						clock.start();
+				});
+				$('.stop').click(function(e) {
+						clock.stop();
+				});
+
+				$('.lose').click(function(e) {
+					var time  = clock.getTime();
+					var minutes = document.getElementById('mins');
+					var seconds = (minutes.value * 60) -1;
+					var newTime = time - seconds;
+					if ( newTime < 0){
+							newTime = 0;
+					}
+					clock.setTime(newTime);
+				});
+
+				$('.gain').click(function(e) {
+					var time  = clock.getTime();
+					var minutes = document.getElementById('mins');
+					var seconds = (minutes.value * 60) -1;
+					var newTime = parseFloat(time) + parseFloat(seconds);
+					clock.setTime(newTime);
+				});
+				$('.reset').click(function(e) {
+					clock.stop()
+					clock.setTime(3600);
+				});
+
+		});
+	</script>
+
+	</body>
+</html>
