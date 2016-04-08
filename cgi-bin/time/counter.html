@@ -1,22 +1,32 @@
 <html>
 	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="aleonard.us">
+		<meta name="author" content="LeonineStudios@outlook.com">
+		<title>Time BG</title>
+		<!-- Bootstrap core CSS -->
+		<link href="../css/bootstrap.min.css" rel="stylesheet">
+		<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+		<link href="../css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+		<!-- Custom styles for this template -->
 		<link rel="stylesheet" href="../css/flipclock.css">
-
+		<link href="../css/leo.css" rel="stylesheet">
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-
 		<script src="../js/flipclock.js"></script>
 	</head>
 	<body>
-	<div class="clock" style="margin:2em;"></div>
-	<div class="message"></div>
-
-	<button class="start" id='ssb'>Start</button>
-	<button class="stop">Stop</button>
-	<input type='number' id='mins' value='5'/>
-	<button class="lose">Lose time</button>
-	<button class="gain">Gain time</button>
-	<button class="reset">Reset</button>
-
+		<div class='container text-center'>
+			<div class='col-md-3'></div><div class='col-md-6'>
+				<div class="clock" style="margin-bottom:3em; margin-top:3em;"></div>
+				<input type='number' id='mins' style="margin:1em;" value='5'/>
+				<button class="lose btn btn-lg btn-inverse btn-block">Lose time</button>
+				<button class="gain btn btn-lg btn-inverse btn-block">Gain time</button>
+				<button class="start btn btn-lg btn-inverse btn-block" id='ssb'>Start</button>
+				<button class="reset btn btn-lg btn-inverse btn-block">Reset</button>
+			</div> <!-- 6 -->
+		</div> <!-- Container -->
 	<script type="text/javascript">
 		var clock;
 
@@ -28,27 +38,16 @@
 										autoStart: false
 		    });
 
-				// $('#ssb').click(function(e) {
-				// 	var clazz = $(this).attr("class")
-				// 	if (clazz = 'Start'){
-				// 		alert('1');
-				// 		$(this).html('Stop');
-				// 		$(this).removeClass('start').addClass('stop');
-				// 		clock.start();
-				// 	} else {
-				// 		alert('2');
-				// 		$(this).html('Start');
-				// 		$(this).removeClass('stop').addClass('start');
-				// 		clock.stop();
-				//   }
-				//
-				// });
-
-				$('.start').click(function(e) {
+				$('#ssb').click(function(e) {
+					if ($(this).hasClass('start')){
+						$(this).html('Stop');
+						$(this).removeClass('start').addClass('stop');
 						clock.start();
-				});
-				$('.stop').click(function(e) {
+					} else {
+						$(this).html('Start');
+						$(this).removeClass('stop').addClass('start');
 						clock.stop();
+				  }
 				});
 
 				$('.lose').click(function(e) {
@@ -70,12 +69,16 @@
 					clock.setTime(newTime);
 				});
 				$('.reset').click(function(e) {
+					if ($('#ssb').hasClass('stop')){
+						$('#ssb').html('Start');
+						$('#ssb').removeClass('stop').addClass('start');
+					}
 					clock.stop()
 					clock.setTime(3600);
 				});
 
 		});
 	</script>
-
+	<script src='https://cdn.jsdelivr.net/jquery.ui.touch-punch/0.2.3/jquery.ui.touch-punch.min.js'></script>
 	</body>
 </html>

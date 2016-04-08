@@ -49,3 +49,8 @@ ul { list-style-type: none; }
 .btn-inverse.active {
   color: rgba(255, 255, 255, 0.75);
 }
+@media (max-width: 357px) {
+  .flip-clock-wrapper ul {
+    width: 50px;
+  }
+}
