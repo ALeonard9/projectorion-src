@@ -20,7 +20,12 @@
 		<div class='container text-center'>
 			<div class='col-md-3'></div><div class='col-md-6'>
 				<div class="clock" style="margin-bottom:3em; margin-top:3em;"></div>
-				<input type='number' id='mins' style="margin:1em;" value='5'/>
+				<select class='form-control' style="margin-bottom:1em;" id='mins'>
+					<option value='1'>1 minutes</option>
+					<option value='3'>3 minutes</option>
+					<option selected='selected' value='5'>5 minutes</option>
+					<option value='10'>10 minutes</option>
+				</select>
 				<button class="lose btn btn-lg btn-inverse btn-block">Lose time</button>
 				<button class="gain btn btn-lg btn-inverse btn-block">Gain time</button>
 				<button class="start btn btn-lg btn-inverse btn-block" id='ssb'>Start</button>
