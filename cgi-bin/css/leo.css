@@ -51,7 +51,7 @@ ul { list-style-type: none; }
 }
 @media (max-width: 357px) {
   .flip-clock-wrapper ul {
-    width: 50px;
+    width: 40px;
   }
 }
 
