@@ -13,7 +13,7 @@ if (isset($_SESSION['username'])) {
 
 include 'connectToDB.php';
 
-$moviesql = "SELECT * FROM orion.movies m, orion.g_user_movies g WHERE g.completed = 1 and m.id = g.movies_id and g.user_id = $user_id order by rank ASC LIMIT 5";
+$moviesql = "SELECT * FROM orion.movies m, orion.g_user_movies g WHERE g.completed = 1 and m.id = g.movies_id and g.rank <> 0 and g.user_id = $user_id order by rank ASC LIMIT 5";
 
 echo "<!DOCTYPE html>
 <html lang='en'>
@@ -139,7 +139,7 @@ echo"	</ul>
 			<h1><a href='countries/country.php'>Countries</a></h1>
 			<ul class='list-group' id='list-items'>";
 			$api = 'http://www.geonames.org/flags/x/';
-			$sql = "SELECT * FROM orion.countries c, orion.g_user_countries g WHERE c.id = g.countries_id and g.user_id =".$user_id." order by rank LIMIT 5";
+			$sql = "SELECT * FROM orion.countries c, orion.g_user_countries g WHERE c.id = g.countries_id and g.rank <> 0 and g.user_id =".$user_id." order by rank LIMIT 5";
 			            $query = $db->query($sql);
 									$row_count = $query->rowCount();
 			if ($row_count>0){
@@ -155,7 +155,7 @@ echo"	</ul>
 		<div class='col-md-6 text-center'>
 		<h1><a href='videogame/videogame.php'>Video Games</a></h1>
 		<ul class='list-group' id='list-items'>";
-		$sql = "SELECT * FROM orion.videogames c, orion.g_user_videogames g WHERE c.id = g.videogames_id and g.user_id =".$user_id." order by rank LIMIT 5";
+		$sql = "SELECT * FROM orion.videogames c, orion.g_user_videogames g WHERE c.id = g.videogames_id and g.rank <> 0 and g.user_id =".$user_id." order by rank LIMIT 5";
 								$query = $db->query($sql);
 								$row_count = $query->rowCount();
 		if ($row_count>0){

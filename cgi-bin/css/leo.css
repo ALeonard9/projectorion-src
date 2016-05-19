@@ -51,10 +51,14 @@ ul { list-style-type: none; }
 }
 @media (max-width: 357px) {
   .flip-clock-wrapper ul {
-    width: 40px;
+    width: 35px;
   }
 }
 
 .flip-clock-wrapper {
   width: auto;
+}
+
+.goth {
+  font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
 }
