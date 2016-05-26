@@ -92,6 +92,13 @@ echo "<!DOCTYPE html>
 								</ul>
 							</li>
 							<li class='dropdown'>
+								<a href='#' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false'>Fleet <span class='caret'></span></a>
+								<ul class='dropdown-menu'>
+									<li><a href='timer'>Timer</a></li>
+									<li><a href='rules'>Rules</a></li>
+								</ul>
+							</li>
+							<li class='dropdown'>
 								<a href='#' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false'>About <span class='caret'></span></a>
 								<ul class='dropdown-menu'>
 									<li><a href='http://resume.aleonard.us'>Resume</a></li>
