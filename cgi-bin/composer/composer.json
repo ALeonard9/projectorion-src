@@ -6,6 +6,10 @@
         "silex/silex": "1.0.*@dev",
         "twig/twig": ">=1.8,<2.0-dev",
         "google/apiclient": "1.0.*@beta",
-        "guzzlehttp/guzzle": "5.2.*"
-    }
+        "guzzlehttp/guzzle": "5.2.*",
+        "mashape/unirest-php" : "dev-master"
+      },
+      "autoload": {
+        "psr-0": {"Unirest": "lib/"}
+      }
 }

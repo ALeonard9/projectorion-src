@@ -26,7 +26,7 @@
           <ul class="dropdown-menu">
             <li><a href='../countries/country.php'>Countries</a></li>
             <li><a href="../movies/movie.php">Movies</a></li>
-            <li><a href="#">TV</a></li>
+            <li><a href="../tv/tv.php">TV</a></li>
             <li><a href="../videogame/videogame.php">Video Games</a></li>
           </ul>
         </li>

@@ -24,32 +24,34 @@ if ($_SESSION['usergroup'] == 'User' or $_SESSION['usergroup'] == 'Admin'){
   echo "
     <div class='col-md-3'></div>
     <div class='col-md-6'>
-    <form class='form-signin' action='findvg.php' form='thisForm' method='POST'>
+    <form class='form-signin' action='findtv.php' form='thisForm' method='POST'>
     <div class='form-group'>
-      <div class='text-center'><label for='title'><h2>Game Title</h2></label></div>
+      <div class='text-center'><label for='title'><h2>Tv Series</h2></label></div>
       <input type='text' class='form-control' name='title_search' value='".$search."'>
     </div>
     <button class='btn btn-lg btn-inverse btn-block' type='submit'><span class='glyphicon glyphicon-search'></span> Search</button></form></br>";
 
   if (isset($search)){
     $searchafter = urlencode($search);
-    $response = Unirest\Request::get("https://igdbcom-internet-game-database-v1.p.mashape.com/games/?fields=slug%2Cname%2Ccover&limit=10&offset=0&order=release_dates.date%3Adesc&search=$searchafter",
+    // $api = "https://www.igdb.com/api/v1/games/search?token=EEmW0D2LTmx-tJ2Nt492QzpmyZjEFos6G4Exi0OcJgc&q=$searchafter";
+    $response = Unirest\Request::get("http://api.tvmaze.com/search/shows?q=$searchafter",
       array(
-        "X-Mashape-Key" => "7811yqQtDdmshG3bFtvJG5LuXeyFp1FoT4LjsnewNaBnphcdTF",
         "Accept" => "application/json"
       )
     );
+
     $json = json_decode($response->raw_body, true);
     echo "<ul class='list-group' id='list-items'>";
-      foreach($json as $jsonitem){
-        echo "<li class='list-group-item'><a href='https://www.igdb.com/games/".$jsonitem['slug']."' target='_blank'><span class='glyphicon glyphicon-knight'></span></a>    <a href='addvg.php?title=".urlencode($jsonitem['name'])."&id=".$jsonitem['id']."&poster=".$jsonitem['cover']['url']."'>".$jsonitem['name']."</a></li>";
-      }
+
+    foreach($json as $jsonitem){
+        echo "<li class='list-group-item'><a href='http://www.imdb.com/title/".$jsonitem['show']['externals']['imdb']."' target='_blank'><span class='glyphicon glyphicon-blackboard'></span></a>    <a href='addtv.php?status=".urlencode($jsonitem['show']['status'])."&title=".urlencode($jsonitem['show']['name'])."&id=".$jsonitem['show']['externals']['imdb']."&tvmaze=".$jsonitem['show']['id']."&poster=".urlencode(current($jsonitem['show']['image']))."'>".$jsonitem['show']['name']."</a></li>";
+    }
     echo "</ul>
                 </div>";
   }
 }
 else
-          header("location: vgtable.php");
+          header("location: ../users/login.php");
 
 include('../footer.php');
 echo "</div></body></html>";
