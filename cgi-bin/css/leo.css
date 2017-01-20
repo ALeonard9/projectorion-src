@@ -62,3 +62,15 @@ ul { list-style-type: none; }
 .goth {
   font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
 }
+.watched {
+  padding:0;
+  background-color: #308e34;
+  border: none;
+  color: white;
+}
+.unwatched {
+  padding:0;
+  background-color: #8e3035;
+  border: none;
+  color: white;
+}
