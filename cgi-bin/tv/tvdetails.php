@@ -20,13 +20,13 @@ if ($_SESSION['usergroup'] == 'User' or $_SESSION['usergroup'] == 'Admin'){
 if (isset($_GET['id'])) {
   $show_id = $_GET['id'];
 }
-$metricssql = "SELECT count(*) as subset, (SELECT COUNT(*) FROM orion.g_user_tvepisodes g, orion.tvepisodes e WHERE g.tvepisode_id = e.id AND tv_id = ".$show_id." AND user_id = ".$user_id.") AS total FROM orion.g_user_tvepisodes g, orion.tvepisodes e WHERE g.tvepisode_id = e.id AND tv_id = ".$show_id." AND user_id = ".$user_id." AND watched = 1";
+$metricssql = "SELECT count(*) as subset, (SELECT COUNT(*) FROM orion.g_user_tvepisodes g, orion.tvepisodes e WHERE g.tvepisode_id = e.id AND tv_id = ".$show_id." AND user_id = ".$user_id." AND e.airdate <= '".date('Y-m-d')."') AS total FROM orion.g_user_tvepisodes g, orion.tvepisodes e WHERE g.tvepisode_id = e.id AND tv_id = ".$show_id." AND user_id = ".$user_id." AND watched = 1";
 $metricquery = $db->query($metricssql);
          $metrics = $metricquery->fetch(PDO::FETCH_ASSOC);
 $titlesql = "SELECT title as title FROM orion.tv where id = $show_id";
 $querytitle = $db->query($titlesql);
          $series_title = $querytitle->fetch(PDO::FETCH_ASSOC);
-$sql = "SELECT g.g_id, e.title, e.season, e.season_number, g.watched FROM orion.g_user_tvepisodes g, orion.tvepisodes e WHERE g.tvepisode_id = e.id AND e.tv_id = ".$show_id." AND user_id = ".$user_id." order by e.season ASC, e.season_number ASC";
+$sql = "SELECT g.g_id, e.title, e.season, e.season_number, g.watched FROM orion.g_user_tvepisodes g, orion.tvepisodes e WHERE g.tvepisode_id = e.id AND e.tv_id = ".$show_id." AND user_id = ".$user_id." AND e.airdate <= '".date('Y-m-d')."' order by e.season ASC, e.season_number ASC";
 $query = $db->query($sql);
 echo "<div class='col-md-3'></div>
 			<div class='col-md-6'><h1 class='text-center'>".$series_title['title']."</h1>
