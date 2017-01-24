@@ -5,7 +5,7 @@ include '../connectToDB.php';
 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 $sql = "SELECT * FROM orion.tv WHERE status = 'Running'";
 $query = $db->query($sql);
-$today = date();
+$today = date('Y-m-d');
 $week =  date('Y-m-d', strtotime('+7 days'));
 
 foreach($query as $item){
@@ -34,8 +34,6 @@ foreach($query as $item){
 						echo 'Connection failed: ' . $e->getMessage();
 				}
 			}
-
-
 		}
 	}
 }
