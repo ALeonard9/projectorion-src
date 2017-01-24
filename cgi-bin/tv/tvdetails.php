@@ -29,7 +29,7 @@ $querytitle = $db->query($titlesql);
 $sql = "SELECT g.g_id, e.title, e.season, e.season_number, g.watched FROM orion.g_user_tvepisodes g, orion.tvepisodes e WHERE g.tvepisode_id = e.id AND e.tv_id = ".$show_id." AND user_id = ".$user_id." AND e.airdate <= '".date('Y-m-d')."' order by e.season ASC, e.season_number ASC";
 $query = $db->query($sql);
 echo "<div class='col-md-3'></div>
-			<div class='col-md-6'><h1 class='text-center'>".$series_title['title']."</h1>
+			<div class='col-md-6'><h1 class='text-center'><a href='tv.php'>".$series_title['title']."</a></h1>
       <h3 class='text-center'><span id='done'>".$metrics['subset']."</span>/<span id='total'>".$metrics['total']."</span> : <span id='percent'></span>%</h3>";
 if ($metrics['total'] - $metrics['subset'] > 0 ) {
   echo "<a class='btn btn-lg btn-inverse btn-block fullseason' >Watched All</a><br/>";

@@ -21,7 +21,7 @@ $end = date('Y-m-d', strtotime('+5 days'));
 
 if ($_SESSION['usergroup'] == 'User' or $_SESSION['usergroup'] == 'Admin'){
 
-$sql = "SELECT g.g_id, e.title, e.season, e.season_number, e.airdate FROM orion.g_user_tvepisodes g, orion.tvepisodes e WHERE g.tvepisode_id = e.id AND user_id = ".$user_id." AND g.watched = 0 AND e.airdate >= '".$begin."' AND e.airdate <= '".$end."' order by e.airdate";
+$sql = "SELECT t.title as tv_title, g.g_id, e.title, e.season, e.season_number, e.airdate FROM orion.tv t, orion.g_user_tvepisodes g, orion.tvepisodes e WHERE g.tvepisode_id = e.id AND user_id = ".$user_id." AND e.tv_id = t.id AND g.watched = 0 AND e.airdate >= '".$begin."' AND e.airdate <= '".$end."' order by e.airdate";
 $query = $db->query($sql);
 echo "<div class='col-md-3'></div>
 			<div class='col-md-6'><h1 class='text-center'><a href='tv.php'>What to watch</a></h1>
@@ -44,7 +44,7 @@ echo "<div class='col-md-3'></div>
           }
           $classw = 'unwatched';
           $displayw = 'Not Watched';
-          echo "<li class='list-group-item'>".$item['season'].".".$item['season_number'].": ".$item['title']."<button class='pull-right ".$classw."' type='button' id='".$item['g_id']."'>".$displayw."</button></li>";
+          echo "<li class='list-group-item'>".$item['tv_title']." ".$item['season'].".".$item['season_number'].": ".$item['title']."<button class='pull-right ".$classw."' type='button' id='".$item['g_id']."'>".$displayw."</button></li>";
         }
         echo "</div></div>";
 }
