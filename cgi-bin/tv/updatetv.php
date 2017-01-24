@@ -18,7 +18,7 @@ foreach($query as $item){
 	if ($json['status'] != $item['status']) {
 		try {
 			$stmt = $db->prepare("UPDATE `orion`.`tv` SET `status`=:status WHERE `id`=:id");
-			$stmt->bindParam(':id', $id);
+			$stmt->bindParam(':id', $item['id']);
 			$stmt->bindParam(':status', $json['status']);
 			$stmt->execute();
 			echo $item['title']." updated to ".$item['status'];

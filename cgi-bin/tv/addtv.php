@@ -4,6 +4,8 @@ session_start();
 ob_start();
 
 include '../connectToDB.php';
+$today = date();
+$week =  date('Y-m-d', strtotime('+7 days'));
 
 $id = $_GET['id'];
 $title = urldecode($_GET['title']);
@@ -42,7 +44,9 @@ $api = "http://api.tvmaze.com/shows/$tvmaze/episodes";
 $apiresponse =  file_get_contents($api);
 $json = json_decode($apiresponse, true);
 foreach($json as $jsonitem){
-		$insertsql .= "(\"".$jsonitem['name']."\", ".$jsonitem['id'].", ".$row_id.", \"".$jsonitem['airdate']."\", ".$jsonitem['season'].", ".$jsonitem['number']."), ";
+		if ($jsonitem['airdate'] <= $week){
+			$insertsql .= "(\"".$jsonitem['name']."\", ".$jsonitem['id'].", ".$row_id.", \"".$jsonitem['airdate']."\", ".$jsonitem['season'].", ".$jsonitem['number']."), ";
+		}
 }
 $insertsql = rtrim($insertsql,', ');
 try {
