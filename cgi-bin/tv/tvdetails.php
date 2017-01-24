@@ -26,12 +26,15 @@ $metricquery = $db->query($metricssql);
 $titlesql = "SELECT title as title FROM orion.tv where id = $show_id";
 $querytitle = $db->query($titlesql);
          $series_title = $querytitle->fetch(PDO::FETCH_ASSOC);
-$sql = "SELECT g.g_id, e.title, e.season, e.season_number, g.watched FROM orion.g_user_tvepisodes g, orion.tvepisodes e WHERE g.tvepisode_id = e.id AND e.tv_id = ".$user_id." order by e.season ASC, e.season_number ASC";
+$sql = "SELECT g.g_id, e.title, e.season, e.season_number, g.watched FROM orion.g_user_tvepisodes g, orion.tvepisodes e WHERE g.tvepisode_id = e.id AND e.tv_id = ".$show_id." AND user_id = ".$user_id." order by e.season ASC, e.season_number ASC";
 $query = $db->query($sql);
 echo "<div class='col-md-3'></div>
 			<div class='col-md-6'><h1 class='text-center'>".$series_title['title']."</h1>
-      <h3 class='text-center'>".$metrics['subset']."/".$metrics['total']." : ".number_format( $metrics['subset']/$metrics['total'] * 100, 2 )."%</h3>
-      <div class='panel-group'>";
+      <h3 class='text-center'><span id='done'>".$metrics['subset']."</span>/<span id='total'>".$metrics['total']."</span> : <span id='percent'></span>%</h3>";
+if ($metrics['total'] - $metrics['subset'] > 0 ) {
+  echo "<a class='btn btn-lg btn-inverse btn-block fullseason' >Watched All</a><br/>";
+}
+echo "<div class='panel-group'>";
         $season = 0;
         foreach($query as $item){
           if($season != $item['season'] && $season != 0){
@@ -66,21 +69,50 @@ echo "</div>
 <script type='text/javascript'>
 $(document).ready(function () {
   var watched = 0;
-  $(':button').on('click', function () {
+  $('.watched,.unwatched').on('click', function () {
     $(this).toggleClass('watched').toggleClass( 'unwatched' );
     if ($(this).html() == 'Watched') {
       $(this).html('Not Watched');
       watched = 0;
+      changeDone(-1);
     } else {
       $(this).html('Watched');
       watched = 1;
+      changeDone(1);
     }
     $.ajax({
      type: 'POST',
      url: 'watchpivot.php?id=' + $(this).attr('id') + '&watched=' + watched
     }).done(function( msg ) {
     });
+    updateMetrics();
   });
+  $('.fullseason').on('click', function () {
+    $.ajax({
+     type: 'POST',
+     url: 'watchall.php?id=$show_id&watched=1&user_id=$user_id'
+    }).done(function( msg ) {
+    });
+    location.reload();
+  });
+  $('.panel-collapse').each( function( index, el ) {
+    if($(el).children().children().children('.unwatched').length == 0) {
+     $(el).removeClass('in');
+    }
+  });
+
+  function updateMetrics() {
+    var done = parseInt($('#done').text());
+    var total = parseInt($('#total').text());
+    var final = ((done/total)* 100).toFixed(2);
+    $('#percent').html(final);
+  }
+  function changeDone(add) {
+    var done = parseInt($('#done').text());
+    var final = done + add;
+    $('#done').html(final);
+  }
+  updateMetrics();
 });
 </script>
 </body></html>";

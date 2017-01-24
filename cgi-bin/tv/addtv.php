@@ -33,24 +33,24 @@ if ( !$row){
 	} catch (PDOException $e) {
 	    echo 'Connection failed: ' . $e->getMessage();
 	}
-	$insertsql = "INSERT INTO `orion`.`tvepisodes` (`title`, `tvmaze`, `tv_id`, `airdate`, `season`, `season_number`) VALUES ";
-	$api = "http://api.tvmaze.com/shows/$tvmaze/episodes";
-	$apiresponse =  file_get_contents($api);
-	$json = json_decode($apiresponse, true);
-	foreach($json as $jsonitem){
-			$insertsql .= "(\"".$jsonitem['name']."\", ".$jsonitem['id'].", 1, \"".$jsonitem['airdate']."\", ".$jsonitem['season'].", ".$jsonitem['number']."), ";
-	}
-	$insertsql = rtrim($insertsql,', ');
-	try {
-		$stmt = $db->prepare($insertsql);
-		$stmt->execute();
-	} catch (PDOException $e) {
-	    echo 'Connection failed: ' . $e->getMessage();
-	}
 } else {
 	$row_id = $row['id'];
 }
 
+$insertsql = "INSERT INTO `orion`.`tvepisodes` (`title`, `tvmaze`, `tv_id`, `airdate`, `season`, `season_number`) VALUES ";
+$api = "http://api.tvmaze.com/shows/$tvmaze/episodes";
+$apiresponse =  file_get_contents($api);
+$json = json_decode($apiresponse, true);
+foreach($json as $jsonitem){
+		$insertsql .= "(\"".$jsonitem['name']."\", ".$jsonitem['id'].", ".$row_id.", \"".$jsonitem['airdate']."\", ".$jsonitem['season'].", ".$jsonitem['number']."), ";
+}
+$insertsql = rtrim($insertsql,', ');
+try {
+	$stmt = $db->prepare($insertsql);
+	$stmt->execute();
+} catch (PDOException $e) {
+		echo 'Connection failed: ' . $e->getMessage();
+}
 
 
 if (isset($_SESSION['userid']))
@@ -64,7 +64,7 @@ if (isset($_SESSION['userid']))
 				echo 'Connection failed: ' . $e->getMessage();
 		}
 		try {
-			$gerundsql = "INSERT INTO g_user_tvepisodes(tvepisode_id, user_id, watched) SELECT id, ".$user_id.", 0 FROM tvepisodes WHERE tv_id = 1";
+			$gerundsql = "INSERT INTO g_user_tvepisodes(tvepisode_id, user_id, watched) SELECT id, ".$user_id.", 0 FROM tvepisodes WHERE tv_id = ".$row_id;
 			$stmt = $db->prepare($gerundsql);
 			$stmt->execute();
 		} catch (PDOException $e) {
