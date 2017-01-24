@@ -62,7 +62,7 @@ echo"	</ul>
 
 }
 else
-	  header("location: movietable.php");
+	  header("location: ../users/signin.php");
 
 include('../footer.php');
 echo "</div></body></html>";

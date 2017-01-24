@@ -24,7 +24,7 @@ if ($_SESSION['usergroup'] == 'User' or $_SESSION['usergroup'] == 'Admin'){
 $sql = "SELECT g.g_id, e.title, e.season, e.season_number, e.airdate FROM orion.g_user_tvepisodes g, orion.tvepisodes e WHERE g.tvepisode_id = e.id AND user_id = ".$user_id." AND g.watched = 0 AND e.airdate >= '".$begin."' AND e.airdate <= '".$end."' order by e.airdate";
 $query = $db->query($sql);
 echo "<div class='col-md-3'></div>
-			<div class='col-md-6'><h1 class='text-center'>What to watch</h1>
+			<div class='col-md-6'><h1 class='text-center'><a href='tv.php'>What to watch</a></h1>
       <div class='panel-group'>";
         $day = 0;
         foreach($query as $item){

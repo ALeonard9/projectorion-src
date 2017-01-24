@@ -61,7 +61,7 @@ echo"	</ul>
 
 }
 else
-	  header("location: vgtable.php");
+	  header("location: ../users/signin.php");
 
 include('../footer.php');
 echo "</div></body></html>";

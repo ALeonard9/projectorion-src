@@ -40,6 +40,7 @@ echo "<div class='col-md-12'><a href='tv.php?rank=".$start_rank."' class='fixed_
       <div class='col-md-3'></div>
 			<div class='col-md-6'>
 					<div class='text-center'><h1>".$username." TV</h1>
+          <a href='schedule.php' class='btn btn-lg btn-inverse btn-block' >Schedule</a>
 					<a href='findtv.php' class='btn btn-lg btn-inverse btn-block' ><span class='glyphicon glyphicon-plus'></span> Add a Tv Series</a>
 					<h3>Series Watched ".$resultsgamesum['Count']."</h3>
           <form class='form-signin' action='tv.php' form='thisForm' method='POST'>
@@ -61,7 +62,7 @@ echo"	</ul>
 
 }
 else
-	  header("location: findtv.php");
+	  header("location: ../users/signin.php");
 
 include('../footer.php');
 echo "</div></body></html>";
