@@ -20,17 +20,66 @@ if ($_SESSION['usergroup'] == 'User' or $_SESSION['usergroup'] == 'Admin'){
 if (isset($_GET['id'])) {
   $show_id = $_GET['id'];
 }
+$allshowssql = "SELECT t.title, g.status, t.id FROM orion.g_user_tv g, orion.tv t WHERE g.tv_id = t.id AND g.user_id = ".$user_id." ORDER BY CASE g.status WHEN 'behind' THEN 1 WHEN 'Up to Date' THEN 2 WHEN 'Complete' THEN 3 END, title";
+$allshows = $db->query($allshowssql);
 $metricssql = "SELECT count(*) as subset, (SELECT COUNT(*) FROM orion.g_user_tvepisodes g, orion.tvepisodes e WHERE g.tvepisode_id = e.id AND tv_id = ".$show_id." AND user_id = ".$user_id." AND e.airdate <= '".date('Y-m-d')."') AS total FROM orion.g_user_tvepisodes g, orion.tvepisodes e WHERE g.tvepisode_id = e.id AND tv_id = ".$show_id." AND user_id = ".$user_id." AND watched = 1";
 $metricquery = $db->query($metricssql);
          $metrics = $metricquery->fetch(PDO::FETCH_ASSOC);
 $titlesql = "SELECT title as title FROM orion.tv where id = $show_id";
 $querytitle = $db->query($titlesql);
          $series_title = $querytitle->fetch(PDO::FETCH_ASSOC);
+$statussql = "SELECT status FROM orion.g_user_tv where tv_id = $show_id";
+$querystatus = $db->query($statussql);
+          $status = $querystatus->fetch(PDO::FETCH_ASSOC);
 $sql = "SELECT g.g_id, e.title, e.season, e.season_number, g.watched FROM orion.g_user_tvepisodes g, orion.tvepisodes e WHERE g.tvepisode_id = e.id AND e.tv_id = ".$show_id." AND user_id = ".$user_id." AND e.airdate <= '".date('Y-m-d')."' order by e.season ASC, e.season_number ASC";
 $query = $db->query($sql);
+$classw = '';
+switch ($status['status']) {
+    case 'Up to Date':
+        $classw = 'uptodate';
+        break;
+    case 'Behind':
+        $classw = 'behind';
+        break;
+    case 'Complete':
+        $classw = 'complete';
+        break;
+}
+//   <a href='tv.php'>".$series_title['title']."
 echo "<div class='col-md-3'></div>
-			<div class='col-md-6'><h1 class='text-center'><a href='tv.php'>".$series_title['title']."</a></h1>
-      <h3 class='text-center'><span id='done'>".$metrics['subset']."</span>/<span id='total'>".$metrics['total']."</span> : <span id='percent'></span>%</h3>";
+			<div class='col-md-6'><h1 class='text-center'>
+      <select name='forma' style='border:0px;outline:0px;'onchange='location = this.value;'>";
+      $showstatus = '';
+      foreach($allshows as $item){
+        $classd = '';
+        switch ($item['status']) {
+            case 'Up to Date':
+                $classd = 'uptodate';
+                break;
+            case 'Behind':
+                $classd = 'behind';
+                break;
+            case 'Complete':
+                $classd = 'complete';
+                break;
+        }
+        if($showstatus != $item['status'] && $showstatus != 0){
+          echo "</optgroup>";
+        }
+        if($showstatus != $item['status']){
+          $showstatus = $item['status'];
+          echo "<optgroup class='".$classd."' label='".$showstatus."'>";
+        }
+        echo "<option value='tvdetails.php?id=".$item['id']."' ";
+        if($item['id'] == $show_id){
+          echo "selected";
+        }
+        echo ">".$item['title']."</option>";
+      }
+
+      echo "</select>
+      </h1>
+      <h3 class='text-center'><span id='done'>".$metrics['subset']."</span>/<span id='total'>".$metrics['total']."</span> : <span id='percent'></span>% <button class='pull-right ".$classw."' >".$status['status']."</button></h3>";
 if ($metrics['total'] - $metrics['subset'] > 0 ) {
   echo "<a class='btn btn-lg btn-inverse btn-block fullseason' >Watched All</a><br/>";
 }

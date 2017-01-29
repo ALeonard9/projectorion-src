@@ -74,3 +74,21 @@ ul { list-style-type: none; }
   border: none;
   color: white;
 }
+.uptodate {
+  padding:0;
+  background-color: #20932d;
+  border: none;
+  color: white;
+}
+.behind {
+  padding:0;
+  background-color: #6f2093;
+  border: none;
+  color: white;
+}
+.complete {
+  padding:0;
+  background-color: #938420;
+  border: none;
+  color: white;
+}

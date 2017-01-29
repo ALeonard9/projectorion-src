@@ -42,7 +42,7 @@ echo "<div class='col-md-12'><a href='tv.php?rank=".$start_rank."' class='fixed_
 					<div class='text-center'><h1>".$username." TV</h1>
           <a href='schedule.php' class='btn btn-lg btn-inverse btn-block' >Schedule</a>
 					<a href='findtv.php' class='btn btn-lg btn-inverse btn-block' ><span class='glyphicon glyphicon-plus'></span> Add a Tv Series</a>
-					<h3>Series Watched ".$resultsgamesum['Count']."</h3>
+					<h3>Series Watched: ".$resultsgamesum['Count']."</h3>
           <form class='form-signin' action='tv.php' form='thisForm' method='POST'>
           <div class='input-group'>
             <input type='hidden' id='table' value='tv'>
@@ -55,7 +55,19 @@ echo "<div class='col-md-12'><a href='tv.php?rank=".$start_rank."' class='fixed_
 					<ul class='list-group' id='list-items'>";
 
 					foreach($query as $item){
-									echo "<li draggable=true class='list-group-item' id='item_".($item['g_id']."'><a href='tvdetails.php?id=".$item['tv_id']."'><span class='badge'>".$item['rank']."</span>   ".$item['title']."</a></li>");
+            $classw = '';
+            switch ($item['status']) {
+                case 'Up to Date':
+                    $classw = 'uptodate';
+                    break;
+                case 'Behind':
+                    $classw = 'behind';
+                    break;
+                case 'Complete':
+                    $classw = 'complete';
+                    break;
+            }
+						echo "<li draggable=true class='list-group-item' id='item_".($item['g_id']."'><a href='tvdetails.php?id=".$item['tv_id']."'><span class='badge'>".$item['rank']."</span>   ".$item['title']."</a><button class='pull-right ".$classw."' >".$item['status']."</button></li>");
 					}
 echo"	</ul>
 		TV information was freely provided by <a href='http://www.tvmaze.com/'>tvmaze.com.</a></div>";
