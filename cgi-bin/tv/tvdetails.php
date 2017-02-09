@@ -81,8 +81,9 @@ echo "<div class='col-md-3'></div>
       </h1>
       <h3 class='text-center'><span id='done'>".$metrics['subset']."</span>/<span id='total'>".$metrics['total']."</span> : <span id='percent'></span>% <button class='pull-right ".$classw."' >".$status['status']."</button></h3>";
 if ($metrics['total'] - $metrics['subset'] > 0 ) {
-  echo "<a class='btn btn-lg btn-inverse btn-block fullseason' >Watched All</a><br/>";
+  echo "<a class='btn btn-lg btn-inverse btn-block fullseason' >Watched All</a>";
 }
+echo "<a href='tv.php' class='btn btn-lg btn-inverse btn-block' >TV Home</a><br/>";
 echo "<div class='panel-group'>";
         $season = 0;
         foreach($query as $item){

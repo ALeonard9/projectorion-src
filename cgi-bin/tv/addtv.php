@@ -44,8 +44,8 @@ $api = "http://api.tvmaze.com/shows/$tvmaze/episodes";
 $apiresponse =  file_get_contents($api);
 $json = json_decode($apiresponse, true);
 foreach($json as $jsonitem){
-		if ($jsonitem['airdate'] <= $week){
-			$insertsql .= "(\"".$jsonitem['name']."\", ".$jsonitem['id'].", ".$row_id.", \"".$jsonitem['airdate']."\", ".$jsonitem['season'].", ".$jsonitem['number']."), ";
+		if ($jsonitem['airdate'] <= $week && $jsonitem['airdate'] != '0000-00-00'){
+			$insertsql .= "(\"".addslashes($jsonitem['name'])."\", ".$jsonitem['id'].", ".$row_id.", \"".$jsonitem['airdate']."\", ".$jsonitem['season'].", ".$jsonitem['number']."), ";
 		}
 }
 $insertsql = rtrim($insertsql,', ');
