@@ -54,7 +54,8 @@ echo "<div class='col-md-12'><a href='videogame.php?rank=".$start_rank."' class=
 					<ul class='list-group' id='list-items'>";
 
 					foreach($query as $item){
-									echo "<li draggable=true class='list-group-item' id='item_".($item['g_id']."'><a href='videogame/videogamedetails.php?id=".$item['g_id']."'><img src='".$item['poster_url']."' class='img-rounded img-responsive' style='width:30px;height:20px;float:left'><span class='badge'>".$item['rank']."</span>   ".$item['title']."</a></li>");
+            $url = preg_replace("/^http:/i", "https:", $item['poster_url']);
+						echo "<li draggable=true class='list-group-item' id='item_".($item['g_id']."'><a href='videogame/videogamedetails.php?id=".$item['g_id']."'><img src='".$url."' class='img-rounded img-responsive' style='width:30px;height:20px;float:left'><span class='badge'>".$item['rank']."</span>   ".$item['title']."</a></li>");
 					}
 echo"	</ul>
 		Game information was freely provided by <a href='www.igdb.com'>IGDB.com.</a></div>";

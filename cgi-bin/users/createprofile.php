@@ -41,9 +41,9 @@ echo "<div class='col-md-3'></div><div class='col-md-6'>
     echo "</form></br><button class='btn btn-lg btn-inverse btn-block' onclick=location.href='signin.php'><span class='glyphicon glyphicon-pencil'></span> Return to Sign in</button></div>";
     // include('../footer.php');
     echo "
-    <script src='http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.1.3.min.js'></script>
-    <script src='http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/jquery.validate.min.js'></script>
-    <script src='http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/additional-methods.min.js'></script>
+    <script src='https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.1.3.min.js'></script>
+    <script src='https://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/jquery.validate.min.js'></script>
+    <script src='https://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/additional-methods.min.js'></script>
     <script src='../js/validation.js'></script>
     </div></body></html>";
     if (isset($_POST['email'])){
