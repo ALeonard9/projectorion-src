@@ -30,7 +30,7 @@ if (isset($_POST['rank'])) {
   $start_rank = $_POST['rank'];
 }
 
-$api = 'http://www.geonames.org/flags/x/';
+$api = 'https://lipis.github.io/flag-icon-css/flags/4x3/';
 
 $sql = "SELECT * FROM orion.countries c, orion.g_user_countries g WHERE c.id = g.countries_id and (g.rank >= $start_rank or g.rank = 0 ) and g.user_id =".$user_id." order by rank";
             $query = $db->query($sql);
@@ -57,7 +57,7 @@ echo "<div class='col-md-12'><a href='country.php?rank=".$start_rank."' class='f
 					<ul class='list-group' id='list-items'>";
 
 					foreach($query as $item){
-            $apiresponse = $api.$item['country_code'].".gif";
+            $apiresponse = $api.$item['country_code'].".svg";
 						echo "<li draggable=true class='list-group-item' id='item_".($item['g_id']."'><a href='countrydetails.php?id=".$item['g_id']."'><div class='container-fixed'><div class='row-fluid'><img src='".$apiresponse."' class='img-rounded img-responsive' style='width:30px;height:20px;float:left'><span class='badge'>".$item['rank']."</span>   ".$item['title']."</div></div></a></li>");
 					}
 echo"	</ul>

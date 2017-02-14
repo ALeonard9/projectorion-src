@@ -14,7 +14,7 @@ include('../header.php');
 echo "</head><body><div class='container'>";
 include('../navigation.php');
 
-$api = 'http://www.geonames.org/flags/x/';
+$api = 'https://lipis.github.io/flag-icon-css/flags/4x3/';
 $user_id = $_SESSION['userid'];
 
 
@@ -31,7 +31,7 @@ $user_id = $_SESSION['userid'];
           echo "<div class='container text-center'><h1><a href='country.php'>Countries</a></h1>";
           echo "<h3>Countries Visited:".$resultsgamesum['Count']."</h3>";
                   foreach($querycomplete as $item){
-                          $apiresponse = $api.$item['country_code'].".gif";
+                          $apiresponse = $api.$item['country_code'].".svg";
 
                           echo "<div class='col-md-4'><a href='countrydetails.php?id=".$item['id']."'><span title='".$item['rank'].". ".$item['title']."'><img src='".$apiresponse."' class='img-rounded img-responsive center-block' style='width:300px;height:200px;margin-bottom:10px'></a></span></div>";
                   }

@@ -150,7 +150,8 @@ echo"	</ul>
 									$row_count = $query->rowCount();
 			if ($row_count>0){
 				foreach($query as $item){
-					echo "<li  class='list-group-item' id='item_".($item['id']."'><a href='tvshow.php?id=".$item['id']."'><div class='container-fixed'><div class='row-fluid'><img src='".$item['poster_url']."' class='img-rounded img-responsive' style='width:30px;height:20px;float:left'><span class='badge'>".$item['rank']."</span>   ".$item['title']."</div></div></a></li>");
+					$url = preg_replace("/^http:/i", "https:", $item['poster_url']);
+					echo "<li  class='list-group-item' id='item_".($item['id']."'><a href='tvshow.php?id=".$item['id']."'><div class='container-fixed'><div class='row-fluid'><img src='".$url."' class='img-rounded img-responsive' style='width:30px;height:20px;float:left'><span class='badge'>".$item['rank']."</span>   ".$item['title']."</div></div></a></li>");
 				}
 			}	else {
 				echo "<a href='tv/findtv.php' style='color:red'>Add your find video game</a>";
@@ -160,13 +161,13 @@ echo"	</ul>
 			<div class='col-md-6 text-center'>
 			<h1><a href='countries/country.php'>Countries</a></h1>
 			<ul class='list-group' id='list-items'>";
-			$api = 'http://www.geonames.org/flags/x/';
+			$api = 'https://lipis.github.io/flag-icon-css/flags/4x3/';
 			$sql = "SELECT * FROM orion.countries c, orion.g_user_countries g WHERE c.id = g.countries_id and g.rank <> 0 and g.user_id =".$user_id." order by rank LIMIT 5";
 			            $query = $db->query($sql);
 									$row_count = $query->rowCount();
 			if ($row_count>0){
 				foreach($query as $item){
-					$apiresponse = $api.$item['country_code'].".gif";
+					$apiresponse = $api.$item['country_code'].".svg";
 					echo "<li  class='list-group-item' id='item_".($item['id']."'><a href='countrydetails.php?id=".$item['id']."'><div class='container-fixed'><div class='row-fluid'><img src='".$apiresponse."' class='img-rounded img-responsive' style='width:30px;height:20px;float:left'><span class='badge'>".$item['rank']."</span>   ".$item['title']."</div></div></a></li>");
 				}
 			}	else {
