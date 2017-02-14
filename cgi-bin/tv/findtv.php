@@ -33,7 +33,6 @@ if ($_SESSION['usergroup'] == 'User' or $_SESSION['usergroup'] == 'Admin'){
 
   if (isset($search)){
     $searchafter = urlencode($search);
-    // $api = "https://www.igdb.com/api/v1/games/search?token=EEmW0D2LTmx-tJ2Nt492QzpmyZjEFos6G4Exi0OcJgc&q=$searchafter";
     $response = Unirest\Request::get("http://api.tvmaze.com/search/shows?q=$searchafter",
       array(
         "Accept" => "application/json"
