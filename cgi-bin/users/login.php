@@ -36,7 +36,7 @@ if ($username&&$password)
 								$url = $_SESSION['url']; // holds url for last page visited.
 							else
    							$url = "/index.php";
-							header("Location: http://".$_SERVER['HTTP_HOST'].$url);
+							header("Location: https://".$_SERVER['HTTP_HOST'].$url);
 							exit;
 							}
 							else

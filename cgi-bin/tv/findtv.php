@@ -15,7 +15,7 @@ include '../connectToDB.php';
 echo "<!DOCTYPE html>
 <html lang='en'>
 <head>
-        <title id='pageTitle'>LeoNine Studios</title>";
+        <title id='pageTitle'>Adam Leonard</title>";
 include('../header.php');
 echo "</head><body><div class='container'>";
 include('../navigation.php');
