@@ -13,7 +13,7 @@ This application allows you to track each movie watched, along with a 'watchlist
 5. From the home page you can drag and drop the movies to order them.
 6. The watchlist button will generate your list of movies. Click their titles as you watch them.
 
-** https://www.aleonard.us/dashboard.php provides a "Top 5" visualization of each othe trackers.
+** https://www.aleonard.us/dashboard.php provides a "Top 5" visualization of each other trackers.
 
 ## Support
 
