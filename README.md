@@ -11,12 +11,12 @@ The sandbox is the culmination of several pet projects, including a 'SmashUp' co
 
 ## Installation
 
-Best used in tandem with this [Chef Cookbook](https://github.com/ALeonard9/projectorion/). Requires PHP 5.5 and several libraries defined in [composer](https://github.com/ALeonard9/projectorion-src/blob/master/cgi-bin/composer/composer.json).
+Best used in tandem with this [Chef Cookbook](https://github.com/ALeonard9/www.aleonard.us/). Requires PHP 5.5 and several libraries defined in [composer](https://github.com/ALeonard9/sandbox-src/blob/master/cgi-bin/composer/composer.json).
 
 ## Support
 
-Please [open an issue](https://github.com/ALeonard9/projectorion-src/issues/new) for support.
+Please [open an issue](https://github.com/ALeonard9/sandbox-src/issues/new) for support.
 
 ## Contributing
 
-Please contribute using [Github Flow](https://guides.github.com/introduction/flow/). Create a branch, add commits, and [open a pull request](https://github.com/fraction/readme-boilerplate/compare/).
+Please contribute using [Github Flow](https://guides.github.com/introduction/flow/). Create a branch, add commits, and open a pull request.
