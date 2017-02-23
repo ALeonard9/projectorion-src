@@ -1,27 +1,22 @@
-## projectorion-src
+# https://www.aleonard.us/sandbox.php
 
-This is a personal project available for use at [https://www.aleonard.us](https://www.aleonard.us "Title"). 
+The sandbox is the culmination of several pet projects, including a 'SmashUp' companion app, a betting app, and tracking and ranking for movies, tv shows, videogames and countries visited.
 
-### Technologies used:
-```
-*PHP
-*MySQL
-*Bootstrap
-*Javascript/Jquery
-*Chef
-*AWS/ Google Cloud
-```
+## Technology used
+* PHP
+* Javascript
+* HTML/CSS/Bootstrap
+* Mysql
+* Google Sign-in integration
 
-This particular repository holds the application source code. The configuration source code is available at: [https://github.com/LeoNineStudios/projectorion](https://github.com/LeoNineStudios/projectorion "Title")
+## Installation
 
-### Creating your own:
-1. Clone this repo.
-2. Create a databag with the appropriate material.
-3. Change the attributes in the attributes/default.rb file to match your environment.
-4. Clone the source code repo (above). 
-5. Make appropriate changes and save to publicly accessible location.
-6. Run chef-client from your node (assumes you have hooked into your own chef-server).
+Best used in tandem with this [Chef Cookbook](https://github.com/ALeonard9/projectorion/). Requires PHP 5.5 and several libraries defined in [composer](https://github.com/ALeonard9/projectorion-src/blob/master/cgi-bin/composer/composer.json).
 
-## Contributing:
-1. Fork this repo.
-2. Create a pull request.
+## Support
+
+Please [open an issue](https://github.com/ALeonard9/projectorion-src/issues/new) for support.
+
+## Contributing
+
+Please contribute using [Github Flow](https://guides.github.com/introduction/flow/). Create a branch, add commits, and [open a pull request](https://github.com/fraction/readme-boilerplate/compare/).
