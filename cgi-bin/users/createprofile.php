@@ -78,7 +78,7 @@ echo "<div class='col-md-3'></div><div class='col-md-6'>
           } else {
             die('Profile creation was not successful.');
           }
-      header("Location: ../index.php");
+      header("Location: ../index.html");
       exit;
     }
 
