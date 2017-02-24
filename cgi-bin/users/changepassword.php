@@ -12,7 +12,7 @@ $user_id = $_SESSION['userid'];
 echo "<!DOCTYPE html>
 <html lang='en'>
 <head>
-        <title id='pageTitle'>Adam Leonard</title>";
+        <title id='pageTitle'>Adam's Sandbox</title>";
 include('../header.php');
 echo "</head><body><div class='container'>";
 include('../navigation.php');

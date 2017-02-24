@@ -5,7 +5,7 @@
 <meta name="description" content="PostersASAP.com">
 <meta name="author" content="LeonineStudios@outlook.com">
 
-<title>Adam Leonard</title>
+<title>Adam's Sandbox</title>
 
 <!-- Bootstrap core CSS -->
 <link href="../css/bootstrap.min.css" rel="stylesheet">
