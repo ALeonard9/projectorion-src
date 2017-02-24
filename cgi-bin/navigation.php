@@ -8,7 +8,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">The Sandbox</a>
+      <a class="navbar-brand" href="../dashboard.php">The Sandbox</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -17,6 +17,7 @@
           <ul class="dropdown-menu">
             <li><a href="../bet/betting.php">Betting</a></li>
             <li><a href="../bet/rules.php">Rulebook</a></li>
+            <li><a href='../scoreboard/scoreboard.html'>Scoreboard</a></li>
             <li><a href="../smash/smash.php">Smash Up</a></li>
           </ul>
         </li>
@@ -24,22 +25,26 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Trackers <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href='../dashboard.php'>Dashboard</a></li>
-            <li><a href='../countries/country.php'>Countries</a></li>
-            <li><a href="../movies/movie.php">Movies</a></li>
-            <li><a href="../tv/tv.php">TV</a></li>
-            <li><a href="../videogame/videogame.php">Video Games</a></li>
+            <li class='divider'></li>
+            <li><a href='../countries/country.php'> Countries</a></li>
+            <li><a href="../movies/movie.php"> Movies</a></li>
+            <li><a href="../tv/tv.php"> TV</a></li>
+            <li><a href="../videogame/videogame.php"> Video Games</a></li>
           </ul>
         </li>
         <li class='dropdown'>
-          <a href='#' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false'>Fleet <span class='caret'></span></a>
+          <a href='#' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false'>Games <span class='caret'></span></a>
           <ul class='dropdown-menu'>
-            <li><a href='../timer'>Timer</a></li>
-            <li><a href='../rules'>Rules</a></li>
+            <li><a href='#'>Fleet </a></li>
+            <li class='divider'></li>
+            <li><a href='../timer'> Timer</a></li>
+            <li><a href='../rules'> Rules</a></li>
           </ul>
         </li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">About <span class="caret"></span></a>
           <ul class="dropdown-menu">
+            <li><a href='https://www.aleonard.us'>Intro</a></li>
             <li><a href="http://resume.aleonard.us">Resume</a></li>
           </ul>
         </li>

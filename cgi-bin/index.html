@@ -2,8 +2,10 @@
 <head>
 <style>
 body  {
-    background-image: url("images/bg.jpg");
-    background-size: 100% 100%;
+    background-image: url("images/bg1.jpg");
+    background-size: auto;
+    text-align: center;
+
 }
 </style>
 <meta charset='utf-8'>
@@ -45,26 +47,54 @@ body  {
 </head>
 <body>
   <div id='global'>
-    <div id='container'>
-      <div class='col-md-3'></div>
-      <div class='col-md-6 text-center' style='font-weight:700;background-color:#f0f5f5;height:100%;font-family:Courier New;'>
-        <br/>
-        <div id='navlist'>
-          <a href='#'>EXPERIENCES</a> /
-          <a href='dashboard.php'>PROJECTS</a> /
-          <a href='#bottom'>CONTACT</a>
-        </div>
-        <br/><br/><br/><br/><br/>
-        <div id='intro'>
-          Hi, my name is Adam.
-          <div id='thingsIdo'>
-            I'm a ... </br>
-            FULL STACK DEVELOPER | CLOUD ENTHUSIAST | BOARD GAME DESIGNER | ANCESTOR | PHILOSOPHER
-          </div>
-          <a NAME='bottom'>CONTACTS</a>
-
+    <div id='wrapper'>
+      <div id='header'>
+        <div id="nav">
+          <ul>
+            <li class="active"><a href='dashboard.php'>EXPERIENCES</a></li>
+            <li><a href='#projects'>PROJECTS</a></li>
+            <li><a href='#contacts'>CONTACT</a></li>
+          </ul>
         </div>
       </div>
+        <div id='intro'>
+          Hi, my name is Adam.
+          <div id='experiences'>
+            <br>I'm a ... </br>
+            <div id="thingsIam"></div>
+          </div>
+        </div>
+        <div id='experiences'>
+          <a name="experiences">
+            GE | FirstGroup
+          </a>
+        </div>
+        <div id='projects'>
+          <a name="projects">
+            MOVIE TRACKER | SUMO GAME
+          </a>
+        </div>
+        <div id="contacts">
+          <a name="contacts">
+              <ul>
+  		         	<li>
+  								<a target="_blank" href="https://www.linkedin.com/in/aleonard9/">
+                    <img src="images/Linkedin_icon.svg.png" width="60" height="60" border="0" title="Linkedin">
+                  </a>
+                </li>
+               	<li>
+                  <a href="mailto:aleonard9@hotmail.com">
+                  <img src="images/email.png" width="60" height="60" border="0" title="Email">
+                  </a>
+  							</li>
+  							<li>
+                  <a target="_blank" href="https://github.com/LeoNineStudios/projectorion-src">
+                    <img src="images/github.png" width="60" height="60" border="0" title="Github Account">
+                  </a>
+  							</li>
+  						</ul>
+            </a>
+        </div>
     </div>
   </div>
 </body>
@@ -73,4 +103,18 @@ body  {
 <script src='https://cdn.jsdelivr.net/jquery.ui.touch-punch/0.2.3/jquery.ui.touch-punch.min.js'></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/ie10-viewport-bug-workaround.js"></script>
+<script>
+  var thingsIam = ['full stack developer', 'cloud enthusiast', 'ultimate frisbee-er',
+                  'uncle', 'ice cream truck driver'
+                  ];
+  var thingsString = thingsIam.join(' | ');
+  var placeHolder = 0;
+  var textAdder = setInterval(function(){
+  document.getElementById("thingsIam").innerHTML += thingsString.charAt(placeHolder);
+    if (++placeHolder == thingsString.length){
+        clearInterval(textAdder);
+    }
+}, 100);
+
+</script>
 </html>

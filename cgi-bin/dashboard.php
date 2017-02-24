@@ -69,7 +69,7 @@ echo "<!DOCTYPE html>
 							<span class='icon-bar'></span>
 							<span class='icon-bar'></span>
 						</button>
-						<a class='navbar-brand' href='sandbox.php'>The Sandbox</a>
+						<a class='navbar-brand' href='dashboard.php'>The Sandbox</a>
 					</div>
 					<div id='navbar' class='navbar-collapse collapse'>
 						<ul class='nav navbar-nav'>
@@ -94,7 +94,7 @@ echo "<!DOCTYPE html>
 								</ul>
 							</li>
 							<li class='dropdown'>
-								<a href='#' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false'>Fleet <span class='caret'></span></a>
+								<a href='#' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false'>Games <span class='caret'></span></a>
 								<ul class='dropdown-menu'>
 									<li><a href='#'>Fleet </a></li>
 									<li class='divider'></li>
