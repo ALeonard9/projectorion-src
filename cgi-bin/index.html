@@ -5,7 +5,6 @@ body  {
     background-image: url("images/bg1.jpg");
     background-size: auto;
     text-align: center;
-
 }
 </style>
 <meta charset='utf-8'>
@@ -24,9 +23,10 @@ body  {
 
 <!-- Custom styles for this template -->
 <link href='./css/leo.css' rel='stylesheet'>
+<link href="https://fonts.googleapis.com/css?family=Kaushan+Script" rel="stylesheet">
 
 <!-- Icons for mobile -->
-<link rel='apple-touch-icon' sizes='57x57' href='./apple-icon-57x57.png'>
+<!-- <link rel='apple-touch-icon' sizes='57x57' href='./apple-icon-57x57.png'>
 <link rel='apple-touch-icon' sizes='60x60' href='./apple-icon-60x60.png'>
 <link rel='apple-touch-icon' sizes='72x72' href='./apple-icon-72x72.png'>
 <link rel='apple-touch-icon' sizes='76x76' href='./apple-icon-76x76.png'>
@@ -37,12 +37,12 @@ body  {
 <link rel='apple-touch-icon' sizes='180x180' href='./apple-icon-180x180.png'>
 <link rel='icon' type='image/png' sizes='192x192'  href='./android-icon-192x192.png'>
 <link rel='icon' type='image/png' sizes='32x32' href='./favicon-32x32.png'>
-<link rel='icon' type='image/png' sizes='96x96' href='./favicon-96x96.png'>
-<link rel='icon' type='image/png' sizes='16x16' href='./favicon-16x16.png'>
-<meta name='apple-mobile-web-app-title' content='Leonine'>
-<link rel='manifest' href='./manifest.json'>
+<link rel='icon' type='image/png' sizes='96x96' href='./favicon-96x96.png'> -->
+<link rel='icon' type='image/png' sizes='16x16' href='images/favicon-16x16.png'>
+<!-- <meta name='apple-mobile-web-app-title' content='Leonine'> -->
+<!-- <link rel='manifest' href='./manifest.json'>
 <meta name='msapplication-TileColor' content='#ffffff'>
-<meta name='msapplication-TileImage' content='./ms-icon-144x144.png'>
+<meta name='msapplication-TileImage' content='./ms-icon-144x144.png'> -->
 
 </head>
 <body>
@@ -51,49 +51,71 @@ body  {
       <div id='header'>
         <div id="nav">
           <ul>
-            <li class="active"><a href='dashboard.php'>EXPERIENCES</a></li>
+            <li><a href='#experiences'>EXPERIENCES</a></li>
             <li><a href='#projects'>PROJECTS</a></li>
             <li><a href='#contacts'>CONTACT</a></li>
           </ul>
         </div>
       </div>
-        <div id='intro'>
-          Hi, my name is Adam.
-          <div id='experiences'>
+      <div id='intro'>
+        <img class="profilepic" src="images/profilepic.png" alt="Profile Picture">
+        <br>Hi, my name is Adam.</br>
+          <div id='introduction'>
             <br>I'm a ... </br>
-            <div id="thingsIam"></div>
+            <br><div id="thingsIam"></div></br>
           </div>
-        </div>
+      </div>
         <div id='experiences'>
-          <a name="experiences">
-            GE | FirstGroup
-          </a>
+          <a name="experiences"></a>
+            <div class="leftCol" id="experience_left">
+              <div class="text_align">EXPERIENCES</div>
+            </div>
+            <div class="rightCol" id="experience_right">
+              <ul>
+                <li><image class="logo" id="logo1" src="images/GE_Logo.svg" alt="GE Logo"></li>
+                <li><image class="logo" id="logo2" src="images/uc_Logo.svg" alt="UC Logo"></li>
+                <li><image class="logo" id="logo3" src="images/xavier_Logo.svg" alt="XU Logo"></li>
+              </ul>
+                <div class="desc" id="desc1">I have worked at GE for 6 years in various roles ranging from an IT Sales technical support in Singapore to a Cloud architect. I am a graduate of the Digital Technology Leadership program, a 2 year rotational program targeted at young leaders.</div>
+                <div class="desc" id="desc2">I am a graduate of the Master's of Information Systems program, graduating with a 3.6 GPA. This program focuses on the intersection of technology and business processes with courses in database design, ERP, and business analysis.</div>
+                <div class="desc" id="desc3">I hold a degree in Business Management, with a minor in Human Resources. These classes focused on accounting, finance, human resources and entrepreneurship.</div>
+            </div>
         </div>
         <div id='projects'>
-          <a name="projects">
-            MOVIE TRACKER | SUMO GAME
-          </a>
+          <a name="projects"></a>
+            <div class="leftCol" id="project_left">
+              <div class="text_align">PROJECTS</div>
+            </div>
+            <div class="rightCol" id="project_right">
+              <ul>
+                <li>Movie Tracker App</li>
+                <li></li>
+                <li></li>
+              </ul>
+            </div>
         </div>
         <div id="contacts">
-          <a name="contacts">
+          <a name="contacts"></a>
+            <div class="leftCol" id="contact_left">
+              <div class="text_align">CONTACT</div>
+            </div>
+            <div class="rightCol" id="contact_right">
+              <p id="contacts_right_col">If you want to collaborate on developing amazing experiences – you are welcome to contact me or contibute to my GitHub Org.</p>
+              <h5> Adam Leonard </h5>
+              <p id="contacts_right_italic">Full Stack Developer</p>
               <ul>
   		         	<li>
   								<a target="_blank" href="https://www.linkedin.com/in/aleonard9/">
-                    <img src="images/Linkedin_icon.svg.png" width="60" height="60" border="0" title="Linkedin">
+                    <img class="logo" src="images/linkedin_logo.svg" title="Linkedin">
                   </a>
                 </li>
-               	<li>
-                  <a href="mailto:aleonard9@hotmail.com">
-                  <img src="images/email.png" width="60" height="60" border="0" title="Email">
-                  </a>
-  							</li>
   							<li>
-                  <a target="_blank" href="https://github.com/LeoNineStudios/projectorion-src">
-                    <img src="images/github.png" width="60" height="60" border="0" title="Github Account">
+                  <a target="_blank" href="https://github.com/ALeonard9">
+                    <img class="logo" src="images/github_logo.svg" title="Github Account">
                   </a>
   							</li>
   						</ul>
-            </a>
+            </div>
         </div>
     </div>
   </div>
@@ -115,6 +137,48 @@ body  {
         clearInterval(textAdder);
     }
 }, 100);
-
+</script>
+<script>
+$('a').click(function(){
+    $('html, body').animate({
+        scrollTop: $('[name="' + $.attr(this, 'href').substr(1) + '"]').offset().top
+    }, 500);
+    return false;
+});
+</script>
+<script>
+$(document).ready(function(){
+      $("#desc1").slideDown("slow");
+      $("#logo1").click(function(){
+          $("#desc3").hide();
+          $("#desc2").hide();
+          $("#desc1").slideDown("slow");
+      });
+  $("#logo2").click(function(){
+      $("#desc1").hide();
+      $("#desc3").hide();
+      $("#desc2").slideDown("slow");
+  });
+  $("#logo3").click(function(){
+      $("#desc2").hide();
+      $("#desc1").hide();
+      $("#desc3").slideDown("slow");
+  });
+});
+</script>
+<script>
+$("#logo1, #logo2, #logo3").mouseover(function() {
+    $(this).css({ opacity: 1 }).transition({ scale: 1.15 }, 200, 'easeOutQuart');
+  });
+  $("#logo1, #logo2, #logo3").mouseout(function() {
+    $(this).transition({ opacity: 0.6, scale: 0.8 }, 100, 'easeOutQuart');
+    if (currentPage == 1) {
+      $("#logo1").css({ opacity: 1, scale: 1 });
+    } else if (currentPage == 2) {
+      $("#logo2").css({ opacity: 1, scale: 1 });
+    } else if (currentPage == 3) {
+      $("#logo3").css({ opacity: 1, scale: 1 });
+  });
+});
 </script>
 </html>
