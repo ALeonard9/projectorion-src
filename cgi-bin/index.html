@@ -3,7 +3,8 @@
 <style>
 body  {
     background-image: url("images/bg1.jpg");
-    background-size: auto;
+    width: 100%;
+    height: 100%;
     text-align: center;
 }
 </style>
@@ -22,7 +23,7 @@ body  {
 <link href='./css/ie10-viewport-bug-workaround.css' rel='stylesheet'>
 
 <!-- Custom styles for this template -->
-<link href='./css/leo.css' rel='stylesheet'>
+<link href='./css/soum.css' rel='stylesheet'>
 <link href="https://fonts.googleapis.com/css?family=Kaushan+Script" rel="stylesheet">
 
 <!-- Icons for mobile -->
@@ -51,9 +52,9 @@ body  {
       <div id='header'>
         <div id="nav">
           <ul>
-            <li><a href='#experiences'>EXPERIENCES</a></li>
-            <li><a href='#projects'>PROJECTS</a></li>
-            <li><a href='#contacts'>CONTACT</a></li>
+            <li><a class="items" href='#experiences'>EXPERIENCES</a></li>
+            <li><a class="items" href='#projects'>PROJECTS</a></li>
+            <li><a class="items" href='#contacts'>CONTACT</a></li>
           </ul>
         </div>
       </div>
@@ -87,13 +88,31 @@ body  {
               <div class="text_align">PROJECTS</div>
             </div>
             <div class="rightCol" id="project_right">
-              <ul>
-                <li>Movie Tracker App</li>
-                <li></li>
-                <li></li>
-              </ul>
+              <div class="project_wrapper">
+                <div class="parent" onclick="">
+                  <div class="child bg-one">
+                    <a class="proj_images" target="_blank" href="movies/movie.php">Movies App</a>
+                  </div>
+                </div>
+                <div class="parent" onclick="">
+                  <div class="child bg-two">
+                    <a class="proj_images" target="_blank" href="tv/tv.php">TV Tracking App</a>
+                      <div class="proj_text"></div>
+                  </div>
+                </div>
+                <div class="parent" onclick="">
+                  <div class="child bg-three">
+                    <a class="proj_images" target="_blank" href="videogame/videogame.php">Video Games App</a>
+                  </div>
+                </div>
+                <div class="parent" onclick="">
+                  <div class="child bg-four">
+                    <a class="proj_images" target="_blank" href="countries/country.php">Countries Travel App</a>
+                  </div>
+                </div>
+              </div>
             </div>
-        </div>
+          </div>
         <div id="contacts">
           <a name="contacts"></a>
             <div class="leftCol" id="contact_left">
@@ -127,7 +146,7 @@ body  {
 <script src="js/ie10-viewport-bug-workaround.js"></script>
 <script>
   var thingsIam = ['full stack developer', 'cloud enthusiast', 'ultimate frisbee-er',
-                  'uncle', 'ice cream truck driver'
+                   'board gamer', 'Clevelander', 'indian food eater', 'rules explainer'
                   ];
   var thingsString = thingsIam.join(' | ');
   var placeHolder = 0;
