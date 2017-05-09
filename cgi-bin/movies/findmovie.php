@@ -33,17 +33,28 @@ if ($_SESSION['usergroup'] == 'User' or $_SESSION['usergroup'] == 'Admin'){
 
   if (isset($search)){
     $searchafter = urlencode($search);
-    $api = "http://www.omdbapi.com/?s=$searchafter&r=JSON&type=movie";
-    $apiresponse =  file_get_contents($api);
-    $json = json_decode($apiresponse);
 
-    echo "<ul class='list-group' id='list-items'>";
+    if (substr( $search, 0, 2 ) === 'tt') {
+      $api = "http://www.omdbapi.com/?i=$searchafter&r=JSON&type=movie";
+      $apiresponse =  file_get_contents($api);
+      $json = json_decode($apiresponse);
+      echo "<ul class='list-group' id='list-items'>";
+                  echo "<li class='list-group-item'><a href='http://www.imdb.com/title/".$json->{'imdbID'}."' target='_blank'><span class='glyphicon glyphicon-film'></span></a>    <a href='addmovie.php?title=".urlencode($json->{'Title'})."&imdbid=".$json->{'imdbID'}."&complete=1'>".$json->{'Title'}."</a><a href='addmovie.php?title=".urlencode($json->{'Title'})."&imdbid=".$json->{'imdbID'}."&complete=0'><span class='glyphicon glyphicon-plus' style='float:right'></span></a></li>";
+      echo "</ul>
+          </div>";
+    } else {
+      $api = "http://www.omdbapi.com/?s=$searchafter&r=JSON&type=movie";
+      $apiresponse =  file_get_contents($api);
+      $json = json_decode($apiresponse);
 
-    					foreach($json->{'Search'} as $jsonitem){
-								echo "<li class='list-group-item'><a href='http://www.imdb.com/title/".$jsonitem->{'imdbID'}."' target='_blank'><span class='glyphicon glyphicon-film'></span></a>    <a href='addmovie.php?title=".urlencode($jsonitem->{'Title'})."&imdbid=".$jsonitem->{'imdbID'}."&complete=1'>".$jsonitem->{'Title'}."</a><a href='addmovie.php?title=".urlencode($jsonitem->{'Title'})."&imdbid=".$jsonitem->{'imdbID'}."&complete=0'><span class='glyphicon glyphicon-plus' style='float:right'></span></a></li>";
-    					}
-    echo "</ul>
-    		</div>";
+      echo "<ul class='list-group' id='list-items'>";
+
+                foreach($json->{'Search'} as $jsonitem){
+                  echo "<li class='list-group-item'><a href='http://www.imdb.com/title/".$jsonitem->{'imdbID'}."' target='_blank'><span class='glyphicon glyphicon-film'></span></a>    <a href='addmovie.php?title=".urlencode($jsonitem->{'Title'})."&imdbid=".$jsonitem->{'imdbID'}."&complete=1'>".$jsonitem->{'Title'}."</a><a href='addmovie.php?title=".urlencode($jsonitem->{'Title'})."&imdbid=".$jsonitem->{'imdbID'}."&complete=0'><span class='glyphicon glyphicon-plus' style='float:right'></span></a></li>";
+                }
+      echo "</ul>
+          </div>";
+    }
   }
 }
 else
