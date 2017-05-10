@@ -48,10 +48,14 @@ echo "<div class='col-md-6'><h1 class='text-center'><a href='tv.php'>What to wat
           }
           $classw = 'unwatched';
           $displayw = 'Not Watched';
-          echo "<li class='list-group-item'>".$item['tv_title']." ".$item['season'].".".$item['season_number'].": ".$item['title']."<button class='pull-right ".$classw."' type='button' id='".$item['g_id']."'>".$displayw."</button></li>";
+          $full_string = $item['tv_title']." ".$item['season'].".".$item['season_number'].": ".$item['title'];
+          if (strlen($full_string) > 65) {
+            $full_string = substr($full_string, 0, 65)."...";
+          }
+          echo "<li class='list-group-item'>".$full_string."<button class='pull-right ".$classw."' type='button' id='".$item['g_id']."'>".$displayw."</button></li>";
         }
         echo "</div></div></div></div>
-        <div class='col-md-6'><h1 class='text-center'>All unwatched: ".$count."</h1>
+        <div class='col-md-6'><h1 class='text-center'>All unwatched: <span id='remain'>".$count."</span></h1>
         <div class='panel-group'>";
           $show = 'notset';
           foreach($unwatchedquery as $item){
@@ -71,7 +75,11 @@ echo "<div class='col-md-6'><h1 class='text-center'><a href='tv.php'>What to wat
             }
             $classw = 'unwatched';
             $displayw = 'Not Watched';
-            echo "<li class='list-group-item'>".$item['season'].".".$item['season_number'].": ".$item['title']."<button class='pull-right ".$classw."' type='button' id='".$item['g_id']."'>".$displayw."</button></li>";
+            $full_string = $item['season'].".".$item['season_number'].": ".$item['title'];
+            if (strlen($full_string) > 65) {
+              $full_string = substr($full_string, 0, 65)."...";
+            }
+            echo "<li class='list-group-item'>".$full_string."<button class='pull-right ".$classw."' type='button' id='".$item['g_id']."'>".$displayw."</button></li>";
           }
           echo "</div>";
 }
@@ -88,9 +96,11 @@ $(document).ready(function () {
     if ($(this).html() == 'Watched') {
       $(this).html('Not Watched');
       watched = 0;
+      changeDone(1);
     } else {
       $(this).html('Watched');
       watched = 1;
+      changeDone(-1);
     }
     $.ajax({
      type: 'POST',
@@ -103,6 +113,12 @@ $(document).ready(function () {
      $(el).removeClass('in');
     }
   });
+
+  function changeDone(add) {
+    var done = parseInt($('#remain').text());
+    var final = done + add;
+    $('#remain').html(final);
+  }
 });
 </script>
 </body></html>";

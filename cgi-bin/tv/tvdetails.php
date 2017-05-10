@@ -83,6 +83,7 @@ echo "<div class='col-md-3'></div>
 if ($metrics['total'] - $metrics['subset'] > 0 ) {
   echo "<a class='btn btn-lg btn-inverse btn-block fullseason' >Watched All</a>";
 }
+echo "<a href='updateseries.php?tv_id=$show_id' class='btn btn-lg btn-inverse btn-block' >Update Data</a>";
 echo "<a href='tv.php' class='btn btn-lg btn-inverse btn-block' >TV Home</a><br/>";
 echo "<div class='panel-group'>";
         $season = 0;
