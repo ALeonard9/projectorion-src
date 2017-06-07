@@ -14,7 +14,7 @@ include('../header.php');
 echo "</head><body><div class='container'>";
 include('../navigation.php');
 
-$api = 'http://www.omdbapi.com/?i=';
+$api = 'http://www.omdbapi.com/?apikey=98df30f1&i=';
 
   $user_id = $_SESSION['userid'];
 

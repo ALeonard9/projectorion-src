@@ -33,7 +33,7 @@ if ($_SESSION['usergroup'] == 'User' or $_SESSION['usergroup'] == 'Admin'){
 
   if (isset($search)){
     $searchafter = urlencode($search);
-    $api = "http://www.omdbapi.com/?s=$searchafter&r=JSON&type=movie";
+    $api = "http://www.omdbapi.com/?s=$searchafter&r=JSON&type=movie&apikey=98df30f1";
     $apiresponse =  file_get_contents($api);
     $json = json_decode($apiresponse);
 

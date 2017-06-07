@@ -1,7 +1,7 @@
 <?php
 
 include '../connectToDB.php';
-$api = 'http://www.omdbapi.com/?i=';
+$api = 'http://www.omdbapi.com/?apikey=98df30f1&i=';
 $sql = "SELECT id, imdb, title from orion.movies";
 $update = "";
 $query = $db->query($sql);

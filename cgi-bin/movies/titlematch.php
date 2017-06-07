@@ -18,7 +18,7 @@ if ($_SESSION['usergroup'] == 'Admin'){
   $moviesql = "SELECT imdb, title, id FROM orion.movies order by imdb";
   $moviequery = $db->query($moviesql);
   $x = 0;
-  $api = 'http://www.omdbapi.com/?i=';
+  $api = 'http://www.omdbapi.com/?apikey=98df30f1&i=';
   echo "<table id='myTable'>";
   echo "<thead><tr><td>IMDB</td><td>Title</td><td>IMDB Title</td></tr></thead>";
 

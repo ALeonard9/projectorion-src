@@ -127,7 +127,7 @@ echo "<!DOCTYPE html>
 						}
 
 						$moviequery = $db->query($moviesql);
-						$api = 'http://www.omdbapi.com/?i=';
+						$api = 'http://www.omdbapi.com/?apikey=98df30f1&i=';
 
 echo "</ul>
 					</div><!--/.nav-collapse -->
