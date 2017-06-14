@@ -58,7 +58,7 @@ echo "<div class='col-md-12'><a href='videogame.php?rank=".$start_rank."' class=
 						echo "<li draggable=true class='list-group-item' id='item_".($item['g_id']."'><a href='videogame/videogamedetails.php?id=".$item['g_id']."'><img src='".$url."' class='img-rounded img-responsive' style='width:30px;height:20px;float:left'><span class='badge'>".$item['rank']."</span>   ".$item['title']."</a></li>");
 					}
 echo"	</ul>
-		Game information was freely provided by <a href='www.igdb.com'>IGDB.com.</a></div>";
+		Game information was freely provided by <a href='https://www.igdb.com' target='_newtab'>IGDB.com.</a></div>";
 
 }
 else
