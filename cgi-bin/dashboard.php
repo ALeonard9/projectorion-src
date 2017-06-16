@@ -87,6 +87,7 @@ echo "<!DOCTYPE html>
 								<ul class='dropdown-menu'>
 								  <li><a href='dashboard.php'>Dashboard</a></li>
 									<li class='divider'></li>
+									<li><a href='books/book.php'> Books</a></li>
 									<li><a href='countries/country.php'> Countries</a></li>
 									<li><a href='movies/movie.php'> Movies</a></li>
 									<li><a href='tv/tv.php'> TV</a></li>
@@ -161,22 +162,21 @@ echo"	</ul>
 			}	else {
 				echo "<a href='tv/findtv.php' style='color:red'>Add your find video game</a>";
 			}
-	echo"	</ul>
+echo"	</ul>
 			</div>
 			<div class='col-md-6 text-center'>
-			<h1><a href='countries/country.php'>Countries</a></h1>
+			<h1><a href='books/book.php'>Books</a></h1>
 			<ul class='list-group' id='list-items'>";
-			$api = 'https://lipis.github.io/flag-icon-css/flags/4x3/';
-			$sql = "SELECT * FROM orion.countries c, orion.g_user_countries g WHERE c.id = g.countries_id and g.rank <> 0 and g.user_id =".$user_id." order by rank LIMIT 5";
-			            $query = $db->query($sql);
+			$sql = "SELECT * FROM orion.books c, orion.g_user_books g WHERE c.id = g.books_id and g.rank <> 0 and g.user_id =".$user_id." order by rank LIMIT 5";
+									$query = $db->query($sql);
 									$row_count = $query->rowCount();
 			if ($row_count>0){
 				foreach($query as $item){
-					$apiresponse = $api.$item['country_code'].".svg";
-					echo "<li  class='list-group-item' id='item_".($item['id']."'><a href='countrydetails.php?id=".$item['id']."'><div class='container-fixed'><div class='row-fluid'><img src='".$apiresponse."' class='img-rounded img-responsive' style='width:30px;height:20px;float:left'><span class='badge'>".$item['rank']."</span>   ".$item['title']."</div></div></a></li>");
+					$url = preg_replace("/^http:/i", "https:", $item['poster_url']);
+					echo "<li  class='list-group-item' id='item_".($item['id']."'><a href='bookdetails.php?id=".$item['id']."'><div class='container-fixed'><div class='row-fluid'><img src='".$url."' class='img-rounded img-responsive' style='width:30px;height:20px;float:left'><span class='badge'>".$item['rank']."</span>   ".$item['title']."</div></div></a></li>");
 				}
 			}	else {
-				echo "<a href='countries/findcountry.php' style='color:red'>Add your first country</a>";
+				echo "<a href='books/findbook.php' style='color:red'>Add your find book</a>";
 			}
 echo"	</ul>
 		</div>
@@ -192,6 +192,23 @@ echo"	</ul>
 			}
 		}	else {
 			echo "<a href='videogame/findvg.php' style='color:red'>Add your find video game</a>";
+		}
+echo"	</ul>
+		</div>
+		<div class='col-md-6 text-center'>
+		<h1><a href='countries/country.php'>Countries</a></h1>
+		<ul class='list-group' id='list-items'>";
+		$api = 'https://lipis.github.io/flag-icon-css/flags/4x3/';
+		$sql = "SELECT * FROM orion.countries c, orion.g_user_countries g WHERE c.id = g.countries_id and g.rank <> 0 and g.user_id =".$user_id." order by rank LIMIT 5";
+		            $query = $db->query($sql);
+								$row_count = $query->rowCount();
+		if ($row_count>0){
+			foreach($query as $item){
+				$apiresponse = $api.$item['country_code'].".svg";
+				echo "<li  class='list-group-item' id='item_".($item['id']."'><a href='countrydetails.php?id=".$item['id']."'><div class='container-fixed'><div class='row-fluid'><img src='".$apiresponse."' class='img-rounded img-responsive' style='width:30px;height:20px;float:left'><span class='badge'>".$item['rank']."</span>   ".$item['title']."</div></div></a></li>");
+			}
+		}	else {
+			echo "<a href='countries/findcountry.php' style='color:red'>Add your first country</a>";
 		}
 echo"	</ul>
 		</div>

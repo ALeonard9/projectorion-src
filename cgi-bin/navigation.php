@@ -26,6 +26,7 @@
           <ul class="dropdown-menu">
             <li><a href='../dashboard.php'>Dashboard</a></li>
             <li class='divider'></li>
+            <li><a href='../books/book.php'> Books</a></li>
             <li><a href='../countries/country.php'> Countries</a></li>
             <li><a href="../movies/movie.php"> Movies</a></li>
             <li><a href="../tv/tv.php"> TV</a></li>

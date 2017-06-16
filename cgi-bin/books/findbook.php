@@ -3,8 +3,10 @@
 session_start();
 ob_start();
 $_SESSION['url'] = $_SERVER['REQUEST_URI'];
-
-$search = $_GET['search'];
+$search = '';
+if (isset($_GET['search'])) {
+  $search = $_GET['search'];
+}
 
 if (isset($_POST['title_search'])) {
   $search = $_POST['title_search'];
@@ -35,10 +37,10 @@ if ($_SESSION['usergroup'] == 'User' or $_SESSION['usergroup'] == 'Admin'){
     $searchafter = urlencode($search);
     $api = "https://www.googleapis.com/books/v1/volumes?q=$searchafter";
     $apiresponse =  file_get_contents($api);
-    $json = json_decode($apiresponse);
+    $json = json_decode($apiresponse, true);
     echo "<ul class='list-group' id='list-items'>";
-              foreach($json->{'items'} as $jsonitem){
-                echo "<li class='list-group-item'><a href='https://books.google.com/books/about/Red_Rising.html?id=".$jsonitem->{'id'}."' target='_blank'><span class='glyphicon glyphicon-book'></span></a>    <a href='addbook.php?title=".urlencode($jsonitem->{'volumeInfo'}->{'title'})."&imdbid=".$jsonitem->{'imdbID'}."&complete=1'>".$jsonitem->{'Title'}."</a><a href='addmovie.php?title=".urlencode($jsonitem->{'Title'})."&imdbid=".$jsonitem->{'imdbID'}."&complete=0'><span class='glyphicon glyphicon-plus' style='float:right'></span></a></li>";
+              foreach($json['items'] as $jsonitem){
+                echo "<li class='list-group-item'><a href='https://books.google.com/books?id=".$jsonitem['id']."' target='_blank'><span class='glyphicon glyphicon-book'></span></a>    <a href='addbook.php?title=".urlencode($jsonitem['volumeInfo']['title'])."&isbn=".$jsonitem['volumeInfo']['industryIdentifiers'][0]['identifier']."&poster=".urlencode($jsonitem['volumeInfo']['imageLinks']['thumbnail'])."&id=".$jsonitem['id']."&complete=1'>".$jsonitem['volumeInfo']['title']." by ".$jsonitem['volumeInfo']['authors'][0]."</a><a href='addbook.php?title=".urlencode($jsonitem['volumeInfo']['title'])."&isbn=".$jsonitem['volumeInfo']['industryIdentifiers'][0]['identifier']."&poster=".urlencode($jsonitem['volumeInfo']['imageLinks']['thumbnail'])."&id=".$jsonitem['id']."&complete=0'><span class='glyphicon glyphicon-plus' style='float:right'></span></a></li>";
               }
     echo "</ul>
         </div>";
@@ -46,7 +48,7 @@ if ($_SESSION['usergroup'] == 'User' or $_SESSION['usergroup'] == 'Admin'){
   }
 }
 else
-	  header("location: movietable.php");
+	  header("location: book.php");
 
 include('../footer.php');
 echo "</div></body></html>";
