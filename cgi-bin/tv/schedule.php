@@ -22,66 +22,85 @@ $today = date('Y-m-d');
 
 
 if ($_SESSION['usergroup'] == 'User' or $_SESSION['usergroup'] == 'Admin'){
-
-$sql = "SELECT t.title as tv_title, g.g_id, e.title, e.season, e.season_number, e.airdate FROM orion.tv t, orion.g_user_tv u, orion.g_user_tvepisodes g, orion.tvepisodes e WHERE u.tv_id = t.id AND u.freeze = 0 AND g.tvepisode_id = e.id AND g.user_id = ".$user_id." AND u.user_id =".$user_id." AND e.tv_id = t.id AND g.watched = 0 AND e.airdate >= '".$begin."' AND e.airdate <= '".$end."' order by e.airdate";
+$freezesql = "SELECT g.g_id, t.title FROM g_user_tv g, tv t WHERE t.id = g.tv_id AND g.freeze = 1 AND g.user_id = ".$user_id;
+$freezequery = $db->query($freezesql);
+$freezecount = $freezequery->rowCount();
+$sql = "SELECT t.title as tv_title, g.g_id, e.title, e.season, e.season_number, e.airdate, t.id FROM orion.tv t, orion.g_user_tv u, orion.g_user_tvepisodes g, orion.tvepisodes e WHERE u.tv_id = t.id AND u.freeze = 0 AND g.tvepisode_id = e.id AND g.user_id = ".$user_id." AND u.user_id =".$user_id." AND e.tv_id = t.id AND g.watched = 0 AND e.airdate >= '".$begin."' AND e.airdate <= '".$end."' order by e.airdate";
 $query = $db->query($sql);
-$unwatchedsql = "SELECT t.title as tv_title, g.g_id, e.title, e.season, e.season_number, e.airdate FROM orion.tv t, orion.g_user_tv u , orion.g_user_tvepisodes g, orion.tvepisodes e WHERE u.tv_id = t.id AND u.freeze = 0 AND g.tvepisode_id = e.id AND g.user_id = ".$user_id." AND u.user_id =".$user_id." AND e.tv_id = t.id AND g.watched = 0 AND e.airdate <= '".$today."' order by tv_title ASC, season ASC, season_number ASC";
+$unwatchedsql = "SELECT t.title as tv_title, g.g_id, e.title, e.season, e.season_number, e.airdate, t.id FROM orion.tv t, orion.g_user_tv u , orion.g_user_tvepisodes g, orion.tvepisodes e WHERE u.tv_id = t.id AND u.freeze = 0 AND g.tvepisode_id = e.id AND g.user_id = ".$user_id." AND u.user_id =".$user_id." AND e.tv_id = t.id AND g.watched = 0 AND e.airdate <= '".$today."' order by tv_title ASC, season ASC, season_number ASC";
 $unwatchedquery = $db->query($unwatchedsql);
 $count = $unwatchedquery->rowCount();
-echo "<div class='col-md-6'><h1 class='text-center'><a href='tv.php'>What to watch</a></h1>
-      <div class='panel-group'>";
-        $day = 0;
-        foreach($query as $item){
-          if($day != $item['airdate'] && $day != 0){
-            echo "</ul></div></div>";
-          }
-          if( $day != $item['airdate']){
-            $day = $item['airdate'];
-            echo "<div class='panel panel-default'>
-            <div class='panel-heading'>
-               <h4 class='panel-title'>
-                 <a data-toggle='collapse' href='#collapse".$item['airdate']."'>".date('l', strtotime($item['airdate']))." ".date('m-d', strtotime($item['airdate']))."</a>
-               </h4>
-             </div>
-             <div id='collapse".$item['airdate']."' class='panel-collapse collapse in'>
-               <ul class='list-group'>";
-          }
-          $classw = 'unwatched';
-          $displayw = 'Not Watched';
-          $full_string = $item['tv_title']." ".$item['season'].".".$item['season_number'].": ".$item['title'];
-          if (strlen($full_string) > 65) {
-            $full_string = substr($full_string, 0, 65)."...";
-          }
-          echo "<li class='list-group-item'>".$full_string."<button class='pull-right ".$classw."' type='button' id='".$item['g_id']."'>".$displayw."</button></li>";
-        }
-        echo "</div></div></div></div>
-        <div class='col-md-6'><h1 class='text-center'>All unwatched: <span id='remain'>".$count."</span></h1>
+if ($count > 0) {
+  echo "<div class='col-md-6'><h1 class='text-center'><a href='tv.php'>What to watch</a></h1>
         <div class='panel-group'>";
-          $show = 'notset';
-          foreach($unwatchedquery as $item){
-            if($show != $item['tv_title'] && $show != 'notset'){
+          $day = 0;
+          foreach($query as $item){
+            if($day != $item['airdate'] && $day != 0){
               echo "</ul></div></div>";
             }
-            if( $show != $item['tv_title']){
-              $show = $item['tv_title'];
+            if( $day != $item['airdate']){
+              $day = $item['airdate'];
               echo "<div class='panel panel-default'>
               <div class='panel-heading'>
                  <h4 class='panel-title'>
-                   <a data-toggle='collapse' href='#collapse".$item['g_id']."'>".$item['tv_title']."</a>
+                   ".date('l', strtotime($item['airdate']))." ".date('m-d', strtotime($item['airdate']))."<a data-toggle='collapse' href='#collapse".$item['airdate']."'><span class='pull-right glyphicon glyphicon-minus'></span></
                  </h4>
                </div>
-               <div id='collapse".$item['g_id']."' class='panel-collapse collapse'>
+               <div id='collapse".$item['airdate']."' class='panel-collapse collapse in'>
                  <ul class='list-group'>";
             }
             $classw = 'unwatched';
             $displayw = 'Not Watched';
-            $full_string = $item['season'].".".$item['season_number'].": ".$item['title'];
+            $full_string = "<a href='tvdetails.php?id=".$item['id']."'>".$item['tv_title']."</a> ".$item['season'].".".$item['season_number'].": ".$item['title'];
             if (strlen($full_string) > 65) {
               $full_string = substr($full_string, 0, 65)."...";
             }
             echo "<li class='list-group-item'>".$full_string."<button class='pull-right ".$classw."' type='button' id='".$item['g_id']."'>".$displayw."</button></li>";
           }
-          echo "</div>";
+          echo "</div></div></div></div>
+          <div class='col-md-6'><h1 class='text-center'>All unwatched: <span id='remain'>".$count."</span></h1>
+          <div class='panel-group'>";
+            $show = 'notset';
+            foreach($unwatchedquery as $item){
+              if($show != $item['tv_title'] && $show != 'notset'){
+                echo "</ul></div></div>";
+              }
+              if( $show != $item['tv_title']){
+                $show = $item['tv_title'];
+                echo "<div class='panel panel-default'>
+                <div class='panel-heading'>
+                   <h4 class='panel-title'>
+                     <a href='tvdetails.php?id=".$item['id']."'>".$item['tv_title']."</a><a data-toggle='collapse' href='#collapse".$item['g_id']."'><span class='pull-right glyphicon glyphicon-plus'></span></a>
+                   </h4>
+                 </div>
+                 <div id='collapse".$item['g_id']."' class='panel-collapse collapse'>
+                   <ul class='list-group'>";
+              }
+              $classw = 'unwatched';
+              $displayw = 'Not Watched';
+              $full_string = $item['season'].".".$item['season_number'].": ".$item['title'];
+              if (strlen($full_string) > 65) {
+                $full_string = substr($full_string, 0, 65)."...";
+              }
+              echo "<li class='list-group-item'>".$full_string."<button class='pull-right ".$classw."' type='button' id='".$item['g_id']."'>".$displayw."</button></li>";
+            }
+            echo "</ul></div></div>";
+
+} else {
+  echo "<h1>You are all caught up!</h1>";
+}
+if ($freezecount > 0){
+  echo "</br><h1 class='text-center'>Frozen Shows </h1><p class='text-center'>(Click to unfreeze)</p><ul class='list-group' id='list-items'>";
+  foreach($freezequery as $item){
+    echo "<li class='list-group-item'><a class='frozen' id='".$item['g_id']."'>".$item['title']."</a></li>";
+  }
+  echo "</ul>";
+
+} else {
+  echo "failed :";
+}
+
+    echo "</div>";
 }
 else
 	  header("location: ../users/signin.php");
@@ -107,6 +126,17 @@ $(document).ready(function () {
      url: 'watchpivot.php?id=' + $(this).attr('id') + '&watched=' + watched
     }).done(function( msg ) {
     });
+  });
+  $('.frozen').on('click', function () {
+    $.ajax({
+     type: 'POST',
+     url: 'freezepivot.php?id=' + $(this).attr('id') + '&freeze=0'
+    }).done(function( msg ) {
+    });
+    location.reload();
+  });
+  $('.glyphicon').on('click', function () {
+    $(this).toggleClass('glyphicon-plus').toggleClass( 'glyphicon-minus' );
   });
   $('.panel-collapse').each( function( index, el ) {
     if($(el).children().children().children('.unwatched').length == 0) {
