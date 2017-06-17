@@ -28,9 +28,15 @@ $metricquery = $db->query($metricssql);
 $titlesql = "SELECT title as title FROM orion.tv where id = $show_id";
 $querytitle = $db->query($titlesql);
          $series_title = $querytitle->fetch(PDO::FETCH_ASSOC);
-$statussql = "SELECT status FROM orion.g_user_tv where tv_id = $show_id";
+$statussql = "SELECT status FROM orion.g_user_tv where user_id = $user_id AND tv_id = $show_id";
 $querystatus = $db->query($statussql);
           $status = $querystatus->fetch(PDO::FETCH_ASSOC);
+$freezesql = "SELECT freeze FROM orion.g_user_tv where user_id = $user_id AND tv_id = $show_id";
+$freezestatus = $db->query($freezesql);
+          $freeze = $freezestatus->fetch(PDO::FETCH_ASSOC);
+$gidsql = "SELECT g_id FROM orion.g_user_tv where user_id = $user_id AND tv_id = $show_id";
+$gidstatus = $db->query($gidsql);
+          $gid = $gidstatus->fetch(PDO::FETCH_ASSOC);
 $sql = "SELECT g.g_id, e.title, e.season, e.season_number, g.watched FROM orion.g_user_tvepisodes g, orion.tvepisodes e WHERE g.tvepisode_id = e.id AND e.tv_id = ".$show_id." AND user_id = ".$user_id." AND e.airdate <= '".date('Y-m-d')."' order by e.season ASC, e.season_number ASC";
 $query = $db->query($sql);
 $classw = '';
@@ -43,6 +49,21 @@ switch ($status['status']) {
         break;
     case 'Complete':
         $classw = 'complete';
+        break;
+}
+$classf = '';
+$classc = '';
+$messagef = '';
+switch ($freeze['freeze']) {
+    case '0':
+        $classf = 'unfrozen';
+        $messagef = 'Freeze Tracking';
+        $classc = 'btn-inverse';
+        break;
+    case '1':
+        $classf = 'frozen';
+        $messagef = 'Unfreeze Tracking';
+        $classc = 'btn-primary';
         break;
 }
 //   <a href='tv.php'>".$series_title['title']."
@@ -85,6 +106,7 @@ if ($metrics['total'] - $metrics['subset'] > 0 ) {
 }
 echo "<a href='updateseries.php?tv_id=$show_id' class='btn btn-lg btn-inverse btn-block' >Update Data</a>";
 echo "<a href='deletetv.php?tv_id=$show_id' class='btn btn-lg btn-inverse btn-block' >Remove Data</a>";
+echo "<button class='btn btn-lg $classc btn-block $classf' id='".$gid['g_id']."' >$messagef</button>";
 echo "<a href='tv.php' class='btn btn-lg btn-inverse btn-block' >TV Home</a><br/>";
 echo "<div class='panel-group'>";
         $season = 0;
@@ -138,6 +160,23 @@ $(document).ready(function () {
     }).done(function( msg ) {
     });
     updateMetrics();
+  });
+  var freeze = 0;
+  $('.frozen,.unfrozen').on('click', function () {
+    $(this).toggleClass('frozen').toggleClass( 'unfrozen' );
+    $(this).toggleClass('btn-inverse').toggleClass( 'btn-primary' );
+    if ($(this).html() == 'Freeze Tracking') {
+      $(this).html('Unfreeze Tracking');
+      freeze = 1;
+    } else {
+      $(this).html('Freeze Tracking');
+      freeze = 0;
+    }
+    $.ajax({
+     type: 'POST',
+     url: 'freezepivot.php?id=' + $(this).attr('id') + '&freeze=' + freeze
+    }).done(function( msg ) {
+    });
   });
   $('.fullseason').on('click', function () {
     $.ajax({
