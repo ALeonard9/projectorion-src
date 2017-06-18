@@ -107,6 +107,7 @@ if ($metrics['total'] - $metrics['subset'] > 0 ) {
 echo "<a href='updateseries.php?tv_id=$show_id' class='btn btn-lg btn-inverse btn-block' >Update Data</a>";
 echo "<a href='deletetv.php?tv_id=$show_id' class='btn btn-lg btn-inverse btn-block' >Remove Data</a>";
 echo "<button class='btn btn-lg $classc btn-block $classf' id='".$gid['g_id']."' >$messagef</button>";
+echo "<a href='schedule.php' class='btn btn-lg btn-inverse btn-block' >Schedule</a>";
 echo "<a href='tv.php' class='btn btn-lg btn-inverse btn-block' >TV Home</a><br/>";
 echo "<div class='panel-group'>";
         $season = 0;
