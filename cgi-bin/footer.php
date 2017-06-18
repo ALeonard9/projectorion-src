@@ -6,3 +6,8 @@
 <script>window.jQuery || document.write("<script src='./js/vendor/jquery.min.js'><\/script>")</script>
 <script src="../js/bootstrap.min.js"></script>
 <script src="../js/ie10-viewport-bug-workaround.js"></script>
+<script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+});
+</script>

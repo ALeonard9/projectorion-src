@@ -29,7 +29,7 @@ echo "<div class='col-md-3'></div>
 					<a href='findmovie.php' class='btn btn-lg btn-inverse btn-block' ><span class='glyphicon glyphicon-plus'></span> Add a Movie</a></br>
 					<ul class='list-group' id='list-items'>";
 					foreach($moviequery as $item){
-            echo "<li class='list-group-item'><a href='http://www.imdb.com/title/".$item['imdb']."' target='_blank'><span class='glyphicon glyphicon-film'></span></a>    <a href='watched.php?id=".$item['g_id']."'>".$item['title']."</a></li>";
+            echo "<li class='list-group-item'><a href='http://www.imdb.com/title/".$item['imdb']."' target='_blank'><span data-toggle='tooltip' title='View IMDB page' class='glyphicon glyphicon-film'></span></a>    <a data-toggle='tooltip' title='Add to ranking' href='watched.php?id=".$item['g_id']."'>".$item['title']."</a></li>";
 					}
 echo"	</ul>
 		</div>";

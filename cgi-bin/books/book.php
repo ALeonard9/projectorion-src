@@ -40,7 +40,7 @@ echo "<div class='col-md-12'><a href='book.php?rank=".$start_rank."' class='fixe
       <div class='col-md-3'></div>
 			<div class='col-md-6'>
 					<div class='text-center'><h1>".$username." Books</h1>
-          <a href='watchlist.php' class='btn btn-lg btn-inverse btn-block' ><span class='glyphicon glyphicon-eye-open'></span> Watchlist</a>
+          <a href='readlist.php' class='btn btn-lg btn-inverse btn-block' ><span class='glyphicon glyphicon-eye-open'></span> Readlist</a>
           <a href='findbook.php' class='btn btn-lg btn-inverse btn-block' ><span class='glyphicon glyphicon-plus'></span> Add a Book</a>
 					<h3>Books Read:".$resultsgamesum['Count']."</h3>
           <form class='form-signin' action='book.php' form='thisForm' method='POST'>
