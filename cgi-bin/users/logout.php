@@ -5,5 +5,5 @@ ob_start();
 
 session_destroy();
 
-header("Location: ../index.html");
+  header("Location: ../dashboard.php");
 ?>

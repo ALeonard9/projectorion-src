@@ -35,7 +35,7 @@ if ($username&&$password)
 							if(isset($_SESSION['url']))
 								$url = $_SESSION['url']; // holds url for last page visited.
 							else
-   							$url = "/index.html";
+   							$url = "/dashboard.php";
 							header("Location: https://".$_SERVER['HTTP_HOST'].$url);
 							exit;
 							}

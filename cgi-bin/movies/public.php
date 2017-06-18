@@ -2,7 +2,6 @@
 
 session_start();
 ob_start();
-$_SESSION['url'] = $_SERVER['REQUEST_URI'];
 
 include '../connectToDB.php';
 
@@ -14,12 +13,13 @@ include('../header.php');
 echo "</head><body><div class='container'>";
 include('../navigation.php');
 
-$user_id = $_GET['id'];
-# TODO Add query for user
-$user = 'Adam';
-if (isset($user)) {
-	$username = $user.'\'s';
-}
+if (isset($_GET['id'])){
+  $user_id = $_GET['id'];
+  $usersql = "SELECT display_name FROM orion.users  WHERE id =".$user_id;
+  $userresp = $db->query($usersql);
+           $user = $userresp->fetch(PDO::FETCH_ASSOC);
+	$username = $user['display_name'].'\'s';
+
 
 
 
@@ -42,6 +42,10 @@ echo "<div class='col-md-12'></div>
 					}
 echo"	</ul>
 		</div>";
+
+} else {
+  echo "<h1>This user does not exist.";
+}
 
 include('../footer.php');
 echo "</div></body></html>";
