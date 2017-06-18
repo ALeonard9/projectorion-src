@@ -22,7 +22,7 @@ $today = date('Y-m-d');
 
 
 if ($_SESSION['usergroup'] == 'User' or $_SESSION['usergroup'] == 'Admin'){
-$freezesql = "SELECT g.g_id, t.title FROM g_user_tv g, tv t WHERE t.id = g.tv_id AND g.freeze = 1 AND g.user_id = ".$user_id;
+$freezesql = "SELECT g.g_id, t.title, t.id FROM g_user_tv g, tv t WHERE t.id = g.tv_id AND g.freeze = 1 AND g.user_id = ".$user_id;
 $freezequery = $db->query($freezesql);
 $freezecount = $freezequery->rowCount();
 $sql = "SELECT t.title as tv_title, g.g_id, e.title, e.season, e.season_number, e.airdate, t.id FROM orion.tv t, orion.g_user_tv u, orion.g_user_tvepisodes g, orion.tvepisodes e WHERE u.tv_id = t.id AND u.freeze = 0 AND g.tvepisode_id = e.id AND g.user_id = ".$user_id." AND u.user_id =".$user_id." AND e.tv_id = t.id AND g.watched = 0 AND e.airdate >= '".$begin."' AND e.airdate <= '".$end."' order by e.airdate";
@@ -90,9 +90,9 @@ if ($count > 0) {
   echo "<h1>You are all caught up!</h1>";
 }
 if ($freezecount > 0){
-  echo "</br><h1 class='text-center'>Frozen Shows </h1><p class='text-center'>(Click to unfreeze)</p><ul class='list-group' id='list-items'>";
+  echo "</br><h1 class='text-center'>Frozen Shows </h1><ul class='list-group' id='list-items'>";
   foreach($freezequery as $item){
-    echo "<li class='list-group-item'><a class='frozen' id='".$item['g_id']."'>".$item['title']."</a></li>";
+    echo "<li class='list-group-item'><a href='tvdetails.php?id=".$item['id']."'>".$item['title']."</a><a data-toggle='tooltip' title='Unfreeze Show' class='frozen' id='".$item['g_id']."'><span class='pull-right glyphicon glyphicon-certificate'></span></a></li>";
   }
   echo "</ul>";
 

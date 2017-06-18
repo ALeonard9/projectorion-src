@@ -8,6 +8,7 @@ include '../connectToDB.php';
 $id = $_GET['id'];
 $title = urldecode($_GET['title']);
 $poster = $_GET['poster'];
+$complete = $_GET['complete'];
 if ($poster == 'N/A') {
 	$poster = 'https://upload.wikimedia.org/wikipedia/en/f/f9/No-image-available.jpg';
 }
@@ -30,9 +31,10 @@ if ( !$row){
 if (isset($_SESSION['userid']))
 	{
 
-		$stmt = $db->prepare("INSERT INTO orion.g_user_videogames (`user_id`, `videogames_id`, `rank`, `completed`) VALUES (:user, :row, '0', '1')");
+		$stmt = $db->prepare("INSERT INTO orion.g_user_videogames (`user_id`, `videogames_id`, `rank`, `completed`) VALUES (:user, :row, '0', :complete)");
 		$stmt->bindParam(':user', $user_id);
 		$stmt->bindParam(':row', $row_id);
+		$stmt->bindParam(':complete', $complete);
     $stmt->execute();
   	header("Location: videogame.php");
 		exit;

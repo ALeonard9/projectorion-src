@@ -30,7 +30,7 @@ if (isset($_POST['rank'])) {
   $start_rank = $_POST['rank'];
 }
 
-$sql = "SELECT * FROM orion.videogames c, orion.g_user_videogames g WHERE c.id = g.videogames_id and (g.rank >= $start_rank or g.rank = 0 ) and g.user_id =".$user_id." order by rank";
+$sql = "SELECT * FROM orion.videogames c, orion.g_user_videogames g WHERE c.id = g.videogames_id and (g.rank >= $start_rank or g.rank = 0 ) and g.completed = 1 and g.user_id =".$user_id." order by rank";
             $query = $db->query($sql);
 						$sqlgamesum = "SELECT count(*) as Count FROM orion.videogames c, orion.g_user_videogames g WHERE c.id = g.videogames_id and g.completed = 1 and g.user_id =".$user_id;
 						$querygamesum = $db->query($sqlgamesum);
@@ -40,6 +40,7 @@ echo "<div class='col-md-12'><a href='videogame.php?rank=".$start_rank."' class=
       <div class='col-md-3'></div>
 			<div class='col-md-6'>
 					<div class='text-center'><h1><a href='vgtable.php'>".$username." Video Games</a></h1>
+          <a href='playlist.php' class='btn btn-lg btn-inverse btn-block' ><span class='glyphicon glyphicon-eye-open'></span> Playlist</a>
 					<a href='findvg.php' class='btn btn-lg btn-inverse btn-block' ><span class='glyphicon glyphicon-plus'></span> Add a Game</a>
 					<h3>Games Finished:".$resultsgamesum['Count']."</h3>
           <form class='form-signin' action='videogame.php' form='thisForm' method='POST'>
