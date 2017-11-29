@@ -45,7 +45,7 @@ $(document).ready(function () {
   $('.delete').on('click', function () {
     $.ajax({
      type: 'POST',
-     url: '../lib/deletefromlist.php?table=g_user_books&id=' + $(this).attr('id')
+     url: '../lib/deletefromlist.php?table=g_user_videogames&id=' + $(this).attr('id')
     }).done(function( msg ) {
       location.reload();
     });
