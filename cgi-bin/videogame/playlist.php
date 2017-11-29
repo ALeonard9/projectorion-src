@@ -29,7 +29,7 @@ echo "<div class='col-md-3'></div>
 					<a href='findvg.php' class='btn btn-lg btn-inverse btn-block' ><span class='glyphicon glyphicon-plus'></span> Add a Game</a></br>
 					<ul class='list-group' id='list-items'>";
 					foreach($videogamequery as $item){
-            echo "<li class='list-group-item'><a data-toggle='tooltip' title='Add to ranking' href='played.php?id=".$item['g_id']."'>".$item['title']."</a></li>";
+            echo "<li class='list-group-item'><a data-toggle='tooltip' title='Add to ranking' href='played.php?id=".$item['g_id']."'>".$item['title']."</a><a class='delete' id='".$item['g_id']."'><span class='pull-right glyphicon glyphicon-remove' data-toggle='tooltip' title='Remove Game from Playlist'></span></a></li>";
 					}
 echo"	</ul>
 		</div>";
@@ -39,5 +39,18 @@ else
 	  header("location: movie.php");
 
 include('../footer.php');
-echo "</div></body></html>";
+echo "</div>
+<script type='text/javascript'>
+$(document).ready(function () {
+  $('.delete').on('click', function () {
+    $.ajax({
+     type: 'POST',
+     url: '../lib/deletefromlist.php?table=g_user_books&id=' + $(this).attr('id')
+    }).done(function( msg ) {
+      location.reload();
+    });
+  });
+});
+</script>
+</body></html>";
 ?>
