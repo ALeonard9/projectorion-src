@@ -33,9 +33,9 @@ if ($_SESSION['usergroup'] == 'User' or $_SESSION['usergroup'] == 'Admin'){
 
   if (isset($search)){
     $searchafter = urlencode($search);
-    $response = Unirest\Request::get("https://igdbcom-internet-game-database-v1.p.mashape.com/games/?fields=slug%2Cname%2Ccover&limit=10&offset=0&search=$searchafter",
+    $response = Unirest\Request::get("https://api-2445582011268.apicast.io/games/?fields=slug%2Cname%2Ccover&limit=10&offset=0&search=$searchafter",
       array(
-        "X-Mashape-Key" => "7811yqQtDdmshG3bFtvJG5LuXeyFp1FoT4LjsnewNaBnphcdTF",
+        "user-key" => "64f0da709467b347d34ef8ca69194b87",
         "Accept" => "application/json"
       )
     );
