@@ -29,6 +29,7 @@ if (isset($_SESSION['userid']))
 
         echo "<div class='container text-center'><h1>Crypto Currency Tracker</h1>";
           if ($count > 0){
+            echo "<h3>Total Value:<div id='value'></div> </h3><h3>Total Investment:<div id='cost'></div> </h3><h3>Total Profit:<div id='profit'></div></h3>";
             echo "<table id='myTable'>";
             echo "<thead><tr><td>Coin</td><td>Amount</td><td>Current Price</td><td>Current Value</td><td>Cost</td><td>Profit/Loss</td></tr></thead><tbody>";
 
@@ -38,7 +39,6 @@ if (isset($_SESSION['userid']))
                             echo "<tr><td>".($json[0]['name']."</td><td>".$item['amount']." ".$json[0]['symbol']."</td><td>$".number_format($json[0]['price_usd'], 3, ".", ",")."</td><td>$".number_format(($json[0]['price_usd']*$item['amount']), 2, ".", ",")."</td><td>$".number_format($item['cost'], 2, ".", ",")."</td><td>$".number_format((( $json[0]['price_usd']*$item['amount'])-$item['cost']),2, ".", ",")."</td></tr>");
                     }
             echo "</tbody></table>";
-            echo "<h2>Total Value:<div id='value'></div> </h2><h2>Total Investment:<div id='cost'></div> </h2><h2>Total Profit:<div id='profit'></div></h2>";
           }
 
 

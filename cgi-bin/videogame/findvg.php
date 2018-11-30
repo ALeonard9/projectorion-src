@@ -40,7 +40,7 @@ if ($_SESSION['usergroup'] == 'User' or $_SESSION['usergroup'] == 'Admin'){
       )
     );
     $json = json_decode($response->raw_body, true);
-    echo "<ul class='list-group' id='list-items'>";
+    echo "<ul class='list-group'>";
       foreach($json as $jsonitem){
         echo "<li class='list-group-item'><a href='https://www.igdb.com/games/".$jsonitem['slug']."' target='_blank'><span data-toggle='tooltip' title='View IGDB page' class='glyphicon glyphicon-knight'></span></a>    <a data-toggle='tooltip' title='Add to Ranking' href='addvg.php?title=".urlencode($jsonitem['name'])."&id=".$jsonitem['id']."&poster=".$jsonitem['cover']['url']."&complete=1'>".$jsonitem['name']."</a><a href='addvg.php?title=".urlencode($jsonitem['name'])."&id=".$jsonitem['id']."&poster=".$jsonitem['cover']['url']."&complete=0'><span data-toggle='tooltip' title='Add to Playlist' class='glyphicon glyphicon-plus' style='float:right'></span></a></li>";
       }

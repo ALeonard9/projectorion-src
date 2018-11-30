@@ -37,7 +37,7 @@ if ($_SESSION['usergroup'] == 'User' or $_SESSION['usergroup'] == 'Admin'){
       $api = "http://www.omdbapi.com/?i=$searchafter&r=JSON&type=movie&apikey=98df30f1";
       $apiresponse =  file_get_contents($api);
       $json = json_decode($apiresponse);
-      echo "<ul class='list-group' id='list-items'>";
+      echo "<ul class='list-group'>";
                   echo "<li class='list-group-item'><a href='http://www.imdb.com/title/".$json->{'imdbID'}."' target='_blank'><span data-toggle='tooltip' title='View IMDB page' class='glyphicon glyphicon-film'></span></a>    <a data-toggle='tooltip' title='Add to ranking' href='addmovie.php?title=".urlencode($json->{'Title'})."&imdbid=".$json->{'imdbID'}."&complete=1'>".$json->{'Title'}."</a><a href='addmovie.php?title=".urlencode($json->{'Title'})."&imdbid=".$json->{'imdbID'}."&complete=0'><span data-toggle='tooltip' title='Add to Watchlist' class='glyphicon glyphicon-plus' style='float:right'></span></a></li>";
       echo "</ul>
           </div>";

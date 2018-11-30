@@ -38,7 +38,7 @@ if ($_SESSION['usergroup'] == 'User' or $_SESSION['usergroup'] == 'Admin'){
     $api = "https://www.googleapis.com/books/v1/volumes?q=$searchafter";
     $apiresponse =  file_get_contents($api);
     $json = json_decode($apiresponse, true);
-    echo "<ul class='list-group' id='list-items'>";
+    echo "<ul class='list-group'>";
               foreach($json['items'] as $jsonitem){
                 echo "<li class='list-group-item'><a href='https://books.google.com/books?id=".$jsonitem['id']."' target='_blank'><span data-toggle='tooltip' title='View GoogleBooks page' class='glyphicon glyphicon-book'></span></a>    <a data-toggle='tooltip' title='Add to ranking'  href='addbook.php?title=".urlencode($jsonitem['volumeInfo']['title'])."&isbn=".$jsonitem['volumeInfo']['industryIdentifiers'][0]['identifier']."&poster=".urlencode($jsonitem['volumeInfo']['imageLinks']['thumbnail'])."&id=".$jsonitem['id']."&complete=1'>".$jsonitem['volumeInfo']['title']." by ".$jsonitem['volumeInfo']['authors'][0]."</a><a data-toggle='tooltip' title='Add to Readlist'  href='addbook.php?title=".urlencode($jsonitem['volumeInfo']['title'])."&isbn=".$jsonitem['volumeInfo']['industryIdentifiers'][0]['identifier']."&poster=".urlencode($jsonitem['volumeInfo']['imageLinks']['thumbnail'])."&id=".$jsonitem['id']."&complete=0'><span class='glyphicon glyphicon-plus' style='float:right'></span></a></li>";
               }

@@ -41,7 +41,7 @@ if ($_SESSION['usergroup'] == 'User' or $_SESSION['usergroup'] == 'Admin') {
         if ($json->{'message'} == 'Not Found') {
             echo "<h2>No matches this search term.</h2>";
         } else {
-            echo "<ul class='list-group' id='list-items'>";
+            echo "<ul class='list-group'>";
 
             foreach ($json as $jsonitem) {
                 echo "<li class='list-group-item'><a href='addcountry.php?title=" . $jsonitem->{'name'} . "&country_code=" . $jsonitem->{'alpha2Code'} . "'>" . $jsonitem->{'name'} . "</a></li>";

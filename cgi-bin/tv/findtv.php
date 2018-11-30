@@ -40,7 +40,7 @@ if ($_SESSION['usergroup'] == 'User' or $_SESSION['usergroup'] == 'Admin'){
     );
 
     $json = json_decode($response->raw_body, true);
-    echo "<ul class='list-group' id='list-items'>";
+    echo "<ul class='list-group'>";
 
     foreach($json as $jsonitem){
         echo "<li class='list-group-item'><a href='http://www.imdb.com/title/".$jsonitem['show']['externals']['imdb']."' target='_blank'><span class='glyphicon glyphicon-blackboard'></span></a>    <a href='addtv.php?status=".urlencode($jsonitem['show']['status'])."&title=".urlencode($jsonitem['show']['name'])."&id=".$jsonitem['show']['externals']['imdb']."&tvmaze=".$jsonitem['show']['id']."&poster=".urlencode(current($jsonitem['show']['image']))."'>".$jsonitem['show']['name']."</a></li>";
