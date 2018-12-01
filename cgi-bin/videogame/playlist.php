@@ -27,7 +27,7 @@ echo "<div class='col-md-3'></div>
 			<div class='col-md-6'>
 					<div class='text-center'><h1><a href='videogame.php'>".$username." Videogame Playlist</a></h1>
 					<a href='findvg.php' class='btn btn-lg btn-inverse btn-block' ><span class='glyphicon glyphicon-plus'></span> Add a Game</a></br>
-					<ul class='list-group' id='list-items'>";
+					<ul class='list-group'>";
 					foreach($videogamequery as $item){
             echo "<li class='list-group-item'><a data-toggle='tooltip' title='Add to ranking' href='played.php?id=".$item['g_id']."'>".$item['title']."</a><a class='delete' id='".$item['g_id']."'><span class='pull-right glyphicon glyphicon-remove' data-toggle='tooltip' title='Remove Game from Playlist'></span></a></li>";
 					}

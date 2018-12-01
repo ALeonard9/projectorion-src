@@ -27,7 +27,7 @@ echo "<div class='col-md-3'></div>
 			<div class='col-md-6'>
 					<div class='text-center'><h1><a href='book.php'>".$username." Book Readlist</a></h1>
 					<a href='findbook.php' class='btn btn-lg btn-inverse btn-block' ><span class='glyphicon glyphicon-plus'></span> Add a Book</a></br>
-					<ul class='list-group' id='list-items'>";
+					<ul class='list-group'>";
 					foreach($bookquery as $item){
             echo "<li class='list-group-item'><a href='https://books.google.com/books?id=".$item['googleid']."' target='_blank'><span data-toggle='tooltip' title='View GoogleBooks page' class='glyphicon glyphicon-book'></span></a>    <a data-toggle='tooltip' title='Add to ranking' href='watched.php?id=".$item['g_id']."'>".$item['title']."</a><a class='delete' id='".$item['g_id']."'><span class='pull-right glyphicon glyphicon-remove' data-toggle='tooltip' title='Remove Book from Readlist'></span></a></li>";
 					}

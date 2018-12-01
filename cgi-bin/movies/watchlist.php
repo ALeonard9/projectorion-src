@@ -27,7 +27,7 @@ echo "<div class='col-md-3'></div>
 			<div class='col-md-6'>
 					<div class='text-center'><h1><a href='movie.php'>".$username." Movie Watchlist</a></h1>
 					<a href='findmovie.php' class='btn btn-lg btn-inverse btn-block' ><span class='glyphicon glyphicon-plus'></span> Add a Movie</a></br>
-					<ul class='list-group' id='list-items'>";
+					<ul class='list-group'>";
 					foreach($moviequery as $item){
             echo "<li class='list-group-item'><a href='http://www.imdb.com/title/".$item['imdb']."' target='_blank'><span data-toggle='tooltip' title='View IMDB page' class='glyphicon glyphicon-film'></span></a>    <a data-toggle='tooltip' title='Add to ranking' href='watched.php?id=".$item['g_id']."'>".$item['title']."</a><a class='delete' id='".$item['g_id']."'><span class='pull-right glyphicon glyphicon-remove' data-toggle='tooltip' title='Remove Movie from Watchlist'></span></a></li>";
 					}
