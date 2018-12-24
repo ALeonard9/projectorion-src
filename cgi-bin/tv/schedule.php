@@ -97,7 +97,7 @@ if ($freezecount > 0){
   echo "</ul>";
 
 } else {
-  echo "failed :";
+  echo "";
 }
 
     echo "</div>";
