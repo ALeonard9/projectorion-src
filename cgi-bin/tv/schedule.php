@@ -79,6 +79,7 @@ if ($count > 0) {
               $classw = 'unwatched';
               $displayw = 'Not Watched';
               $full_string = $item['season'].".".$item['season_number'].": ".$item['title'];
+	// This function breaks It's always sunny		    
               if (strlen($full_string) > 65) {
                 $full_string = substr($full_string, 0, 65)."...";
               }
