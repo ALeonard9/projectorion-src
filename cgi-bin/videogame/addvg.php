@@ -3,13 +3,32 @@
 session_start();
 ob_start();
 
+require '../composer/vendor/autoload.php';
 include '../connectToDB.php';
 
 $id = $_GET['id'];
 $title = urldecode($_GET['title']);
-$poster = $_GET['poster'];
+$poster_id = $_GET['poster'];
+$headers = array(
+	"user-key" => "9543c63d95e29a272163f6001a747b54",
+	"Accept" => "application/json"
+  );
+$data = "fields url; where id = $poster_id;";
+
+$body = Unirest\Request\Body::form($data);
+
+$response = Unirest\Request::post('https://api-v3.igdb.com/covers', $headers, $body);
+
+$json = json_decode($response->raw_body, true);
+
+if (count($json) == 1) {
+	$poster = $json[0]['url'];
+} else {
+	$poster = 'N/A';
+}
+
 $complete = $_GET['complete'];
-if ($poster == 'N/A') {
+if ($poster == 'N/A' or is_null($poster)) {
 	$poster = 'https://upload.wikimedia.org/wikipedia/en/f/f9/No-image-available.jpg';
 }
 $user_id = $_SESSION['userid'];

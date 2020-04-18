@@ -4,7 +4,9 @@ session_start();
 ob_start();
 $_SESSION['url'] = $_SERVER['REQUEST_URI'];
 
-$search = $_GET['search'];
+if (isset($_GET['search'])) {
+    $search = $_GET['search'];
+}
 
 if (isset($_POST['title_search'])) {
     $search = $_POST['title_search'];
