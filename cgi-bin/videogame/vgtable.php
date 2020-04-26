@@ -2,6 +2,7 @@
 
 session_start();
 ob_start();
+date_default_timezone_set('Etc/UTC');
 $_SESSION['url'] = $_SERVER['REQUEST_URI'];
 
 include '../connectToDB.php';
@@ -16,24 +17,19 @@ include('../navigation.php');
 
 $user_id = $_SESSION['userid'];
 
-$sqlcomplete = "SELECT * FROM orion.videogames m, orion.g_user_videogames g WHERE m.id = g.videogames_id and g.user_id ='$user_id' order by g.rank DESC";
+$sqlcomplete = "SELECT * FROM orion.videogames m, orion.g_user_videogames g WHERE m.id = g.videogames_id and g.user_id ='$user_id' and g.rank > 0 order by g.rank DESC";
 
 if (isset($_SESSION['userid']))
         {
-                $querycomplete = $db->query($sqlcomplete);
-          echo "<div class='container text-center'><h1><a href='videogame.php'>Video Games</a></h1>";
-          echo "<table id='myTable'>";
-          echo "<thead><tr><td>Title</td><td>IGDB</td><td>Release Date</td><td>System</td><td>IGDB Rating</td><td>Ranking</td></tr></thead>";
-
-                  foreach($querycomplete as $item){
-                          $id = $item['igdb'];
-                          $api = "https://www.igdb.com/api/v1/games/$id?token=EEmW0D2LTmx-tJ2Nt492QzpmyZjEFos6G4Exi0OcJgc";
-                          $apiresponse =  file_get_contents($api);
-                          $json = json_decode($apiresponse, true);
-                          echo "<tr><td><a href='videogamedetails.php?id=".($item['id']."'>".$json['game']['name']."</a></td><td><a href='https://www.igdb.com/games/".$json['game']['slug']."' target='_blank'>".$item['igdb']."</a></td><td>".$json['game']['release_dates'][0]['release_date']."</td><td>".$json['game']['release_dates'][0]['platform_name']."</td><td>".round($json['game']['rating'], 2)."/10</td><td>".$item['rank']."</td></tr>");
-                  }
-          echo "</table></div>";
-          }
+        $querycomplete = $db->query($sqlcomplete);
+        echo "<div class='container text-center'><h1><a href='videogame.php'>Video Games</a></h1>";
+        echo "<table id='myTable'>";
+        echo "<thead><tr><td>Title</td><td>IGDB</td><td>Release Date</td><td>Time to Beat</td><td>IGDB Rating</td><td>Ranking</td></tr></thead>";
+        foreach($querycomplete as $item){
+                echo "<tr><td><a href='videogamedetails.php?id=".($item['id']."'>".$item['title']."</a></td><td><a href='https://www.igdb.com/games/".$item['slug']."' target='_blank'>".$item['igdb']."</a></td><td>".date('m/d/Y', strtotime( $item['release_date']))."</td><td>".$item['time_to_beat']."</td><td>".round($item['rating'], 2)."/10</td><td>".$item['rank']."</td></tr>");
+        }
+        echo "</table></div>";
+        }
   else
           header("location: ../users/signin.php");
 

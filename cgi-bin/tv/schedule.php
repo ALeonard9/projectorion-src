@@ -2,6 +2,7 @@
 
 session_start();
 ob_start();
+date_default_timezone_set('Etc/UTC');
 $_SESSION['url'] = $_SERVER['REQUEST_URI'];
 
 include '../connectToDB.php';

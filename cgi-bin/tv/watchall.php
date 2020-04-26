@@ -2,6 +2,7 @@
 
 session_start();
 ob_start();
+date_default_timezone_set('Etc/UTC');
 
 include '../connectToDB.php';
 

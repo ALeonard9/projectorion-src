@@ -5,6 +5,7 @@ ob_start();
 
 require '../composer/vendor/autoload.php';
 include '../connectToDB.php';
+include 'functions/functions.php';
 
 $id = $_GET['id'];
 $title = urldecode($_GET['title']);
@@ -43,6 +44,7 @@ if ( !$row){
 	$stmt->bindParam(':poster', $poster);
 	$stmt->execute();
 	$row_id =  $db->lastInsertId();
+	updateVG($id);
 } else {
 	$row_id = $row['id'];
 }
