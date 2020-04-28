@@ -5,7 +5,7 @@ ob_start();
 date_default_timezone_set('Etc/UTC');
 
 include '../connectToDB.php';
-$today = date();
+$today = date('Y-m-d');
 $week =  date('Y-m-d', strtotime('+7 days'));
 
 $id = $_GET['id'];

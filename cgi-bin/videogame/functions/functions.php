@@ -65,4 +65,19 @@ function updateVG($igdb_id, $db)
     return;
   }
 
+  function updateNotes($g_id, $textbox)
+  {
+    include '../connectToDB.php';
+    
+    try {
+        $stmt = $db->prepare("UPDATE `orion`.`g_user_videogames` SET `notes`=:textbox WHERE `g_id`=:g_id");
+        $stmt->bindParam(':g_id', $g_id);
+        $stmt->bindParam(':textbox', $textbox);
+        $stmt->execute();
+    } catch (PDOException $e) {
+        echo 'Connection failed: ' . $e->getMessage();
+    }
+    return;
+  }
+
 ?>
