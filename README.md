@@ -1,6 +1,6 @@
 # ALeonard Sandbox
 
-The sandbox is the culmination of several pet projects, including a 'SmashUp' companion app, a betting app, and tracking and ranking for movies, tv shows, videogames and countries visited. Check it out at https://www.aleonard.us/sandbox.php.
+The sandbox is the culmination of several pet projects, including a betting app, and tracking and ranking for movies, tv shows, videogames and countries visited. Check it out at https://www.aleonard.us/dashboard.php.
 
 ## Technology used
 * PHP
