@@ -48,7 +48,7 @@ if ($_SESSION['usergroup'] == 'User' or $_SESSION['usergroup'] == 'Admin'){
       $apiresponse =  file_get_contents($api);
       $json = json_decode($apiresponse);
 
-      echo "<ul class='list-group' id='list-items'>";
+      echo "<ul class='list-group' >";
 
                 foreach($json->{'Search'} as $jsonitem){
                   echo "<li class='list-group-item'><a href='http://www.imdb.com/title/".$jsonitem->{'imdbID'}."' target='_blank'><span data-toggle='tooltip' title='View IMDB page' class='glyphicon glyphicon-film'></span></a>    <a data-toggle='tooltip' title='Add to ranking' href='addmovie.php?title=".urlencode($jsonitem->{'Title'})."&imdbid=".$jsonitem->{'imdbID'}."&complete=1'>".$jsonitem->{'Title'}."</a><a href='addmovie.php?title=".urlencode($jsonitem->{'Title'})."&imdbid=".$jsonitem->{'imdbID'}."&complete=0'><span data-toggle='tooltip' title='Add to Watchlist' class='glyphicon glyphicon-plus' style='float:right'></span></a></li>";

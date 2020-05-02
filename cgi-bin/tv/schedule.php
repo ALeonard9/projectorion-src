@@ -26,7 +26,7 @@ if ($_SESSION['usergroup'] == 'User' or $_SESSION['usergroup'] == 'Admin'){
 $freezesql = "SELECT g.g_id, t.title, t.id FROM g_user_tv g, tv t WHERE t.id = g.tv_id AND g.freeze = 1 AND g.user_id = ".$user_id." ORDER BY t.title";
 $freezequery = $db->query($freezesql);
 $freezecount = $freezequery->rowCount();
-$sql = "SELECT t.title as tv_title, g.g_id, e.title, e.season, e.season_number, e.airdate, t.id FROM orion.tv t, orion.g_user_tv u, orion.g_user_tvepisodes g, orion.tvepisodes e WHERE u.tv_id = t.id AND u.freeze = 0 AND g.tvepisode_id = e.id AND g.user_id = ".$user_id." AND u.user_id =".$user_id." AND e.tv_id = t.id AND g.watched = 0 AND e.airdate >= '".$begin."' AND e.airdate <= '".$end."' order by e.airdate";
+$sql = "SELECT t.title as tv_title, g.g_id, e.title, e.season, e.season_number, e.airdate, t.id FROM orion.tv t, orion.g_user_tv u, orion.g_user_tvepisodes g, orion.tvepisodes e WHERE u.tv_id = t.id AND u.freeze = 0 AND g.tvepisode_id = e.id AND g.user_id = ".$user_id." AND u.user_id =".$user_id." AND e.tv_id = t.id AND g.watched = 0 AND e.airdate >= '".$begin."' AND e.airdate <= '".$end."' order by e.airdate, tv_title, season_number";
 $query = $db->query($sql);
 $unwatchedsql = "SELECT t.title as tv_title, g.g_id, e.title, e.season, e.season_number, e.airdate, t.id FROM orion.tv t, orion.g_user_tv u , orion.g_user_tvepisodes g, orion.tvepisodes e WHERE u.tv_id = t.id AND u.freeze = 0 AND g.tvepisode_id = e.id AND g.user_id = ".$user_id." AND u.user_id =".$user_id." AND e.tv_id = t.id AND g.watched = 0 AND e.airdate <= '".$today."' order by tv_title ASC, season ASC, season_number ASC";
 $unwatchedquery = $db->query($unwatchedsql);

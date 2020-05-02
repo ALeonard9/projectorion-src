@@ -2,6 +2,7 @@
 
 session_start();
 ob_start();
+date_default_timezone_set('Etc/UTC');
 $_SESSION['url'] = $_SERVER['REQUEST_URI'];
 
 include '../connectToDB.php';
@@ -22,16 +23,14 @@ $api = 'http://www.omdbapi.com/?apikey=98df30f1&i=';
 
   if (isset($_SESSION['userid']))
           {
-                  $querycomplete = $db->query($sqlcomplete);
+          $querycomplete = $db->query($sqlcomplete);
 
           echo "<div class='container text-center'><h1><a href='movie.php'>Movies</a></h1>";
           echo "<table id='myTable'>";
-          echo "<thead><tr><td>Title</td><td>IMDB</td><td>Release Date</td><td>Rating</td><td>Runtime</td><td>IMDB Rating</td><td>Ranking</td></tr></thead>";
+          echo "<thead><tr><td>Title</td><td>IMDB</td><td>Release Date</td><td>Rating</td><td>Runtime (mins)</td><td>IMDB Rating</td><td>Ranking</td></tr></thead>";
 
                   foreach($querycomplete as $item){
-                          $apiresponse =  file_get_contents($api.$item['imdb']);
-                          $json = json_decode($apiresponse);
-                          echo "<tr><td><a href='moviedetails.php?movieID=".($item['id']."'>".$json->{'Title'}."</a></td><td><a href='http://www.imdb.com/title/".$item['imdb']."' target='_blank'>".$item['imdb']."</a></td><td>".$json->{'Released'}."</td><td>".$json->{'Rated'}."</td><td>".$json->{'Runtime'}."</td><td>".$json->{'imdbRating'}."</td><td>".$item['rank']."</td></tr>");
+                        echo "<tr><td><a href='moviedetails.php?movieID=".($item['id']."'>".$item['title']."</a></td><td><a href='http://www.imdb.com/title/".$item['imdb']."' target='_blank'>".$item['imdb']."</a></td><td>".date('Y-m-d',strtotime($item['release_date']))."</td><td>".$item['rated']."</td><td>".$item['runtime']."</td><td>".$item['rating_imdb']."</td><td>".$item['rank']."</td></tr>");
                   }
           echo "</table></div>";
           }
