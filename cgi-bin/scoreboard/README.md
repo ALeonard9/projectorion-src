@@ -1,11 +1,13 @@
 # serverless-scoreboard
+
 A serverless, single-page application for collaboratively sharing and tracking scores.
 
 ## Technology used
-* AWS Lambda
-* AWS DynamoDB
-* AWS S3
-* AWS CloudFront
+
+- AWS Lambda
+- AWS DynamoDB
+- AWS S3
+- AWS CloudFront
 
 ## Usage
 
