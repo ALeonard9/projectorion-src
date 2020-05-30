@@ -36,6 +36,9 @@ $user_id = $_SESSION['userid'];
 $check = "SELECT * FROM orion.videogames where igdb='".$id."';";
 $stmt = $db->prepare($check);
 $stmt->execute();
+if ( false===$result ) {
+	error_log( serialize ($stmt->errorInfo()));
+}
 $row = $stmt->fetch(PDO::FETCH_ASSOC);
 if ( !$row){
 	$stmt = $db->prepare("INSERT INTO `orion`.`videogames` (`igdb`, `title`, `poster_url`) VALUES (:id, :title, :poster)");
@@ -43,6 +46,9 @@ if ( !$row){
 	$stmt->bindParam(':title', $title);
 	$stmt->bindParam(':poster', $poster);
 	$stmt->execute();
+	if ( false===$result ) {
+		error_log( serialize ($stmt->errorInfo()));
+	}
 	$row_id =  $db->lastInsertId();
 	updateVG($id);
 } else {
@@ -56,7 +62,10 @@ if (isset($_SESSION['userid']))
 		$stmt->bindParam(':user', $user_id);
 		$stmt->bindParam(':row', $row_id);
 		$stmt->bindParam(':complete', $complete);
-    $stmt->execute();
+		$stmt->execute();
+		if ( false===$result ) {
+            error_log( serialize ($stmt->errorInfo()));
+        }
   	header("Location: videogame.php");
 		exit;
 	}

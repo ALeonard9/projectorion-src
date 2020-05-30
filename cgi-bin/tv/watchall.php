@@ -20,8 +20,11 @@ if (isset($_SESSION['userid']))
 			$stmt->bindParam(':user', $user_id);
 			$stmt->bindParam(':id', $id);
 			$stmt->bindParam(':today', $today);
-      $stmt->bindParam(':watched', $watched);
+      		$stmt->bindParam(':watched', $watched);
 			$stmt->execute();
+			if ( false===$result ) {
+				error_log( serialize ($stmt->errorInfo()));
+			}
 		} catch (PDOException $e) {
 				echo 'Connection failed: ' . $e->getMessage();
 		}

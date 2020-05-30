@@ -25,6 +25,9 @@ if (isset($_GET['tv_id'])) {
       $stmt->bindParam(':number', $json['number']);
       $stmt->bindParam(':tvmaze', $item['tvmaze']);
       $stmt->execute();
+      if ( false===$result ) {
+        error_log( serialize ($stmt->errorInfo()));
+      }
     } catch (PDOException $e) {
         echo 'Connection failed: ' . $e->getMessage();
     }

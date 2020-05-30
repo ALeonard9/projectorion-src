@@ -13,6 +13,9 @@ $user_id = $_SESSION['userid'];
 $check = "SELECT * FROM orion.countries where country_code='".$cc."';";
 $stmt = $db->prepare($check);
 $stmt->execute();
+if ( false===$result ) {
+	error_log( serialize ($stmt->errorInfo()));
+}
 $row = $stmt->fetch(PDO::FETCH_ASSOC);
 if ( !$row){
 	$sql = "INSERT INTO `orion`.`countries` (`country_code`, `title`) VALUES ('$cc', '$title');";

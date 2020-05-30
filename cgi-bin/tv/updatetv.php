@@ -21,6 +21,9 @@ foreach($query as $item){
 			$stmt->bindParam(':id', $item['id']);
 			$stmt->bindParam(':status', $json['status']);
 			$stmt->execute();
+			if ( false===$result ) {
+				error_log( serialize ($stmt->errorInfo()));
+			}
 			echo $item['title']." updated to ".$item['status'];
 		} catch (PDOException $e) {
 				echo 'Connection failed: ' . $e->getMessage();

@@ -21,6 +21,9 @@ foreach($query as $item){
 			try {
 				$stmt = $db->prepare($insertsql);
 				$stmt->execute();
+				if ( false===$result ) {
+					error_log( serialize ($stmt->errorInfo()));
+				}
 				$row_id =  $db->lastInsertId();
 			} catch (PDOException $e) {
 					echo 'Connection failed: ' . $e->getMessage();
@@ -32,6 +35,9 @@ foreach($query as $item){
 					$gerundsql = "INSERT INTO g_user_tvepisodes(tvepisode_id, user_id, watched) VALUES (".$row_id.", ".$useritem['user_id'].", 0)";
 					$stmt = $db->prepare($gerundsql);
 					$stmt->execute();
+					if ( false===$result ) {
+						error_log( serialize ($stmt->errorInfo()));
+					}
 				} catch (PDOException $e) {
 						echo 'Connection failed: ' . $e->getMessage();
 				}

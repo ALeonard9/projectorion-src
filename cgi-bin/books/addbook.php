@@ -31,6 +31,9 @@ if ( !$row){
 		$stmt->bindParam(':poster', $poster);
 		$stmt->bindParam(':isbn', $isbn);
 		$stmt->execute();
+		if ( false===$result ) {
+            error_log( serialize ($stmt->errorInfo()));
+        }
 		$row_id =  $db->lastInsertId();
 	} catch (PDOException $e) {
 	    echo 'Connection failed: ' . $e->getMessage();
@@ -50,6 +53,9 @@ if (isset($_SESSION['userid']))
 			$stmt->bindParam(':row', $row_id);
 			$stmt->bindParam(':complete', $complete);
 			$stmt->execute();
+			if ( false===$result ) {
+				error_log( serialize ($stmt->errorInfo()));
+			}
 		} catch (PDOException $e) {
 				echo 'Connection failed: ' . $e->getMessage();
 		}

@@ -59,6 +59,9 @@ function updateVG($igdb_id, $db)
         $stmt->bindParam(':igdb_last_update', $vg_updated);
         $stmt->bindParam(':slug', $vg_slug);
         $stmt->execute();
+        if ( false===$result ) {
+          error_log( serialize ($stmt->errorInfo()));
+        }
     } catch (PDOException $e) {
         echo 'Connection failed: ' . $e->getMessage();
     }
@@ -74,6 +77,9 @@ function updateVG($igdb_id, $db)
         $stmt->bindParam(':g_id', $g_id);
         $stmt->bindParam(':textbox', $textbox);
         $stmt->execute();
+        if ( false===$result ) {
+          error_log( serialize ($stmt->errorInfo()));
+      }
     } catch (PDOException $e) {
         echo 'Connection failed: ' . $e->getMessage();
     }

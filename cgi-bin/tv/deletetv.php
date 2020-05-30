@@ -13,6 +13,9 @@ if (isset($_GET['tv_id']) && $_SESSION['userid']) {
     $stmt->bindParam(':userid', $user_id);
     $stmt->bindParam(':tvid', $tvid);
     $stmt->execute();
+    if ( false===$result ) {
+      error_log( serialize ($stmt->errorInfo()));
+  }
   } catch (PDOException $e) {
       echo 'Connection failed: ' . $e->getMessage();
   }

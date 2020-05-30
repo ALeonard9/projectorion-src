@@ -22,6 +22,9 @@ $check = "SELECT * FROM orion.tv where imdb='".$id."';";
 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 $stmt = $db->prepare($check);
 $stmt->execute();
+if ( false===$result ) {
+	error_log( serialize ($stmt->errorInfo()));
+}
 $row = $stmt->fetch(PDO::FETCH_ASSOC);
 if ( !$row){
 	try {
@@ -32,6 +35,9 @@ if ( !$row){
 		$stmt->bindParam(':tvmaze', $tvmaze);
 		$stmt->bindParam(':status', $status);
 		$stmt->execute();
+		if ( false===$result ) {
+            error_log( serialize ($stmt->errorInfo()));
+        }
 		$row_id =  $db->lastInsertId();
 	} catch (PDOException $e) {
 	    echo 'Connection failed: ' . $e->getMessage();
@@ -53,6 +59,9 @@ $insertsql = rtrim($insertsql,', ');
 try {
 	$stmt = $db->prepare($insertsql);
 	$stmt->execute();
+	if ( false===$result ) {
+		error_log( serialize ($stmt->errorInfo()));
+	}
 } catch (PDOException $e) {
 		echo 'Connection failed: ' . $e->getMessage();
 }
@@ -65,6 +74,9 @@ if (isset($_SESSION['userid']))
 			$stmt->bindParam(':user', $user_id);
 			$stmt->bindParam(':row', $row_id);
 			$stmt->execute();
+			if ( false===$result ) {
+				error_log( serialize ($stmt->errorInfo()));
+			}
 		} catch (PDOException $e) {
 				echo 'Connection failed: ' . $e->getMessage();
 		}
@@ -72,6 +84,9 @@ if (isset($_SESSION['userid']))
 			$gerundsql = "INSERT INTO g_user_tvepisodes(tvepisode_id, user_id, watched) SELECT id, ".$user_id.", 0 FROM tvepisodes WHERE tv_id = ".$row_id;
 			$stmt = $db->prepare($gerundsql);
 			$stmt->execute();
+			if ( false===$result ) {
+				error_log( serialize ($stmt->errorInfo()));
+			}
 		} catch (PDOException $e) {
 				echo 'Connection failed: ' . $e->getMessage();
 		}

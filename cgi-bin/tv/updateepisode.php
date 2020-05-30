@@ -16,6 +16,9 @@ if (isset($_GET['ep_id'])) {
     $stmt->bindParam(':number', $json['number']);
     $stmt->bindParam(':tvmaze', $search);
     $stmt->execute();
+    if ( false===$result ) {
+      error_log( serialize ($stmt->errorInfo()));
+  }
   } catch (PDOException $e) {
       echo 'Connection failed: ' . $e->getMessage();
   }

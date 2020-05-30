@@ -29,7 +29,7 @@ function updateMovie($imdb_id)
         $stmt->bindParam(':imdb', $imdb_id);
         $result = $stmt->execute();
         if ( false===$result ) {
-            print_r($stmt->errorInfo());
+            error_log( serialize ($stmt->errorInfo()));
         }
     } catch (PDOException $e) {
         echo 'Connection failed: ' . $e->getMessage();

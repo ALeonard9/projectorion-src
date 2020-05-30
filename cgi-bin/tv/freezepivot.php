@@ -17,8 +17,11 @@ if (isset($_SESSION['userid']))
 			$stmt = $db->prepare("UPDATE `orion`.`g_user_tv` SET `freeze`=:freeze WHERE `g_id`=:id AND `user_id`=:user");
 			$stmt->bindParam(':user', $user_id);
 			$stmt->bindParam(':id', $id);
-      $stmt->bindParam(':freeze', $freeze);
+      		$stmt->bindParam(':freeze', $freeze);
 			$stmt->execute();
+			if ( false===$result ) {
+				error_log( serialize ($stmt->errorInfo()));
+			}
 		} catch (PDOException $e) {
 				echo 'Connection failed: ' . $e->getMessage();
 		}

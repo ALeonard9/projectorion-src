@@ -14,7 +14,7 @@ $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 if (isset($_SESSION['userid']))
 	{
 		try {
-			$stmt = $db->prepare("DELETE FROM $table WHERE `g_id`=:id AND `user_id`=:user");
+			$stmt = ("DELETE FROM $table WHERE `g_id`=:id AND `user_id`=:user");
 			$stmt->bindParam(':user', $user_id);
 			$stmt->bindParam(':id', $id);
 			$stmt->execute();
