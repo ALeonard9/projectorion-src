@@ -2,7 +2,7 @@
 require '../composer/vendor/autoload.php';
 date_default_timezone_set('Etc/UTC');
 
-function updateVG($igdb_id, $db)
+function updateVG($igdb_id)
   {
     include '../connectToDB.php';
 
