@@ -24,7 +24,7 @@ foreach($query as $item){
 			if ( false===$result ) {
 				error_log( serialize ($stmt->errorInfo()));
 			}
-			echo $item['title']." updated to ".$item['status'];
+			echo $item['title']." updated to ".$json['status'];
 		} catch (PDOException $e) {
 				echo 'Connection failed: ' . $e->getMessage();
 		}
