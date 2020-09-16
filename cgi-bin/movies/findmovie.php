@@ -35,8 +35,9 @@ if ($_SESSION['usergroup'] == 'User' or $_SESSION['usergroup'] == 'Admin'){
 
   if (isset($search)){
     $searchafter = urlencode($search);
+    $omdb_api_key = getenv('OMDB_API_KEY');
     if (substr( $search, 0, 2 ) === 'tt') {
-      $api = "http://www.omdbapi.com/?i=$searchafter&r=JSON&type=movie&apikey=98df30f1";
+      $api = "http://www.omdbapi.com/?i=$searchafter&r=JSON&type=movie&apikey=".$omdb_api_key;
       $apiresponse =  file_get_contents($api);
       $json = json_decode($apiresponse);
       echo "<ul class='list-group'>";
@@ -44,7 +45,7 @@ if ($_SESSION['usergroup'] == 'User' or $_SESSION['usergroup'] == 'Admin'){
       echo "</ul>
           </div>";
     } else {
-      $api = "http://www.omdbapi.com/?s=$searchafter&r=JSON&type=movie&apikey=98df30f1";
+      $api = "http://www.omdbapi.com/?s=$searchafter&r=JSON&type=movie&apikey=".$omdb_api_key;
       $apiresponse =  file_get_contents($api);
       $json = json_decode($apiresponse);
 

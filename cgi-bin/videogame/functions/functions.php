@@ -10,9 +10,9 @@ function updateVG($igdb_id)
     $query = $db->query($sql);
     $res = $query->fetch();
     $db_last_update = $res['igdb_last_update'];
-
+    $igdb_api_key = getenv('IGDB_API_KEY');
     $headers = array(
-        "user-key" => "9543c63d95e29a272163f6001a747b54",
+      "user-key" => $igdb_api_key,
         "Accept" => "application/json"
     );
     

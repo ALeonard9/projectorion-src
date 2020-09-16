@@ -6,7 +6,8 @@ function updateMovie($imdb_id)
   {
     include '../connectToDB.php';
 
-    $api = 'http://www.omdbapi.com/?apikey=98df30f1&i=';
+    $omdb_api_key = getenv('OMDB_API_KEY');
+		$api = 'http://www.omdbapi.com/?apikey=' .$omdb_api_key. '&i=';
     $apiresponse =  file_get_contents($api.$imdb_id);
     $json = json_decode($apiresponse);
     $title =  $json->{'Title'};

@@ -10,8 +10,9 @@ include 'functions/functions.php';
 $id = $_GET['id'];
 $title = urldecode($_GET['title']);
 $poster_id = $_GET['poster'];
+$igdb_api_key = getenv('IGDB_API_KEY');
 $headers = array(
-	"user-key" => "9543c63d95e29a272163f6001a747b54",
+	"user-key" => $igdb_api_key,
 	"Accept" => "application/json"
   );
 $data = "fields url; where id = $poster_id;";

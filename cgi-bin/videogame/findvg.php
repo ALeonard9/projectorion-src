@@ -34,9 +34,9 @@ if ($_SESSION['usergroup'] == 'User' or $_SESSION['usergroup'] == 'Admin'){
     <button class='btn btn-lg btn-inverse btn-block' type='submit'><span class='glyphicon glyphicon-search'></span> Search</button></form></br>";
 
   if (isset($search)){
-
+    $igdb_api_key = getenv('IGDB_API_KEY');
     $headers = array(
-        "user-key" => "9543c63d95e29a272163f6001a747b54",
+        "user-key" => $igdb_api_key,
         "Accept" => "application/json"
       );
     $data = "fields slug,name,cover; limit 10; search \"$search\";";
