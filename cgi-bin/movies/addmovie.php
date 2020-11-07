@@ -4,6 +4,7 @@ session_start();
 ob_start();
 
 include '../connectToDB.php';
+include 'functions/functions.php';
 
 $imdbID = $_GET['imdbid'];
 $complete = $_GET['complete'];
@@ -33,6 +34,8 @@ if ( !$row){
 } else {
         $movie_id = $row['id'];
 }
+
+updateMovie($imdbID);
 
 if (isset($_SESSION['userid']))
         {
