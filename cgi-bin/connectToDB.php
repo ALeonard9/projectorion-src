@@ -7,8 +7,6 @@ $mysql_db = getenv('MYSQL_DATABASE');
 $mysql_port = getenv('MYSQL_PORT');
 $mysql_connection_string = "mysql:host={$mysql_url};port={$mysql_port};dbname={$mysql_db};charset=utf8";
 
-// isset(getenv('MYSQL_PORT')) ? $_GET['name']:'john doe';
-
 try {
         $db = new PDO ($mysql_connection_string, $mysql_user, $mysql_password);
 
