@@ -9,61 +9,54 @@ if (isset($_SESSION['userid'])){
 }
 
 include '../connectToDB.php';
-$CLIENT_ID = getenv('GOOGLE_CLIENT_ID');
-$CLIENT_SECRET = getenv('GOOGLE_CLIENT_SECRET');
-$REDIRECT_URI = getenv('GOOGLE_REDIRECT_URL');
+$clientID = getenv('GOOGLE_CLIENT_ID');
+$clientSecret = getenv('GOOGLE_CLIENT_SECRET');
+$redirectUri = getenv('GOOGLE_REDIRECT_URL');
 $PROTOCOL = isset($_SERVER['HTTPS']) ? 'https':'http';
 
 $client = new Google_Client();
-$client->setClientId($CLIENT_ID);
-$client->setClientSecret($CLIENT_SECRET);
-$client->setRedirectUri($REDIRECT_URI);
-$client->setScopes('email');
-$plus = new Google_Service_Plus($client);
+$client->setClientId($clientID);
+$client->setClientSecret($clientSecret);
+$client->setRedirectUri($redirectUri);
+$client->addScope("email");
+$client->addScope("profile");
 
 if (isset($_GET['code'])) {
-  $client->authenticate($_GET['code']);
-  $_SESSION['access_token'] = $client->getAccessToken();
-  $redirect = $PROTOCOL . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'];
-  header('Location: ' . filter_var($redirect, FILTER_SANITIZE_URL));
-}
-if (isset($_SESSION['access_token']) && $_SESSION['access_token']) {
-  $client->setAccessToken($_SESSION['access_token']);
-  $me = $plus->people->get('me');
-  // Get User data
-  $id = $me['id'];
-  $name =  $me['displayName'];
-  $email =  $me['emails'][0]['value'];
-  $profile_image_url = $me['image']['url'];
-  $cover_image_url = $me['cover']['coverPhoto']['url'];
-  $profile_url = $me['url'];
+  $token = $client->fetchAccessTokenWithAuthCode($_GET['code']);
+  $client->setAccessToken($token['access_token']);
+   
+  // get profile info
+  $google_oauth = new Google_Service_Oauth2($client);
+  $google_account_info = $google_oauth->userinfo->get();
+  $email =  $google_account_info->email;
+  $name =  $google_account_info->name;
 
-      $sql = "SELECT * FROM `orion`.`users` WHERE email = '".$email."'";
-      $query = $db->query($sql);
-      $row_count = $query->rowCount();
-        $results = $query->fetch(PDO::FETCH_ASSOC);
-      if ($row_count>0){
-        $_SESSION['username']=$results['display_name'];
-        $_SESSION['email']= $results['email'];
-         if ($_SESSION['username']==''){
-           $_SESSION['username']=$_SESSION['email'];
-         }
-        $_SESSION['usergroup']=$results['user_group'];
-        $_SESSION['userid']=$results['id'];
-          } else {
-        $sql1 = "INSERT INTO `orion`.`users` (`display_name`, `user_group`, `email`) VALUES ('".$name."', 'User', '".$email."')";
-        $query = $db->query($sql1);
-        $sql2 = "SELECT * FROM `orion`.`users` WHERE email = '".$email."'";
-        $query = $db->query($sql2);
-          $results = $query->fetch(PDO::FETCH_ASSOC);
-          $_SESSION['username']=$results['display_name'];
-          $_SESSION['email'] = $results['email'];
-          if ($_SESSION['username']==''){
-            $_SESSION['username']=$_SESSION['email'];
-          }
-          $_SESSION['usergroup']=$results['user_group'];
-          $_SESSION['userid']=$results['id'];
+  $sql = "SELECT * FROM `orion`.`users` WHERE email = '".$email."'";
+  $query = $db->query($sql);
+  $row_count = $query->rowCount();
+    $results = $query->fetch(PDO::FETCH_ASSOC);
+  if ($row_count>0){
+    $_SESSION['username']=$results['display_name'];
+    $_SESSION['email']= $results['email'];
+      if ($_SESSION['username']==''){
+        $_SESSION['username']=$_SESSION['email'];
       }
+    $_SESSION['usergroup']=$results['user_group'];
+    $_SESSION['userid']=$results['id'];
+      } else {
+    $sql1 = "INSERT INTO `orion`.`users` (`display_name`, `user_group`, `email`) VALUES ('".$name."', 'User', '".$email."')";
+    $query = $db->query($sql1);
+    $sql2 = "SELECT * FROM `orion`.`users` WHERE email = '".$email."'";
+    $query = $db->query($sql2);
+      $results = $query->fetch(PDO::FETCH_ASSOC);
+      $_SESSION['username']=$results['display_name'];
+      $_SESSION['email'] = $results['email'];
+      if ($_SESSION['username']==''){
+        $_SESSION['username']=$_SESSION['email'];
+      }
+      $_SESSION['usergroup']=$results['user_group'];
+      $_SESSION['userid']=$results['id'];
+  }
 
   if(isset($_SESSION['url']))
     $url = $_SESSION['url']; // holds url for last page visited.
