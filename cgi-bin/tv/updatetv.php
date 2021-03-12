@@ -21,7 +21,7 @@ foreach($query as $item){
 			$stmt->bindParam(':id', $item['id']);
 			$stmt->bindParam(':status', $json['status']);
 			$stmt->execute();
-			if ( false===$result ) {
+			if ( !$stmt ) {
 				error_log( serialize ($stmt->errorInfo()));
 			}
 			echo $item['title']." updated to ".$json['status'];
