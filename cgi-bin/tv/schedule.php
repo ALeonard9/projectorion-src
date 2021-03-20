@@ -15,7 +15,6 @@ include('../header.php');
 echo "</head><body><div class='container'>";
 include('../navigation.php');
 $user_id = $_SESSION['userid'];
-date_default_timezone_set('America/New_York');
 $begin = date('Y-m-d', strtotime('-5 days'));
 $end = date('Y-m-d', strtotime('+5 days'));
 $today = date('Y-m-d');

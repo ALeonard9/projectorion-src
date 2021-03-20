@@ -6,7 +6,6 @@ date_default_timezone_set('Etc/UTC');
 
 include '../connectToDB.php';
 
-date_default_timezone_set('America/New_York');
 $date = date('Y-m-d-H', time());
 $asql = "INSERT INTO `smash`.`game` (game_date) VALUES ('".$date."')";
 $db->exec($asql);
