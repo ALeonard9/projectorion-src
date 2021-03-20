@@ -1440,7 +1440,7 @@ var FlipClock;
 			}
 
 			if(!date) {
-				date = this.getDateObject();
+				 = this.getDateObject();
 			}
 
 			var data  = [

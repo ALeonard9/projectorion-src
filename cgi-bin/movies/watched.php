@@ -9,9 +9,17 @@ $id = $_GET['id'];
 
 if (isset($_SESSION['userid']))
 	{
-    $stmt = $db->prepare("UPDATE `orion`.`g_user_movies` SET `completed`='1' WHERE `g_id`= :gid");
-    $stmt->bindParam(':gid', $id);
-    $stmt->execute();
+    try {
+        $stmt = $db->prepare("UPDATE `orion`.`g_user_movies` SET `completed`='1', `g_first`=now() WHERE `g_id`= :gid");
+        $stmt->bindParam(':gid', $id);
+        $stmt->execute();
+        $result = $stmt->execute();
+        if ( false===$result ) {
+            error_log( serialize ($stmt->errorInfo()));
+        }
+    } catch (PDOException $e) {
+        echo 'Connection failed: ' . $e->getMessage();
+    }
     header("Location: movie.php");
     exit;
 	}

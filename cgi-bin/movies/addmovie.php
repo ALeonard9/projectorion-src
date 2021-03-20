@@ -39,7 +39,7 @@ updateMovie($imdbID);
 
 if (isset($_SESSION['userid']))
         {
-                $stmt = $db->prepare("INSERT INTO orion.g_user_movies (`user_id`, `movies_id`, `rank`, `completed`) VALUES (:user, :row, '0', :complete)");
+                $stmt = $db->prepare("INSERT INTO orion.g_user_movies (`user_id`, `movies_id`, `rank`, `completed`, `g_first`) VALUES (:user, :row, '0', :complete, now())");
                 $stmt->bindParam(':user', $user_id);
                 $stmt->bindParam(':row', $movie_id);
                 $stmt->bindParam(':complete', $complete);

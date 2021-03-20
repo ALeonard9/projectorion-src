@@ -48,7 +48,7 @@ echo "Complete: ".$complete;
 if (isset($_SESSION['userid']))
 	{
 		try {
-			$stmt = $db->prepare("INSERT INTO orion.g_user_books (`user_id`, `books_id`, `rank`, `completed`) VALUES (:user, :row, '0', :complete)");
+			$stmt = $db->prepare("INSERT INTO orion.g_user_books (`user_id`, `books_id`, `rank`, `completed`, `g_first`) VALUES (:user, :row, '0', :complete, now())");
 			$stmt->bindParam(':user', $user_id);
 			$stmt->bindParam(':row', $row_id);
 			$stmt->bindParam(':complete', $complete);
