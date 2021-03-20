@@ -27,7 +27,7 @@ if ( !$row){
 
 if (isset($_SESSION['userid']))
 	{
-		$sql = "INSERT INTO orion.g_user_countries (`user_id`, `countries_id`, `rank`, `completed`) VALUES ('$user_id', '$countries_id', '0', '1');";
+		$sql = "INSERT INTO orion.g_user_countries (`user_id`, `countries_id`, `rank`, `completed`, `g_first`) VALUES ('$user_id', '$countries_id', '0', '1', now());";
 		$db->exec($sql);
 		header("Location: country.php");
 		exit;
