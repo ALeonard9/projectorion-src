@@ -10,16 +10,25 @@ include 'functions/functions.php';
 $id = $_GET['id'];
 $title = urldecode($_GET['title']);
 $poster_id = $_GET['poster'];
-$igdb_api_key = getenv('IGDB_API_KEY');
+
+if (!isset($_SESSION['twitch_token'])){
+	twitchAuth();
+}
+
+$twitch_client_id= getenv('TWITCH_CLIENT_ID');
+$twitch_client_auth= $_SESSION['twitch_token'];
+
 $headers = array(
-	"user-key" => $igdb_api_key,
+	"Client-ID" => $twitch_client_id,
+	"Authorization" => "Bearer ".$twitch_client_auth,
 	"Accept" => "application/json"
-  );
+);
+
 $data = "fields url; where id = $poster_id;";
 
 $body = Unirest\Request\Body::form($data);
 
-$response = Unirest\Request::post('https://api-v3.igdb.com/covers', $headers, $body);
+$response = Unirest\Request::post('https://api.igdb.com/v4/covers', $headers, $body);
 
 $json = json_decode($response->raw_body, true);
 

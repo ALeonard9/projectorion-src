@@ -13,6 +13,7 @@ if (isset($_POST['title_search'])) {
 }
 require '../composer/vendor/autoload.php';
 include '../connectToDB.php';
+include 'functions/functions.php';
 
 echo "<!DOCTYPE html>
 <html lang='en'>
@@ -34,16 +35,25 @@ if ($_SESSION['usergroup'] == 'User' or $_SESSION['usergroup'] == 'Admin'){
     <button class='btn btn-lg btn-inverse btn-block' type='submit'><span class='glyphicon glyphicon-search'></span> Search</button></form></br>";
 
   if (isset($search)){
-    $igdb_api_key = getenv('IGDB_API_KEY');
+
+    if (!isset($_SESSION['twitch_token'])){
+      twitchAuth();
+    }
+
+    $twitch_client_id= getenv('TWITCH_CLIENT_ID');
+    $twitch_client_auth= $_SESSION['twitch_token'];
+
     $headers = array(
-        "user-key" => $igdb_api_key,
+        "Client-ID" => $twitch_client_id,
+        "Authorization" => "Bearer ".$twitch_client_auth,
         "Accept" => "application/json"
-      );
+    );
+    
     $data = "fields slug,name,cover; limit 10; search \"$search\";";
     
     $body = Unirest\Request\Body::form($data);
     
-    $response = Unirest\Request::post('https://api-v3.igdb.com/games', $headers, $body);
+    $response = Unirest\Request::post('https://api.igdb.com/v4/games', $headers, $body);
     
     $json = json_decode($response->raw_body, true);
     echo "<ul class='list-group'>";

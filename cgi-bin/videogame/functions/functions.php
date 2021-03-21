@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 require '../composer/vendor/autoload.php';
 date_default_timezone_set('Etc/UTC');
 
@@ -10,16 +12,23 @@ function updateVG($igdb_id)
     $query = $db->query($sql);
     $res = $query->fetch();
     $db_last_update = $res['igdb_last_update'];
-    $igdb_api_key = getenv('IGDB_API_KEY');
+    if (!isset($_SESSION['twitch_token'])){
+      twitchAuth();
+    }
+    
+    $twitch_client_id= getenv('TWITCH_CLIENT_ID');
+    $twitch_client_auth= $_SESSION['twitch_token'];
+    
     $headers = array(
-      "user-key" => $igdb_api_key,
-        "Accept" => "application/json"
+      "Client-ID" => $twitch_client_id,
+      "Authorization" => "Bearer ".$twitch_client_auth,
+      "Accept" => "application/json"
     );
     
-    $data = "fields name,cover,first_release_date,rating,time_to_beat,updated_at,slug; limit 1; where id = $igdb_id;";
+    $data = "fields name,cover,first_release_date,rating,updated_at,slug; limit 1; where id = $igdb_id;";
 
     $body = Unirest\Request\Body::form($data);
-    $response = Unirest\Request::post('https://api-v3.igdb.com/games', $headers, $body);
+    $response = Unirest\Request::post('https://api.igdb.com/v4/games', $headers, $body);
     $json = json_decode($response->raw_body, true); 
     
     $vg_updated = date("Y-m-d H:i:s",$json[0]['updated_at']);
@@ -36,23 +45,15 @@ function updateVG($igdb_id)
     
     $data = "fields url; where id = ".$json[0]['cover'].";";
     $body = Unirest\Request\Body::form($data);
-    $response = Unirest\Request::post('https://api-v3.igdb.com/covers', $headers, $body);
+    $response = Unirest\Request::post('https://api.igdb.com/v4/covers', $headers, $body);
     $json_cover = json_decode($response->raw_body, true);
 
     $vg_cover = $json_cover[0]['url'];
-
-    $data = "fields normally; where id = ".$json[0]['time_to_beat'].";";
-    $body = Unirest\Request\Body::form($data);
-    $response = Unirest\Request::post('https://api-v3.igdb.com/time_to_beats', $headers, $body);
-    $json_time = json_decode($response->raw_body, true);
-
-    $vg_time = $json_time[0]['normally'];
     
     try {
-        $stmt = $db->prepare("UPDATE `orion`.`videogames` SET `title`=:name, `poster_url`=:poster_url, `release_date` = :release_date, `time_to_beat` = :time_to_beat, `rating` = :rating, `igdb_last_update` = :igdb_last_update, `slug` = :slug WHERE `igdb`=:igdb");
+        $stmt = $db->prepare("UPDATE `orion`.`videogames` SET `title`=:name, `poster_url`=:poster_url, `release_date` = :release_date, `rating` = :rating, `igdb_last_update` = :igdb_last_update, `slug` = :slug WHERE `igdb`=:igdb");
         $stmt->bindParam(':name', $vg_name);
         $stmt->bindParam(':release_date', $vg_release);
-        $stmt->bindParam(':time_to_beat', $vg_time);
         $stmt->bindParam(':poster_url', $vg_cover);
         $stmt->bindParam(':rating', $vg_rating);
         $stmt->bindParam(':igdb', $igdb_id);
@@ -83,6 +84,19 @@ function updateVG($igdb_id)
     } catch (PDOException $e) {
         echo 'Connection failed: ' . $e->getMessage();
     }
+    return;
+  }
+
+  function twitchAuth()
+  {
+    $twitch_client_id= getenv('TWITCH_CLIENT_ID');
+    $twitch_client_secret = getenv('TWITCH_CLIENT_SECRET');
+    
+    $response = Unirest\Request::post("https://id.twitch.tv/oauth2/token?client_id=$twitch_client_id&client_secret=$twitch_client_secret&grant_type=client_credentials");
+    $json = json_decode($response->raw_body, true);
+        
+    $_SESSION['twitch_token'] = $json['access_token'];
+    
     return;
   }
 
