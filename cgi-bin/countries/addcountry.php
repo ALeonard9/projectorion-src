@@ -12,7 +12,7 @@ $user_id = $_SESSION['userid'];
 
 $check = "SELECT * FROM orion.countries where country_code='".$cc."';";
 $stmt = $db->prepare($check);
-$stmt->execute();
+$result = $stmt->execute();
 if ( false===$result ) {
 	error_log( serialize ($stmt->errorInfo()));
 }

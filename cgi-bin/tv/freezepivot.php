@@ -18,7 +18,7 @@ if (isset($_SESSION['userid']))
 			$stmt->bindParam(':user', $user_id);
 			$stmt->bindParam(':id', $id);
       		$stmt->bindParam(':freeze', $freeze);
-			$stmt->execute();
+			$result = $stmt->execute();
 			if ( false===$result ) {
 				error_log( serialize ($stmt->errorInfo()));
 			}

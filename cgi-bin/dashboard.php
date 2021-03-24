@@ -165,7 +165,7 @@ echo"	</ul>
 			if ($row_count>0){
 				foreach($query as $item){
 					$url = preg_replace("/^http:/i", "https:", $item['poster_url']);
-					echo "<li  class='list-group-item' id='item_".($item['id']."'><a href='tvshow.php?id=".$item['id']."'><div class='container-fixed'><div class='row-fluid'><img src='".$url."' class='img-rounded img-responsive' style='width:30px;height:20px;float:left'><span class='badge'>".$item['rank']."</span>   ".$item['title']."</div></div></a></li>");
+					echo "<li  class='list-group-item' id='item_".($item['id']."'><a href='tv/tvdetails.php?id=".$item['id']."'><div class='container-fixed'><div class='row-fluid'><img src='".$url."' class='img-rounded img-responsive' style='width:30px;height:20px;float:left'><span class='badge'>".$item['rank']."</span>   ".$item['title']."</div></div></a></li>");
 				}
 			}	else {
 				echo "<a href='tv/findtv.php' style='color:red'>Add your find video game</a>";

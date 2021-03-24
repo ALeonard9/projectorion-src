@@ -122,6 +122,7 @@ echo "<div class='panel-group'>";
             <div class='panel-heading'>
                <h4 class='panel-title'>
                  <a data-toggle='collapse' href='#collapse".$item['season']."'>Season ".$item['season']."</a>
+                 <button class='pull-right unwatched' type='button' id='1'>Not Watched</button>
                </h4>
              </div>
              <div id='collapse".$item['season']."' class='panel-collapse collapse in'>

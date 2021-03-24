@@ -45,7 +45,7 @@ if ($poster == 'N/A' or is_null($poster)) {
 $user_id = $_SESSION['userid'];
 $check = "SELECT * FROM orion.videogames where igdb='".$id."';";
 $stmt = $db->prepare($check);
-$stmt->execute();
+$result = $stmt->execute();
 if ( false===$result ) {
 	error_log( serialize ($stmt->errorInfo()));
 }
@@ -55,7 +55,7 @@ if ( !$row){
 	$stmt->bindParam(':id', $id);
 	$stmt->bindParam(':title', $title);
 	$stmt->bindParam(':poster', $poster);
-	$stmt->execute();
+	$result = $stmt->execute();
 	if ( false===$result ) {
 		error_log( serialize ($stmt->errorInfo()));
 	}
@@ -72,7 +72,7 @@ if (isset($_SESSION['userid']))
 		$stmt->bindParam(':user', $user_id);
 		$stmt->bindParam(':row', $row_id);
 		$stmt->bindParam(':complete', $complete);
-		$stmt->execute();
+		$result = $stmt->execute();
 		if ( false===$result ) {
             error_log( serialize ($stmt->errorInfo()));
         }

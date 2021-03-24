@@ -21,7 +21,7 @@ if ($poster == 'N/A') {
 $check = "SELECT * FROM orion.tv where imdb='".$id."';";
 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 $stmt = $db->prepare($check);
-$stmt->execute();
+			$result = $stmt->execute();
 if ( false===$result ) {
 	error_log( serialize ($stmt->errorInfo()));
 }
@@ -34,7 +34,7 @@ if ( !$row){
 		$stmt->bindParam(':poster', $poster);
 		$stmt->bindParam(':tvmaze', $tvmaze);
 		$stmt->bindParam(':status', $status);
-		$stmt->execute();
+		$result = $stmt->execute();
 		if ( false===$result ) {
             error_log( serialize ($stmt->errorInfo()));
         }
@@ -58,7 +58,7 @@ foreach($json as $jsonitem){
 $insertsql = rtrim($insertsql,', ');
 try {
 	$stmt = $db->prepare($insertsql);
-	$stmt->execute();
+	$result = $stmt->execute();
 	if ( false===$result ) {
 		error_log( serialize ($stmt->errorInfo()));
 	}
@@ -73,7 +73,7 @@ if (isset($_SESSION['userid']))
 			$stmt = $db->prepare("INSERT INTO orion.g_user_tv (`user_id`, `tv_id`, `rank`, `status`) VALUES (:user, :row, '0', 'Behind')");
 			$stmt->bindParam(':user', $user_id);
 			$stmt->bindParam(':row', $row_id);
-			$stmt->execute();
+			$result = $stmt->execute();
 			if ( false===$result ) {
 				error_log( serialize ($stmt->errorInfo()));
 			}
@@ -83,7 +83,7 @@ if (isset($_SESSION['userid']))
 		try {
 			$gerundsql = "INSERT INTO g_user_tvepisodes(tvepisode_id, user_id, watched) SELECT id, ".$user_id.", 0 FROM tvepisodes WHERE tv_id = ".$row_id;
 			$stmt = $db->prepare($gerundsql);
-			$stmt->execute();
+			$result = $stmt->execute();
 			if ( false===$result ) {
 				error_log( serialize ($stmt->errorInfo()));
 			}

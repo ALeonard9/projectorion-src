@@ -15,7 +15,7 @@ if (isset($_GET['ep_id'])) {
     $stmt->bindParam(':season', $json['season']);
     $stmt->bindParam(':number', $json['number']);
     $stmt->bindParam(':tvmaze', $search);
-    $stmt->execute();
+    $result = $stmt->execute();
     if ( false===$result ) {
       error_log( serialize ($stmt->errorInfo()));
   }

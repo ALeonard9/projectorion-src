@@ -59,7 +59,7 @@ function updateVG($igdb_id)
         $stmt->bindParam(':igdb', $igdb_id);
         $stmt->bindParam(':igdb_last_update', $vg_updated);
         $stmt->bindParam(':slug', $vg_slug);
-        $stmt->execute();
+        $result = $stmt->execute();
         if ( false===$result ) {
           error_log( serialize ($stmt->errorInfo()));
         }
@@ -77,7 +77,7 @@ function updateVG($igdb_id)
         $stmt = $db->prepare("UPDATE `orion`.`g_user_videogames` SET `notes`=:textbox WHERE `g_id`=:g_id");
         $stmt->bindParam(':g_id', $g_id);
         $stmt->bindParam(':textbox', $textbox);
-        $stmt->execute();
+        $result = $stmt->execute();
         if ( false===$result ) {
           error_log( serialize ($stmt->errorInfo()));
       }

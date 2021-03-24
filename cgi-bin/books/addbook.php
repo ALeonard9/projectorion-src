@@ -30,7 +30,7 @@ if ( !$row){
 		$stmt->bindParam(':title', $title);
 		$stmt->bindParam(':poster', $poster);
 		$stmt->bindParam(':isbn', $isbn);
-		$stmt->execute();
+		$result = $stmt->execute();
 		if ( false===$result ) {
             error_log( serialize ($stmt->errorInfo()));
         }
@@ -52,7 +52,7 @@ if (isset($_SESSION['userid']))
 			$stmt->bindParam(':user', $user_id);
 			$stmt->bindParam(':row', $row_id);
 			$stmt->bindParam(':complete', $complete);
-			$stmt->execute();
+			$result = $stmt->execute();
 			if ( false===$result ) {
 				error_log( serialize ($stmt->errorInfo()));
 			}
