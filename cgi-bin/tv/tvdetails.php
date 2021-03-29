@@ -122,7 +122,7 @@ echo "<div class='panel-group'>";
             <div class='panel-heading'>
                <h4 class='panel-title'>
                  <a data-toggle='collapse' href='#collapse".$item['season']."'>Season ".$item['season']."</a>
-                 <button class='pull-right unwatched' type='button' id='1'>Not Watched</button>
+                 <button class='pull-right unwatchedseason' type='button' id=".$item['season'].">Not Watched</button>
                </h4>
              </div>
              <div id='collapse".$item['season']."' class='panel-collapse collapse in'>
@@ -184,14 +184,35 @@ $(document).ready(function () {
   $('.fullseason').on('click', function () {
     $.ajax({
      type: 'POST',
-     url: 'watchall.php?id=$show_id&watched=1&user_id=$user_id'
+     url: 'watchall.php?id=$show_id&watched=1'
+    }).done(function( msg ) {
+    });
+    location.reload();
+  });
+
+  $('.unwatchedseason,.watchedseason').on('click', function () {
+    $(this).toggleClass('unwatchedseason').toggleClass( 'watchedseason' );
+    if ($(this).html() == 'Watched') {
+      watched = 0;
+    } else {
+      watched = 1;
+    }
+    $.ajax({
+     type: 'POST',
+     url: 'seasonpivot.php?tv_id=$show_id&season=' + $(this).attr('id') + '&watched=' + watched,
+     error: function(jqxhr, status, exception) {
+         alert('Exception:', exception);
+     }
     }).done(function( msg ) {
     });
     location.reload();
   });
   $('.panel-collapse').each( function( index, el ) {
     if($(el).children().children().children('.unwatched').length == 0) {
-     $(el).removeClass('in');
+      $(el).siblings('.panel-heading').children().children(':button').html('Watched');
+      $(el).siblings('.panel-heading').children().children(':button').removeClass('unwatchedseason');
+      $(el).siblings('.panel-heading').children().children(':button').addClass('watchedseason');
+      $(el).removeClass('in');
     }
   });
 

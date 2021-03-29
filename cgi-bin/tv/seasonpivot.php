@@ -1,20 +1,25 @@
 <?php
+session_start();
+ob_start();
+date_default_timezone_set('Etc/UTC');
 
 include '../connectToDB.php';
 
-$id = $_GET['id'];
-$season = $_GET['season'];
 $user_id = $_SESSION['userid'];
+$tv_id = $_GET['tv_id'];
+$season = $_GET['season'];
+$watched = $_GET['watched'];
 
 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 if (isset($_SESSION['userid']))
 	{
 		try {
-			$stmt = $db->prepare("UPDATE `orion`.`g_user_tv` SET `completed`=:freeze WHERE `g_id`=:id AND `user_id`=:user");
+			$stmt = $db->prepare("UPDATE `orion`.`g_user_tvepisodes` SET `watched`=:watched  WHERE `user_id`=:user AND `tvepisode_id` IN (SELECT `id` FROM `orion`.`tvepisodes` WHERE `tv_id`=:tv_id AND `season`=:season)");
 			$stmt->bindParam(':user', $user_id);
-			$stmt->bindParam(':id', $id);
-      		$stmt->bindParam(':freeze', $freeze);
+			$stmt->bindParam(':tv_id', $tv_id);
+      		$stmt->bindParam(':watched', $watched);
+			$stmt->bindParam(':season', $season);
 			$result = $stmt->execute();
 			if ( false===$result ) {
 				error_log( serialize ($stmt->errorInfo()));

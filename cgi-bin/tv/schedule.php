@@ -51,10 +51,13 @@ if ($count > 0) {
             }
             $classw = 'unwatched';
             $displayw = 'Not Watched';
-            $full_string = "<a href='tvdetails.php?id=".$item['id']."'>".$item['tv_title']."</a> ".$item['season'].".".$item['season_number'].": ".$item['title'];
-            if (strlen($full_string) > 65) {
-              $full_string = substr($full_string, 0, 65)."...";
+            if (strlen($item['title']) > 65) {
+              $title = substr($item['title'], 0, 65)."...";
+            } else {
+              $title = $item['title'];
             }
+            $full_string = "<a href='tvdetails.php?id=".$item['id']."'>".$item['tv_title']."</a> ".$item['season'].".".$item['season_number'].": ".$title;
+
             echo "<li class='list-group-item'>".$full_string."<button class='pull-right ".$classw."' type='button' id='".$item['g_id']."'>".$displayw."</button></li>";
           }
           echo "</div></div></div></div>
