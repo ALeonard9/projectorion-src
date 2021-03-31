@@ -43,7 +43,7 @@ if ($count > 0) {
               echo "<div class='panel panel-default'>
               <div class='panel-heading'>
                  <h4 class='panel-title'>
-                   ".date('l', strtotime($item['airdate']))." ".date('m-d', strtotime($item['airdate']))."<a data-toggle='collapse' href='#collapse".$item['airdate']."'><span class='pull-right glyphicon glyphicon-minus'></span></
+                   ".date('l', strtotime($item['airdate']))." ".date('m-d', strtotime($item['airdate']))."<a data-toggle='collapse' href='#collapse".$item['airdate']."'><span class='pull-right glyphicon glyphicon-minus'></span></a>
                  </h4>
                </div>
                <div id='collapse".$item['airdate']."' class='panel-collapse collapse in'>

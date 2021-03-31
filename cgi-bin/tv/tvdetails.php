@@ -122,7 +122,7 @@ echo "<div class='panel-group'>";
             <div class='panel-heading'>
                <h4 class='panel-title'>
                  <a data-toggle='collapse' href='#collapse".$item['season']."'>Season ".$item['season']."</a>
-                 <button class='pull-right unwatchedseason' type='button' id=".$item['season'].">Not Watched</button>
+                 <button class='pull-right unwatchedseason' type='button' id=".$item['season'].">Unfinished Season</button>
                </h4>
              </div>
              <div id='collapse".$item['season']."' class='panel-collapse collapse in'>
@@ -209,7 +209,7 @@ $(document).ready(function () {
   });
   $('.panel-collapse').each( function( index, el ) {
     if($(el).children().children().children('.unwatched').length == 0) {
-      $(el).siblings('.panel-heading').children().children(':button').html('Watched');
+      $(el).siblings('.panel-heading').children().children(':button').html('Finished Season');
       $(el).siblings('.panel-heading').children().children(':button').removeClass('unwatchedseason');
       $(el).siblings('.panel-heading').children().children(':button').addClass('watchedseason');
       $(el).removeClass('in');
