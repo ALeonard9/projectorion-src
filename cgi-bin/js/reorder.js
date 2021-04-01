@@ -18,20 +18,4 @@ $(document).ready(function() { // begin document ready
     }
     });
 
-    $('li').on('mouseover',function() {
-    $(this).css(
-        {
-            'backgroundColor' : 'rgb(204, 255, 204);',
-            'color' : 'white'
-        }
-    );
-    }).on('mouseout' ,function() {
-        $('li').css(
-            {
-                'backgroundColor' : '',
-                'color' : ''
-            }
-        )
-    });
-
 }); // end document ready

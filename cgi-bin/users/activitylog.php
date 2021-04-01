@@ -16,19 +16,49 @@ include('../navigation.php');
 $user_id = $_SESSION['userid'];
 $begin = date('Y-m-d', strtotime('-30 days'));
 
-
-
-
 if ($_SESSION['usergroup'] == 'User' or $_SESSION['usergroup'] == 'Admin'){
+    $log_array = array();
+
+    // Build tv list
     $sql = "SELECT t.title as tv_title, e.season, e.season_number, e.title, g.g_first, g.g_id, t.id as tv_id FROM orion.tv t, orion.g_user_tv u, orion.g_user_tvepisodes g, orion.tvepisodes e WHERE u.tv_id = t.id AND g.tvepisode_id = e.id AND g.user_id = ".$user_id." AND u.user_id = ".$user_id." AND e.tv_id = t.id AND g.watched = 1 AND g.g_first >= '".$begin."' order by g.g_first DESC";
     $query = $db->query($sql);
+    foreach($query as $item){
+        $full_string = "<li class='list-group-item' style='background-color:rgb(255, 255, 204);'>TV: <a href='../tv/tvdetails.php?id=".$item['tv_id']."'>".$item['tv_title']."</a> ".$item['season'].".".$item['season_number'].": ".$item['title']."</li>";
+        $log_array[$item['g_first']] = array($item['g_first'], $full_string);
+    }
+
+    // Build movie list
+    $sql = "SELECT m.id, m.title, g.g_first FROM orion.movies m, orion.g_user_movies g WHERE  m.id = g.movies_id AND g.user_id = ".$user_id." AND g.completed = 1 AND g.g_first >= '".$begin."' order by g.g_first DESC";
+    $query = $db->query($sql);
+    foreach($query as $item){
+        $full_string = "<li class='list-group-item' style='background-color:rgb(204, 255, 255);'>MOVIE: <a href='../movies/moviedetails.php?id=".$item['id']."'>".$item['title']."</a></li>";
+        $log_array[$item['g_first']] = array($item['g_first'], $full_string);
+    }
+
+    // Build video game list
+    $sql = "SELECT v.id, v.title, g.g_first FROM orion.videogames v, orion.g_user_videogames g WHERE  v.id = g.videogames_id AND g.user_id = ".$user_id." AND g.completed = 1 AND g.g_first >= '".$begin."' order by g.g_first DESC";
+    $query = $db->query($sql);
+    foreach($query as $item){
+        $full_string = "<li class='list-group-item' style='background-color:rgb(204, 204, 255);'>VIDEO GAME: <a href='../videogames/videogamedetails.php?id=".$item['id']."'>".$item['title']."</a></li>";
+        $log_array[$item['g_first']] = array($item['g_first'], $full_string);
+    }
+
+    // Build book list
+    $sql = "SELECT b.id, b.title, g.g_first FROM orion.books b, orion.g_user_books g WHERE  b.id = g.books_id AND g.user_id = ".$user_id." AND g.completed = 1 AND g.g_first >= '".$begin."' order by g.g_first DESC";
+    $query = $db->query($sql);
+    foreach($query as $item){
+        $full_string = "<li class='list-group-item' style='background-color:rgb(102, 204, 255);'>BOOK: <a href='../books/bookdetails.php?id=".$item['id']."'>".$item['title']."</a></li>";
+        $log_array[$item['g_first']] = array($item['g_first'], $full_string);
+    }
+
+    krsort($log_array);
     $count = $query->rowCount();
     if ($count > 0) {
-    echo "<div class='col-md-6'><h1 class='text-center'>Activity Log</h1>
+    echo "<div class='col-md-12'><h1 class='text-center'>Activity Log</h1>
             <div class='panel-group'>";
             $day = 0;
-            foreach($query as $item){
-                $item_day = date('m-d', strtotime($item['g_first']));
+            foreach($log_array as $item){
+                $item_day = date('m-d', strtotime($item[0]));
                 if($day != $item_day && $day != 0){
                 echo "</ul></div></div>";
                 }
@@ -37,16 +67,14 @@ if ($_SESSION['usergroup'] == 'User' or $_SESSION['usergroup'] == 'Admin'){
                 echo "<div class='panel panel-default'>
                 <div class='panel-heading'>
                     <h4 class='panel-title'>
-                    ".date('l', strtotime($item['g_first']))." ".date('m-d', strtotime($item['g_first']))."<a data-toggle='collapse' href='#collapse".$item_day."'><span class='pull-right glyphicon glyphicon-minus'></span></a>
+                    ".date('l', strtotime($item[0]))." ".date('m-d', strtotime($item[0]))."<a data-toggle='collapse' href='#collapse".$item_day."'><span class='pull-right glyphicon glyphicon-minus'></span></a>
                     </h4>
                 </div>
                 <div id='collapse".$item_day."' class='panel-collapse collapse in'>
                     <ul class='list-group'>";
                 }
  
-                $full_string = "<a href='tvdetails.php?id=".$item['tv_id']."'>".$item['tv_title']."</a> ".$item['season'].".".$item['season_number'].": ".$item['title'];
-
-                echo "<li class='list-group-item'>".$full_string."</li>";
+                echo $item[1];
             }
             echo "</div></div></div></div>";
     } else {
