@@ -16,7 +16,7 @@ $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 if (isset($_SESSION['userid']))
 	{
 		try {
-			$stmt = $db->prepare("UPDATE `orion`.`g_user_tvepisodes` SET `watched`=:watched, `g_first`=now() WHERE `user_id`=:user AND `tvepisode_id` IN (SELECT e.id FROM orion.tvepisodes e WHERE e.tv_id = :id AND e.airdate < :today)");
+			$stmt = $db->prepare("UPDATE `orion`.`g_user_tvepisodes` SET `watched`=:watched, `g_first`=now() WHERE `user_id`=:user AND `watched`<>:watched AND `tvepisode_id` IN (SELECT e.id FROM orion.tvepisodes e WHERE e.tv_id = :id AND e.airdate < :today)");
 			$stmt->bindParam(':user', $user_id);
 			$stmt->bindParam(':id', $id);
 			$stmt->bindParam(':today', $today);
