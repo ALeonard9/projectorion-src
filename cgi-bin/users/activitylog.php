@@ -18,13 +18,14 @@ $begin = date('Y-m-d', strtotime('-30 days'));
 
 if ($_SESSION['usergroup'] == 'User' or $_SESSION['usergroup'] == 'Admin'){
     $log_array = array();
-
+    $array_sort = array();
     // Build tv list
     $sql = "SELECT t.title as tv_title, e.season, e.season_number, e.title, g.g_first, g.g_id, t.id as tv_id FROM orion.tv t, orion.g_user_tv u, orion.g_user_tvepisodes g, orion.tvepisodes e WHERE u.tv_id = t.id AND g.tvepisode_id = e.id AND g.user_id = ".$user_id." AND u.user_id = ".$user_id." AND e.tv_id = t.id AND g.watched = 1 AND g.g_first >= '".$begin."' order by g.g_first DESC";
     $query = $db->query($sql);
     foreach($query as $item){
         $full_string = "<li class='list-group-item' style='background-color:rgb(255, 255, 204);'>TV: <a href='../tv/tvdetails.php?id=".$item['tv_id']."'>".$item['tv_title']."</a> ".$item['season'].".".$item['season_number'].": ".$item['title']."</li>";
-        $log_array[$item['g_first']] = array($item['g_first'], $full_string);
+        array_push($log_array, array($item['g_first'], $full_string));
+        array_push($array_sort, $item['g_first']);
     }
 
     // Build movie list
@@ -32,7 +33,8 @@ if ($_SESSION['usergroup'] == 'User' or $_SESSION['usergroup'] == 'Admin'){
     $query = $db->query($sql);
     foreach($query as $item){
         $full_string = "<li class='list-group-item' style='background-color:rgb(204, 255, 255);'>MOVIE: <a href='../movies/moviedetails.php?id=".$item['id']."'>".$item['title']."</a></li>";
-        $log_array[$item['g_first']] = array($item['g_first'], $full_string);
+        array_push($log_array, array($item['g_first'], $full_string));
+        array_push($array_sort, $item['g_first']);
     }
 
     // Build video game list
@@ -40,7 +42,8 @@ if ($_SESSION['usergroup'] == 'User' or $_SESSION['usergroup'] == 'Admin'){
     $query = $db->query($sql);
     foreach($query as $item){
         $full_string = "<li class='list-group-item' style='background-color:rgb(204, 204, 255);'>VIDEO GAME: <a href='../videogames/videogamedetails.php?id=".$item['id']."'>".$item['title']."</a></li>";
-        $log_array[$item['g_first']] = array($item['g_first'], $full_string);
+        array_push($log_array, array($item['g_first'], $full_string));
+        array_push($array_sort, $item['g_first']);
     }
 
     // Build book list
@@ -48,11 +51,12 @@ if ($_SESSION['usergroup'] == 'User' or $_SESSION['usergroup'] == 'Admin'){
     $query = $db->query($sql);
     foreach($query as $item){
         $full_string = "<li class='list-group-item' style='background-color:rgb(102, 204, 255);'>BOOK: <a href='../books/bookdetails.php?id=".$item['id']."'>".$item['title']."</a></li>";
-        $log_array[$item['g_first']] = array($item['g_first'], $full_string);
+        array_push($log_array, array($item['g_first'], $full_string));
+        array_push($array_sort, $item['g_first']);
     }
 
-    krsort($log_array);
-    $count = $query->rowCount();
+    array_multisort($array_sort, SORT_DESC, $log_array);
+    $count = count($log_array);
     if ($count > 0) {
     echo "<div class='col-md-12'><h1 class='text-center'>Activity Log</h1>
             <div class='panel-group'>";

@@ -55,7 +55,7 @@ echo "<div class='col-md-12'><a href='book.php?rank=".$start_rank."' class='fixe
 					<ul class='list-group' id='list-items'>";
 
 					foreach($bookquery as $item){
-									echo "<li draggable=true class='list-group-item' id='item_".($item['g_id']."'><a href='books/bookdetails.php?id=".$item['g_id']."'><img src='".$item['poster_url']."' class='img-rounded img-responsive' style='width:30px;height:20px;float:left'><span class='badge'>".$item['rank']."</span>   ".$item['title']."</a></li>");
+									echo "<li draggable=true class='list-group-item' id='item_".($item['g_id']."'><a href='bookdetails.php?id=".$item['g_id']."'><img src='".$item['poster_url']."' class='img-rounded img-responsive' style='width:30px;height:20px;float:left'><span class='badge'>".$item['rank']."</span>   ".$item['title']."</a></li>");
 					}
 echo"	</ul>
 		</div>";
