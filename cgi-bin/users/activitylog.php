@@ -41,7 +41,7 @@ if ($_SESSION['usergroup'] == 'User' or $_SESSION['usergroup'] == 'Admin'){
     $sql = "SELECT v.id, v.title, g.g_first FROM orion.videogames v, orion.g_user_videogames g WHERE  v.id = g.videogames_id AND g.user_id = ".$user_id." AND g.completed = 1 AND g.g_first >= '".$begin."' order by g.g_first DESC";
     $query = $db->query($sql);
     foreach($query as $item){
-        $full_string = "<li class='list-group-item' style='background-color:rgb(204, 204, 255);'>VIDEO GAME: <a href='../videogames/videogamedetails.php?id=".$item['id']."'>".$item['title']."</a></li>";
+        $full_string = "<li class='list-group-item' style='background-color:rgb(204, 204, 255);'>VIDEO GAME: <a href='../videogame/videogamedetails.php?id=".$item['id']."'>".$item['title']."</a></li>";
         array_push($log_array, array($item['g_first'], $full_string));
         array_push($array_sort, $item['g_first']);
     }

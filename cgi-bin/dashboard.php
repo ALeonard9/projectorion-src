@@ -150,7 +150,7 @@ echo "</ul>
 					$row_count = $moviequery->rowCount();
 				if ($row_count>0){
 					foreach($moviequery as $item){
-									echo "<li draggable=true class='list-group-item' id='item_".($item['id']."'><a href='movies/moviedetails.php?id=".$item['id']."' target='_blank'><img src='".$item['poster_url']."' class='img-rounded img-responsive' style='width:30px;height:20px;float:left'><span class='badge'>".$item['rank']."</span>   ".$item['title']."</a></li>");
+									echo "<li draggable=true class='list-group-item' id='item_".($item['id']."'><a href='movies/moviedetails.php?id=".$item['id']."'><img src='".$item['poster_url']."' class='img-rounded img-responsive' style='width:30px;height:20px;float:left'><span class='badge'>".$item['rank']."</span>   ".$item['title']."</a></li>");
 					}
 				}	else {
 					echo "<a href='movies/findmovie.php' style='color:red'>Add your movie country</a>";
@@ -214,7 +214,7 @@ echo"	</ul>
 		if ($row_count>0){
 			foreach($query as $item){
 				$apiresponse = $api.$item['country_code'].".svg";
-				echo "<li  class='list-group-item' id='item_".($item['id']."'><a href='countrydetails.php?id=".$item['id']."'><div class='container-fixed'><div class='row-fluid'><img src='".$apiresponse."' class='img-rounded img-responsive' style='width:30px;height:20px;float:left'><span class='badge'>".$item['rank']."</span>   ".$item['title']."</div></div></a></li>");
+				echo "<li  class='list-group-item' id='item_".($item['id']."'><a href='countries/countrydetails.php?id=".$item['id']."'><div class='container-fixed'><div class='row-fluid'><img src='".$apiresponse."' class='img-rounded img-responsive' style='width:30px;height:20px;float:left'><span class='badge'>".$item['rank']."</span>   ".$item['title']."</div></div></a></li>");
 			}
 		}	else {
 			echo "<a href='countries/findcountry.php' style='color:red'>Add your first country</a>";
