@@ -25,7 +25,7 @@ if ($_SESSION['usergroup'] == 'User' or $_SESSION['usergroup'] == 'Admin') {
     } else {
       header("location: findmovie.php");
     }
-    $sql = "SELECT v.title, v.imdb, v.poster_url, v.release_date, v.rated, g.g_id, g.rank, g.completed, g.notes FROM movies v, g_user_movies g WHERE v.id = " . $id . "  AND v.id = g.movies_id AND g.user_id = " . $user_id . ";";
+    $sql = "SELECT v.title, v.imdb, v.poster_url, v.release_date, v.rated, g.g_id, g.g_first, g.rank, g.completed, g.notes FROM movies v, g_user_movies g WHERE v.id = " . $id . "  AND v.id = g.movies_id AND g.user_id = " . $user_id . ";";
     $query = $db->query($sql);
     $item = $query->fetch(PDO::FETCH_ASSOC);
 
@@ -41,7 +41,9 @@ if ($_SESSION['usergroup'] == 'User' or $_SESSION['usergroup'] == 'Admin') {
               <div class='text-center'><h2>Rating: ".$item['rated']."</h2></div>
             </div>
             <div class='col-md-6'>
-              <label>Your Ranking: ".$item['rank']."/".$metrics['completed_movies']."</label>
+              <label>Your Ranking: ".$item['rank']."/".$metrics['completed_movies']."</label></br>
+              <label>First Watched: </label><input type='datetime-local' id='".$item['g_id']."'
+              name='g_first' value='".str_replace(' ', 'T', $item['g_first'])."'>
               <form id='notes-form' name='notes-form' action='notes.php' method='POST'>
               <div class='form-group'>
                 <label for='textbox'>Your Notes:</label>
@@ -57,5 +59,18 @@ if ($_SESSION['usergroup'] == 'User' or $_SESSION['usergroup'] == 'Admin') {
     header("location: findmovie.php");
 
 include('../footer.php');
-echo "</body></html>";
+echo "
+<script type='text/javascript'>
+$(document).ready(function () {
+  $(\"input[name='g_first']\").change(function () {
+    var first = $(this).val();
+    $.ajax({
+     type: 'POST',
+     url: 'first_pivot.php?g_id=' + $(this).attr('id') + '&first=' + first
+    }).done(function( msg ) {
+    });
+  });
+});
+</script>
+</body></html>";
 ?>

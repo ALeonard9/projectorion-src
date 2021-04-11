@@ -25,7 +25,7 @@ if ($_SESSION['usergroup'] == 'User' or $_SESSION['usergroup'] == 'Admin') {
     } else {
       header("location: findvg.php");
     }
-    $sql   = "SELECT v.title, v.igdb, v.poster_url, v.release_date, v.rating, v.slug, g.g_id, g.rank, g.completed, g.100_percent, g.notes FROM videogames v, g_user_videogames g WHERE v.id = " . $vg_id . " AND v.id = g.videogames_id AND g.user_id = " . $user_id . ";";
+    $sql   = "SELECT v.title, v.igdb, v.poster_url, v.release_date, v.rating, v.slug, g.g_id, g.rank, g.g_first, g.completed, g.100_percent, g.notes FROM videogames v, g_user_videogames g WHERE v.id = " . $vg_id . " AND v.id = g.videogames_id AND g.user_id = " . $user_id . ";";
     $query = $db->query($sql);
     $item = $query->fetch(PDO::FETCH_ASSOC);
 
@@ -53,6 +53,9 @@ if ($_SESSION['usergroup'] == 'User' or $_SESSION['usergroup'] == 'Admin') {
               <label>Your Ranking: ".$item['rank']."/".$metrics['completed_games']."</label></br>
               <input ".$checked." type='checkbox' id='".$item['g_id']."' name='100_percent' value='".$item['100_percent']."'>
               <label for='100_percent'> 100% Completed</label><br>
+              <label>First Played: </label><input type='datetime-local' id='".$item['g_id']."'
+                name='g_first' value='".str_replace(' ', 'T', $item['g_first'])."'>
+
               <form id='notes-form' name='notes-form' action='notes.php' method='POST'>
               <div class='form-group'>
                 <label for='textbox'>Your Notes:</label>
@@ -73,17 +76,23 @@ echo "
 $(document).ready(function () {
   $(\"input[name='100_percent']\").change(function () {
     if ($(this).val() == '0') {
-      alert('IF');
       $(this).val(1);
       var hundred_percent = 1;
     } else {
-      alert('ELSE');
       $(this).val(0);
       var hundred_percent = 0;
     }
     $.ajax({
      type: 'POST',
      url: 'hundred_pivot.php?g_id=' + $(this).attr('id') + '&hundred_percent=' + hundred_percent
+    }).done(function( msg ) {
+    });
+  });
+  $(\"input[name='g_first']\").change(function () {
+    var first = $(this).val().replace('T', ' ');
+    $.ajax({
+     type: 'POST',
+     url: 'first_pivot.php?g_id=' + $(this).attr('id') + '&first=' + first
     }).done(function( msg ) {
     });
   });
