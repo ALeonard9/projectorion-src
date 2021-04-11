@@ -1,7 +1,9 @@
 <?php
 require_once '../composer/vendor/autoload.php';
 
-session_start();
+if(!isset($_SESSION)) {
+  session_start();
+} ;
 ob_start();
 
 if (isset($_SESSION['userid'])){

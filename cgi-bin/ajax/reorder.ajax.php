@@ -1,6 +1,8 @@
 <?php
 require_once '../connectToDB.php';
-session_start();
+if(!isset($_SESSION)) {
+  session_start();
+} ;
 $user_id = $_SESSION['userid'];
 
 $ids = $_GET['item'];

@@ -1,6 +1,8 @@
 <?php
 
-session_start();
+if(!isset($_SESSION)) {
+  session_start();
+} ;
 ob_start();
 date_default_timezone_set('Etc/UTC');
 

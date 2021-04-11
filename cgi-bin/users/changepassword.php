@@ -1,6 +1,8 @@
 <?php
 
-session_start();
+if(!isset($_SESSION)) {
+  session_start();
+} ;
 ob_start();
 include '../connectToDB.php';
 $_SESSION['url'] = $_SERVER['REQUEST_URI'];

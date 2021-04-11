@@ -1,6 +1,8 @@
 <?php
 
-session_start();
+if(!isset($_SESSION)) {
+  session_start();
+} ;
 ob_start();
 $user_id = 1;
 if (isset($_SESSION['userid'])) {

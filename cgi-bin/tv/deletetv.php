@@ -1,5 +1,7 @@
 <?php
-session_start();
+if(!isset($_SESSION)) {
+  session_start();
+} ;
 ob_start();
 require '../composer/vendor/autoload.php';
 include '../connectToDB.php';
