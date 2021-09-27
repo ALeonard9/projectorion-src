@@ -59,7 +59,7 @@ echo "<div class='col-md-12'><a href='movie.php?rank=".$start_rank."' class='fix
 					<ul class='list-group' id='list-items'>";
 
 					foreach($moviequery as $item){
-									echo "<li draggable=true class='list-group-item' id='item_".($item['g_id']."'><a href='moviedetails.php?id=".$item['g_id']."'><img src='".$item['poster_url']."' class='img-rounded img-responsive' style='width:30px;height:20px;float:left'><span class='badge'>".$item['rank']."</span>   ".$item['title']." (".date("Y", strtotime($item['release_date'])).")</a></li>");
+									echo "<li draggable=true class='list-group-item' id='item_".($item['g_id']."'><a href='moviedetails.php?id=".$item['movies_id']."'><img src='".$item['poster_url']."' class='img-rounded img-responsive' style='width:30px;height:20px;float:left'><span class='badge'>".$item['rank']."</span>   ".$item['title']." (".date("Y", strtotime($item['release_date'])).")</a></li>");
 					}
 echo"	</ul>
 		</div>";

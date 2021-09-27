@@ -60,7 +60,7 @@ echo "<div class='col-md-12'><a href='country.php?rank=".$start_rank."' class='f
 
 					foreach($query as $item){
             $apiresponse = $api.$item['country_code'].".svg";
-						echo "<li draggable=true class='list-group-item' id='item_".($item['g_id']."'><a href='countrydetails.php?id=".$item['g_id']."'><div class='container-fixed'><div class='row-fluid'><img src='".$apiresponse."' class='img-rounded img-responsive' style='width:30px;height:20px;float:left'><span class='badge'>".$item['rank']."</span>   ".$item['title']."</div></div></a></li>");
+						echo "<li draggable=true class='list-group-item' id='item_".($item['g_id']."'><a href='countrydetails.php?id=".$item['countries_id']."'><div class='container-fixed'><div class='row-fluid'><img src='".$apiresponse."' class='img-rounded img-responsive' style='width:30px;height:20px;float:left'><span class='badge'>".$item['rank']."</span>   ".$item['title']."</div></div></a></li>");
 					}
 echo"	</ul>
 		</div>";

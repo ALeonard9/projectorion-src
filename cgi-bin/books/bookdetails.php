@@ -40,7 +40,7 @@ if ($_SESSION['usergroup'] == 'User' or $_SESSION['usergroup'] == 'Admin') {
             </div>
             <div class='col-md-6'>
               <label>Your Ranking: ".$item['rank']."/".$metrics['completed_books']."</label></br>
-              <label>First Watched: </label><input type='datetime-local' id='".$item['g_id']."'
+              <label>First Read: </label><input type='datetime-local' id='".$item['g_id']."'
               name='g_first' value='".str_replace(' ', 'T', $item['g_first'])."'>
               <form id='notes-form' name='notes-form' action='notes.php' method='POST'>
               <div class='form-group'>
