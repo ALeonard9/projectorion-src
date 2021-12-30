@@ -35,7 +35,7 @@ if ($_SESSION['usergroup'] == 'User' or $_SESSION['usergroup'] == 'Admin') {
        
     echo "<div class='col-md-12'><a href='countrydetails.php?id=".$id."' class='fixed_middle_right' ><span class='glyphicon glyphicon-refresh'></span></a></div>
             <div class='col-md-6'>
-              <img src='https://lipis.github.io/flag-icon-css/flags/4x3/".$item['country_code'].".svg' class='img-rounded img-responsive center-block' style='margin-bottom:10px'>
+              <img src='https://raw.githubusercontent.com/lipis/flag-icons/main/flags/4x3/".$item['country_code'].".svg' class='img-rounded img-responsive center-block' style='margin-bottom:10px'>
               <div class='text-center'><h2>".$item['title']."</h2></div>
             </div>
             <div class='col-md-6'>

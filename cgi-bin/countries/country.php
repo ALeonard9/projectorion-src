@@ -32,7 +32,7 @@ if (isset($_POST['rank'])) {
   $start_rank = $_POST['rank'];
 }
 
-$api = 'https://lipis.github.io/flag-icon-css/flags/4x3/';
+$api = 'https://raw.githubusercontent.com/lipis/flag-icons/main/flags/4x3/';
 
 $sql = "SELECT * FROM orion.countries c, orion.g_user_countries g WHERE c.id = g.countries_id and (g.rank >= $start_rank or g.rank = 0 ) and g.user_id =".$user_id." order by rank";
             $query = $db->query($sql);

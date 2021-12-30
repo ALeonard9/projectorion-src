@@ -16,7 +16,7 @@ include('../header.php');
 echo "</head><body><div class='container'>";
 include('../navigation.php');
 
-$api = 'https://lipis.github.io/flag-icon-css/flags/4x3/';
+$api = 'https://raw.githubusercontent.com/lipis/flag-icons/main/flags/4x3/';
 $user_id = $_SESSION['userid'];
 
 

@@ -209,7 +209,7 @@ echo"	</ul>
 		<div class='col-md-6 text-center'>
 		<h1><a href='countries/country.php'>Countries</a></h1>
 		<ul class='list-group' id='list-items'>";
-		$api = 'https://lipis.github.io/flag-icon-css/flags/4x3/';
+		$api = 'https://raw.githubusercontent.com/lipis/flag-icons/main/flags/4x3/';
 		$sql = "SELECT * FROM orion.countries c, orion.g_user_countries g WHERE c.id = g.countries_id and g.rank <> 0 and g.user_id =".$user_id." order by rank LIMIT 5";
 		            $query = $db->query($sql);
 								$row_count = $query->rowCount();
