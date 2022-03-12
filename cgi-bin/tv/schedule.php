@@ -16,13 +16,16 @@ echo "<!DOCTYPE html>
 include('../header.php');
 echo "</head><body><div class='container'>";
 include('../navigation.php');
-$user_id = $_SESSION['userid'];
+if (isset($_SESSION['userid'])) {
+  $user_id = $_SESSION['userid'];
+}
+
 $begin = date('Y-m-d', strtotime('-5 days'));
 $end = date('Y-m-d', strtotime('+5 days'));
 $today = date('Y-m-d');
 
 
-
+if (isset($_SESSION['usergroup'])) {
 if ($_SESSION['usergroup'] == 'User' or $_SESSION['usergroup'] == 'Admin'){
 $freezesql = "SELECT g.g_id, t.title, t.id FROM g_user_tv g, tv t WHERE t.id = g.tv_id AND g.freeze = 1 AND g.user_id = ".$user_id." ORDER BY t.title";
 $freezequery = $db->query($freezesql);
@@ -110,6 +113,9 @@ if ($freezecount > 0){
 }
 else
 	  header("location: ../users/signin.php");
+  }
+  else
+      header("location: ../users/signin.php");
 
 include('../footer.php');
 echo "</div>
