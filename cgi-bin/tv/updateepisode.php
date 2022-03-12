@@ -2,8 +2,8 @@
 require '../composer/vendor/autoload.php';
 include '../connectToDB.php';
 
-if (isset($_GET['ep_id'])) {
-  $search = $_GET['ep_id'];
+if (isset($_GET['tvmaze_id'])) {
+  $search = $_GET['tvmaze_id'];
   $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
   $api = "http://api.tvmaze.com/episodes/".$search;
   $apiresponse =  file_get_contents($api);
