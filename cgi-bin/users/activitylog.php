@@ -15,9 +15,12 @@ echo "<!DOCTYPE html>
 include('../header.php');
 echo "</head><body><div class='container'>";
 include('../navigation.php');
-$user_id = $_SESSION['userid'];
+if (isset($_SESSION['userid'])) {
+    $user_id = $_SESSION['userid'];
+}
 $begin = date('Y-m-d', strtotime('-30 days'));
 
+if (isset($_SESSION['usergroup'])) {
 if ($_SESSION['usergroup'] == 'User' or $_SESSION['usergroup'] == 'Admin'){
     $log_array = array();
     $array_sort = array();
@@ -91,6 +94,9 @@ if ($_SESSION['usergroup'] == 'User' or $_SESSION['usergroup'] == 'Admin'){
 }
 else
 	  header("location: ../users/signin.php");
+}
+    else
+          header("location: ../users/signin.php");
 
 include('../footer.php');
 echo "</div>

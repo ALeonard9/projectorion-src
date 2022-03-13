@@ -59,6 +59,7 @@
             <ul class='dropdown-menu'>
               <li><a href='../users/profile.php'>My Profile</a></li>
               <li><a href='../users/activitylog.php''>Activity Log</a></li>
+              <li><a href='../users/bored.php''>Bored Button</a></li>
               <li><a href='../users/logout.php''>Log Out</a></li>
             </ul>
           </li>";
