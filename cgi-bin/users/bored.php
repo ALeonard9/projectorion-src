@@ -19,6 +19,11 @@ if (isset($_SESSION['userid'])) {
     $user_id = $_SESSION['userid'];
 }
 
+$mode = 'random';
+if (isset($_GET['mode'])) {
+    $mode = $_GET['mode'];
+}
+
 if (isset($_SESSION['usergroup'])) {
 if ($_SESSION['usergroup'] == 'User' or $_SESSION['usergroup'] == 'Admin'){
     $unfinished_array = array();
@@ -58,18 +63,30 @@ if ($_SESSION['usergroup'] == 'User' or $_SESSION['usergroup'] == 'Admin'){
         $full_string = "<li class='list-group-item' style='background-color:rgb(102, 204, 255);'>BOOK: <a href='../books/bookdetails.php?id=".$item['id']."'>".$item['title']."</a></li>";
         array_push($unfinished_array, $full_string);
     }
-    shuffle($unfinished_array);
     $count = count($unfinished_array);
     if ($count > 0) {
     echo "<div class='col-md-12'><h1 class='text-center'>What to do?</h1>
             <div class='panel-group'>";
-
+            if ($mode == 'random') {
+                shuffle($unfinished_array);
                 echo $unfinished_array[0];
+            } elseif ($mode == 'full') {
+                foreach($unfinished_array as $item){
+                    echo $item;
+                }
+            }
 
             echo "</div></div></div></div>";
     } else {
     echo "<h1>Nothing to do! Go outside!</h1>";
     }
+    echo "
+    <div class='col-md-6'>
+    <a href='bored.php' class='btn btn-lg btn-inverse btn-block' ><span class='glyphicon glyphicon-refresh'></span> Roll again?</a>
+    </div>
+    <div class='col-md-6'>
+    <a href='bored.php?mode=full' class='btn btn-lg btn-inverse btn-block' ><span class='glyphicon glyphicon-th-list'></span> See Full List</a>
+    </div>";
 
     echo "</div>";
 }
