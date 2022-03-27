@@ -23,7 +23,7 @@ if (isset($user)) {
 	$username = $user.'\'s';
 }
 
-$sql        = "SELECT * FROM orion.videogames c, orion.g_user_videogames g WHERE c.id = g.videogames_id and (g.rank >= $start_rank or g.rank = 0 ) and g.completed = 1 and g.user_id =" . $user_id . " order by rank";
+$sql        = "SELECT * FROM orion.videogames c, orion.g_user_videogames g WHERE c.id = g.videogames_id and g.rank != 0  and g.completed = 1 and g.user_id =" . $user_id . " order by rank";
 $query      = $db->query($sql);
 $sqlsum     = "SELECT count(*) as Count FROM orion.videogames c, orion.g_user_videogames g WHERE c.id = g.videogames_id and g.completed = 1 and g.user_id =" . $user_id;
 $querysum   = $db->query($sqlsum);
