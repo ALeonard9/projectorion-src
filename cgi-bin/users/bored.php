@@ -28,7 +28,7 @@ if (isset($_SESSION['usergroup'])) {
 if ($_SESSION['usergroup'] == 'User' or $_SESSION['usergroup'] == 'Admin'){
     $unfinished_array = array();
     // Build tv list
-    $sql = "SELECT t.title as tv_title, e.season, e.season_number, e.title, g.g_first, g.g_id, t.id as tv_id FROM orion.tv t, orion.g_user_tv u, orion.g_user_tvepisodes g, orion.tvepisodes e WHERE u.tv_id = t.id AND g.tvepisode_id = e.id AND g.user_id = ".$user_id." AND u.user_id = g.user_id AND e.tv_id = t.id AND g.watched = 0 ORDER BY tv_id, season, season_number";
+    $sql = "SELECT t.title as tv_title, e.season, e.season_number, e.title, g.g_id, t.id as tv_id FROM orion.tv t, orion.g_user_tv u, orion.g_user_tvepisodes g, orion.tvepisodes e WHERE u.tv_id = t.id AND g.tvepisode_id = e.id AND g.user_id = ".$user_id." AND u.user_id = g.user_id AND e.tv_id = t.id AND g.watched = 0 ORDER BY tv_id, season, season_number";
     $query = $db->query($sql);
     $curr_tv_id = 0;
     foreach($query as $item){

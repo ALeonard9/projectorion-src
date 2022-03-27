@@ -38,9 +38,9 @@ if (isset($_SESSION['usergroup'])) {
         
         $sql            = "SELECT * FROM orion.videogames c, orion.g_user_videogames g WHERE c.id = g.videogames_id and (g.rank >= $start_rank or g.rank = 0 ) and g.completed = 1 and g.user_id =" . $user_id . " order by rank";
         $query          = $db->query($sql);
-        $sqlgamesum     = "SELECT count(*) as Count FROM orion.videogames c, orion.g_user_videogames g WHERE c.id = g.videogames_id and g.completed = 1 and g.user_id =" . $user_id;
-        $querygamesum   = $db->query($sqlgamesum);
-        $resultsgamesum = $querygamesum->fetch(PDO::FETCH_ASSOC);
+        $sqlsum     = "SELECT count(*) as Count FROM orion.videogames c, orion.g_user_videogames g WHERE c.id = g.videogames_id and g.completed = 1 and g.user_id =" . $user_id;
+        $querysum   = $db->query($sqlsum);
+        $resultssum = $querysum->fetch(PDO::FETCH_ASSOC);
         
         echo "<div class='col-md-12'><a href='videogame.php?rank=" . $start_rank . "' class='fixed_middle_right' ><span class='glyphicon glyphicon-refresh'></span></a></div>
       <div class='col-md-3'></div>
@@ -48,7 +48,7 @@ if (isset($_SESSION['usergroup'])) {
                     <div class='text-center'><h1><a href='vgtable.php'>" . $username . " Video Games</a></h1>
           <a href='playlist.php' class='btn btn-lg btn-inverse btn-block' ><span class='glyphicon glyphicon-eye-open'></span> Playlist</a>
                     <a href='findvg.php' class='btn btn-lg btn-inverse btn-block' ><span class='glyphicon glyphicon-plus'></span> Add a Game</a>
-                    <h3>Games Finished:" . $resultsgamesum['Count'] . "</h3>
+                    <h3>Games Finished:" . $resultssum['Count'] . "</h3>
           <form class='form-signin' action='videogame.php' form='thisForm' method='POST'>
           <div class='input-group'>
             <input type='hidden' id='table' value='videogames'>

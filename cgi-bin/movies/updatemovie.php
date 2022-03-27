@@ -10,8 +10,8 @@ if(!isset($_SESSION)) {
 ob_start();
 $_SESSION['url'] = $_SERVER['REQUEST_URI'];
 
-if (isset($_GET['id'])) {
-  updateMovie($_GET['id']);
+if (isset($_GET['imdb'])) {
+  updateMovie($_GET['imdb']);
 } else {
   $sql = "SELECT imdb FROM orion.movies";
   $query = $db->query($sql);
