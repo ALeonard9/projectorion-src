@@ -37,18 +37,16 @@ if ($_SESSION['usergroup'] == 'User' or $_SESSION['usergroup'] == 'Admin') {
 
     if (isset($search)) {
         $searchafter = urlencode($search);
-        $api         = "https://restcountries.eu/rest/v1/name/" . $searchafter;
+        $api         = "https://restcountries.com/v3.1/name/" . $searchafter;
         $apiresponse = file_get_contents($api);
-        $json        = json_decode($apiresponse);
-        echo $json->{'status'};
-        // TODO Alerts based on search results.
-        if ($json->{'message'} == 'Not Found') {
-            echo "<h2>No matches this search term.</h2>";
+        if ($apiresponse == false) {
+            echo "<h2>No matches for this search term.</h2>";
         } else {
+            $json = json_decode($apiresponse, true);
             echo "<ul class='list-group'>";
 
             foreach ($json as $jsonitem) {
-                echo "<li class='list-group-item'><a href='addcountry.php?title=" . $jsonitem->{'name'} . "&country_code=" . $jsonitem->{'alpha2Code'} . "'>" . $jsonitem->{'name'} . "</a></li>";
+                echo "<li class='list-group-item'><a href='addcountry.php?title=" . $jsonitem['name']['common'] . "&country_code=" . $jsonitem['cca2'] . "'>" . $jsonitem['name']['common'] . "</a></li>";
             }
             echo "</ul>
             </div>";
