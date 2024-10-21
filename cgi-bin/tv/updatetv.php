@@ -1,7 +1,11 @@
 <?php
+// Queries each TV series and checks whether it is running or stopped
+date_default_timezone_set('Etc/UTC');
+echo "Update TV executed on: " . date('Y-m-d H:i:s') . "\n";
 
 require '../composer/vendor/autoload.php';
 include '../connectToDB.php';
+
 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 $sql = "SELECT * FROM orion.tv";

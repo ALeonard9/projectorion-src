@@ -1,7 +1,10 @@
 <?php
+// Queries each TV series and ensures all episodes are captured
+date_default_timezone_set('Etc/UTC');
+echo "Update TV Episodes executed on: " . date('Y-m-d H:i:s') . "\n";
+
 require '../composer/vendor/autoload.php';
 include '../connectToDB.php';
-date_default_timezone_set('Etc/UTC');
 
 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 $sql = "SELECT * FROM orion.tv WHERE status = 'Running'";
