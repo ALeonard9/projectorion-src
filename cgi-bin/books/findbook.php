@@ -36,8 +36,10 @@ if ($_SESSION['usergroup'] == 'User' or $_SESSION['usergroup'] == 'Admin'){
     <button class='btn btn-lg btn-inverse btn-block' type='submit'><span class='glyphicon glyphicon-search'></span> Search</button></form></br>";
 
   if (isset($search)){
+    $google_api_key= getenv('GOOGLE_API_KEY');
     $searchafter = urlencode($search);
     $api = "https://www.googleapis.com/books/v1/volumes?q=$searchafter";
+    $api .= "&key=$google_api_key"; // Add your API key parameter
     $apiresponse =  file_get_contents($api);
     $json = json_decode($apiresponse, true);
     echo "<ul class='list-group'>";
